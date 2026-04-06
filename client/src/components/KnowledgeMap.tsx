@@ -2,7 +2,9 @@
 // Two sections: 基础篇 (teal) and 进阶篇 (amber)
 import { useEffect, useRef } from "react";
 import { deepBasicSections } from "@/lib/deepBasicContent";
-import { deepAdvancedSections } from "@/lib/deepAdvancedContent";
+import { deepAdvancedSections, deepAdvancedSectionsExtra } from "@/lib/deepAdvancedContent";
+
+const allAdvancedSectionsForMap = [...deepAdvancedSections, ...deepAdvancedSectionsExtra];
 
 export default function KnowledgeMap() {
   const ref = useRef<HTMLDivElement>(null);
@@ -194,7 +196,7 @@ export default function KnowledgeMap() {
               lineHeight: 1.8,
             }}
           >
-            从「LLM 是什么」到「上手实践」，28 个基础概念 + 10 个进阶模块 + 5 个实战工具，
+            从「LLM 是什么」到「上手实践」，28 个基础概念 + 14 个进阶模块 + 5 个实战工具，
             循序渐进地掌握 AI Agent 的完整知识体系
           </p>
         </div>
@@ -208,9 +210,9 @@ export default function KnowledgeMap() {
             targetSection="basics"
           />
           <CardGroup
-            items={deepAdvancedSections}
+            items={allAdvancedSectionsForMap}
             color="amber"
-            label="进阶篇 · 10 个模块"
+            label="进阶篇 · 14 个模块"
             targetSection="advanced"
           />
           {/* Practice section card */}

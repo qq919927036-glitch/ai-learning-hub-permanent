@@ -112,7 +112,7 @@ export default function HeroSection() {
             <div className="flex items-center gap-8 mb-10">
               {[
                 { num: "28", label: "基础概念" },
-                { num: "10", label: "进阶模块" },
+                { num: "14", label: "进阶模块" },
                 { num: "5", label: "实战工具" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">

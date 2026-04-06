@@ -6,10 +6,12 @@
 // ============================================================
 
 import { useState } from "react";
-import { deepAdvancedSections } from "@/lib/deepAdvancedContent";
+import { deepAdvancedSections, deepAdvancedSectionsExtra } from "@/lib/deepAdvancedContent";
 import { ChevronDown, ChevronUp, Code2, Lightbulb, Star, BookOpen } from "lucide-react";
 import { ImageLightbox } from "./ImageLightbox";
 import { QuizBlock } from "./QuizBlock";
+
+const allAdvancedSections = [...deepAdvancedSections, ...deepAdvancedSectionsExtra];
 
 // Simple syntax highlighting for code blocks
 function highlightCode(code: string, language: string): string {
@@ -61,7 +63,7 @@ export default function DeepAdvancedSections() {
 
   return (
     <div className="space-y-0">
-      {deepAdvancedSections.map((section, sectionIdx) => {
+      {allAdvancedSections.map((section, sectionIdx) => {
         const isEven = sectionIdx % 2 === 0;
         const activeImg = activeImage[section.id] ?? 0;
 
