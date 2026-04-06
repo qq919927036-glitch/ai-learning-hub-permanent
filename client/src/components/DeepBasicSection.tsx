@@ -60,7 +60,9 @@ interface Props {
 function ImageViewer({ images }: { images: ImageCard[] }) {
   const [active, setActive] = useState(0);
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+  if (!images || images.length === 0) return null;
   const img = images[active];
+  if (!img) return null;
   return (
     <div className="space-y-3">
       {lightboxSrc && (
@@ -311,9 +313,11 @@ export default function DeepBasicSection({ data, isAlt }: Props) {
           </div>
 
           {/* Right: image viewer */}
-          <div className="reveal">
-            <ImageViewer images={data.images} />
-          </div>
+          {data.images && data.images.length > 0 && (
+            <div className="reveal">
+              <ImageViewer images={data.images} />
+            </div>
+          )}
         </div>
 
         {/* Steps section */}
