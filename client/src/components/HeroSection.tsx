@@ -114,6 +114,7 @@ export default function HeroSection() {
                 { num: "28", label: "基础概念" },
                 { num: "14", label: "进阶模块" },
                 { num: "5", label: "实战工具" },
+                { num: "44", label: "大佬推文" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <div

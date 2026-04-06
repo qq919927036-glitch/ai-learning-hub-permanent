@@ -18,13 +18,22 @@ describe("Content Data Integrity", () => {
     });
   });
 
-  it("deepAdvancedContent exports 10 sections (A1-A10)", async () => {
+  it("deepAdvancedContent exports 14 sections total (A1-A10 + A11-A14 extra)", async () => {
     const mod = await import("../client/src/lib/deepAdvancedContent");
+    // A1-A10 in deepAdvancedSections, A11-A14 in deepAdvancedSectionsExtra
     expect(mod.deepAdvancedSections).toBeDefined();
     expect(Array.isArray(mod.deepAdvancedSections)).toBe(true);
     expect(mod.deepAdvancedSections.length).toBe(10);
 
-    // Verify chapter numbering
+    expect(mod.deepAdvancedSectionsExtra).toBeDefined();
+    expect(Array.isArray(mod.deepAdvancedSectionsExtra)).toBe(true);
+    expect(mod.deepAdvancedSectionsExtra.length).toBe(4);
+
+    // Combined total should be 14
+    const allSections = [...mod.deepAdvancedSections, ...mod.deepAdvancedSectionsExtra];
+    expect(allSections.length).toBe(14);
+
+    // Verify A1-A10 chapter numbering
     mod.deepAdvancedSections.forEach((section: any, index: number) => {
       expect(section.chapterNum).toBe(`A${index + 1}`);
       expect(section.id).toBeTruthy();
@@ -48,7 +57,7 @@ describe("Content Data Integrity", () => {
 
     expect(mod.thinkers).toBeDefined();
     expect(Array.isArray(mod.thinkers)).toBe(true);
-    expect(mod.thinkers.length).toBe(8);
+    expect(mod.thinkers.length).toBe(12);
   });
 
   it("content.ts exports CDN assets and navItems", async () => {
