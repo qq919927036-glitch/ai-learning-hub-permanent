@@ -194,7 +194,7 @@ export default function KnowledgeMap() {
               lineHeight: 1.8,
             }}
           >
-            从「LLM 是什么」到「上手实践」，24 个基础概念 + 10 个进阶模块 + 5 个实战工具，
+            从「LLM 是什么」到「上手实践」，28 个基础概念 + 10 个进阶模块 + 5 个实战工具，
             循序渐进地掌握 AI Agent 的完整知识体系
           </p>
         </div>
@@ -204,7 +204,7 @@ export default function KnowledgeMap() {
           <CardGroup
             items={deepBasicSections}
             color="teal"
-            label="基础篇 · 24 个概念"
+            label="基础篇 · 28 个概念"
             targetSection="basics"
           />
           <CardGroup

@@ -161,7 +161,7 @@ export default function Footer() {
               letterSpacing: "0.05em",
             }}
           >
-            AI Learning Hub &copy; {new Date().getFullYear()} · 24 基础 + 10 进阶 + 5 实践 · 30+ 图解
+            AI Learning Hub &copy; {new Date().getFullYear()} · 28 基础 + 10 进阶 + 5 实践 · 30+ 图解
           </p>
           <p
             className="text-xs"

@@ -111,7 +111,7 @@ export default function HeroSection() {
             {/* Stats row */}
             <div className="flex items-center gap-8 mb-10">
               {[
-                { num: "24", label: "基础概念" },
+                { num: "28", label: "基础概念" },
                 { num: "10", label: "进阶模块" },
                 { num: "5", label: "实战工具" },
               ].map((stat) => (

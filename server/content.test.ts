@@ -4,11 +4,11 @@ import { describe, expect, it } from "vitest";
 // These are client-side modules but we can validate their structure
 
 describe("Content Data Integrity", () => {
-  it("deepBasicContent exports 24 sections (B1-B24)", async () => {
+  it("deepBasicContent exports 28 sections (B1-B28)", async () => {
     const mod = await import("../client/src/lib/deepBasicContent");
     expect(mod.deepBasicSections).toBeDefined();
     expect(Array.isArray(mod.deepBasicSections)).toBe(true);
-    expect(mod.deepBasicSections.length).toBe(24);
+    expect(mod.deepBasicSections.length).toBe(28);
 
     // Verify chapter numbering
     mod.deepBasicSections.forEach((section: any, index: number) => {
@@ -68,11 +68,11 @@ describe("Content Data Integrity", () => {
     });
   });
 
-  it("basic sections B5-B24 have quiz data", async () => {
+  it("basic sections B1-B28 have quiz data", async () => {
     const mod = await import("../client/src/lib/deepBasicContent");
-    // B1-B4 are legacy sections without quiz, B5+ have quiz
+    // All sections now have quiz (B1-B4 were added, B25-B28 are new)
     const sectionsWithQuiz = mod.deepBasicSections.filter((s: any) => s.quiz);
-    expect(sectionsWithQuiz.length).toBe(20); // B5-B24
+    expect(sectionsWithQuiz.length).toBe(28); // All B1-B28
 
     sectionsWithQuiz.forEach((section: any) => {
       expect(Array.isArray(section.quiz)).toBe(true);
