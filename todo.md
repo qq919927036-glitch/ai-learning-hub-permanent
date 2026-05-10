@@ -54,9 +54,14 @@
 - [x] 保存检查点并交付
 
 ## 大佬说板块扩充
-- [ ] 新增 Jensen Huang 推文卡片（3-4 条）
-- [ ] 新增 Dario Amodei 推文卡片（3-4 条）
-- [ ] 新增 Andrew Ng 推文卡片（3-4 条）
-- [ ] 新增 Fei-Fei Li 推文卡片（3-4 条）
-- [ ] 更新全站推文数量显示
-- [ ] 保存检查点并交付
+- [x] 新增 Jensen Huang 推文卡片（3-4 条）
+- [x] 新增 Dario Amodei 推文卡片（3-4 条）
+- [x] 新增 Andrew Ng 推文卡片（3-4 条）
+- [x] 新增 Fei-Fei Li 推文卡片（3-4 条）
+- [x] 更新全站推文数量显示
+- [x] 新增 Karpathy Prompt/Agent 实用技巧（6 条）
+- [x] 新增 Gary Marcus AI 批评与分析（4 条）
+- [x] 新增 Amanda Askell（Anthropic 首席提示词工程师）推文卡片（7 条）
+- [x] 新增 LLM 基础与 Agent 使用混合推文（5 条）
+- [x] Amanda Askell 添加至 thinkers 数组
+- [x] 保存检查点并交付
