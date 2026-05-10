@@ -1092,7 +1092,7 @@ export const tweetCards: TweetCard[] = [
     handle: "@AmandaAskell",
     avatar: "✨",
     avatarColor: "#6B46C1",
-    role: "Anthropic 首席提示词工程师 · Claude 调教师",
+    role: "Anthropic 首席提示词工程师 · Claude 性格设计师",
     date: "2024-07-15",
     content:
       "The most powerful thing you can put in a system prompt isn't a list of rules — it's an identity. Tell Claude WHO it is: 'You are a senior engineer reviewing code for security issues.' This activates a coherent persona with consistent behavior, not just a list of dos and don'ts.",
@@ -1111,7 +1111,7 @@ export const tweetCards: TweetCard[] = [
     handle: "@AmandaAskell",
     avatar: "✨",
     avatarColor: "#6B46C1",
-    role: "Anthropic 首席提示词工程师 · Claude 调教师",
+    role: "Anthropic 首席提示词工程师 · Claude 性格设计师",
     date: "2024-09-20",
     content:
       "Zero-shot: tell the model what to do. Few-shot: SHOW the model what to do. In my experience, 2-3 good examples beat a page of instructions every time. Examples communicate format, tone, depth, and edge cases simultaneously in a way that instructions simply can't.",
@@ -1121,7 +1121,7 @@ export const tweetCards: TweetCard[] = [
     category: "basic",
     categoryLabel: "基础认知",
     tagColor: "#4ECDC4",
-    insight: "一个好例子胜过千言万语——AI 和人一样，「看一遍」比「听十遍」学得快。",
+    insight: "给 AI 看三个例子，比写三千字说明书还管用——AI 是视觉学习者（？）。",
     url: "https://x.com/AmandaAskell",
   },
   {
@@ -1130,7 +1130,7 @@ export const tweetCards: TweetCard[] = [
     handle: "@AmandaAskell",
     avatar: "✨",
     avatarColor: "#6B46C1",
-    role: "Anthropic 首席提示词工程师 · Claude 调教师",
+    role: "Anthropic 首席提示词工程师 · Claude 性格设计师",
     date: "2024-11-08",
     content:
       "Counter-intuitive finding: longer, more detailed prompts almost always get better results. People try to be concise with AI like they're paying per word. But detail is signal. Ambiguity is noise. A 500-word prompt that's crystal clear will outperform a 50-word prompt that's vague.",
@@ -1140,7 +1140,7 @@ export const tweetCards: TweetCard[] = [
     category: "basic",
     categoryLabel: "基础认知",
     tagColor: "#4ECDC4",
-    insight: "Prompt 不是电报，别省字数。模糊省下的 Token，会以幻觉的形式加倍奉还。",
+    insight: "短 Prompt 像发微信语音——你觉得说清楚了，对方一脸问号。长 Prompt 像写邮件——啰嗦但有效。",
     url: "https://x.com/AmandaAskell",
   },
   {
@@ -1149,7 +1149,7 @@ export const tweetCards: TweetCard[] = [
     handle: "@AmandaAskell",
     avatar: "✨",
     avatarColor: "#6B46C1",
-    role: "Anthropic 首席提示词工程师 · Claude 调教师",
+    role: "Anthropic 首席提示词工程师 · Claude 性格设计师",
     date: "2025-01-25",
     content:
       "For complex reasoning: break the problem into explicit steps in your prompt. Don't just say 'analyze this.' Say 'First, identify the key variables. Then, state the relationships between them. Then, check for contradictions. Finally, draw a conclusion.' Structure begets structure.",
@@ -1159,7 +1159,7 @@ export const tweetCards: TweetCard[] = [
     category: "advanced",
     categoryLabel: "进阶架构",
     tagColor: "#D4A017",
-    insight: "你给 AI 的思考框架越清晰，它的输出就越有结构——混乱的指令只会得到混乱的答案。",
+    insight: "想让 AI 做对复杂题？先帮它画个草稿纸——'请一步步思考'就是 AI 的草稿纸。",
     url: "https://x.com/AmandaAskell",
   },
   {
@@ -1168,7 +1168,7 @@ export const tweetCards: TweetCard[] = [
     handle: "@AmandaAskell",
     avatar: "✨",
     avatarColor: "#6B46C1",
-    role: "Anthropic 首席提示词工程师 · Claude 调教师",
+    role: "Anthropic 首席提示词工程师 · Claude 性格设计师",
     date: "2025-03-12",
     content:
       "When NOT to use AI: 1) When you need guaranteed correctness (legal docs, medical dosages). 2) When you need real-time data (stock prices, live events). 3) When the cost of being wrong is catastrophic. 4) When human judgment and empathy are the actual product. Know the boundaries.",
@@ -1178,7 +1178,7 @@ export const tweetCards: TweetCard[] = [
     category: "philosophy",
     categoryLabel: "AI 哲学",
     tagColor: "#7C3AED",
-    insight: "知道 AI 不能做什么，比知道它能做什么更重要——边界感是高手和新手的分水岭。",
+    insight: "会用 AI 的人和高手的区别：高手知道什么时候该关掉 ChatGPT，自己动手。",
     url: "https://x.com/AmandaAskell",
   },
 
@@ -1208,7 +1208,7 @@ export const tweetCards: TweetCard[] = [
     handle: "@AmandaAskell",
     avatar: "✨",
     avatarColor: "#6B46C1",
-    role: "Anthropic 首席提示词工程师 · Claude 调教师",
+    role: "Anthropic 首席提示词工程师 · Claude 性格设计师",
     date: "2024-12-15",
     content:
       "Temperature in simple terms: at 0, the model always picks the most likely next token (deterministic, boring, safe). At 1, it samples more broadly (creative, surprising, risky). For code and factual answers: low temp. For brainstorming and writing: higher temp. Match the tool to the task.",
@@ -1235,8 +1235,8 @@ export const tweetCards: TweetCard[] = [
       "AI Agent 的第一大失败模式：没有明确的「完成」条件。没有停止标准的 Agent 会永远循环，浪费 Token 并产生垃圾。永远要定义：成功长什么样？退出条件是什么？什么时候交给人类？",
     likes: "37.6K",
     category: "advanced",
-    categoryLabel: "进阶架构",
-    tagColor: "#D4A017",
+    categoryLabel: "AI Agent",
+    tagColor: "#1A56DB",
     insight: "没有「完成条件」的 Agent 就像没有刹车的汽车——跑得再快也是灾难。",
     url: "https://x.com/AndrewYNg",
   },
@@ -1254,8 +1254,8 @@ export const tweetCards: TweetCard[] = [
       "如何判断 AI Agent 是真的在帮忙还是只是看起来很忙：衡量结果，不是活动量。生成了多少行代码毫无意义。交付了多少功能、修了多少 bug、节省了多少时间——这些才是真正的指标。写 1000 行错代码的 Agent 不如写 10 行对代码的 Agent。",
     likes: "44.2K",
     category: "advanced",
-    categoryLabel: "进阶架构",
-    tagColor: "#D4A017",
+    categoryLabel: "AI Agent",
+    tagColor: "#1A56DB",
     insight: "Agent 的 KPI 不是「干了多少活」而是「解决了多少问题」——和员工考核一个道理。",
     url: "https://x.com/AndrewYNg",
   },
@@ -1265,7 +1265,7 @@ export const tweetCards: TweetCard[] = [
     handle: "@AmandaAskell",
     avatar: "✨",
     avatarColor: "#6B46C1",
-    role: "Anthropic 首席提示词工程师 · Claude 调教师",
+    role: "Anthropic 首席提示词工程师 · Claude 性格设计师",
     date: "2025-04-05",
     content:
       "Single-turn: one big prompt, one big answer. Multi-turn: a conversation where you refine iteratively. Use single-turn when you know exactly what you want. Use multi-turn when you're exploring, debugging, or when the task is too complex to specify upfront. They're different tools for different jobs.",
@@ -1284,7 +1284,7 @@ export const tweetCards: TweetCard[] = [
     handle: "@AmandaAskell",
     avatar: "✨",
     avatarColor: "#6B46C1",
-    role: "Anthropic 首席提示词工程师 · Claude 调教师",
+    role: "Anthropic 首席提示词工程师 · Claude 性格设计师",
     date: "2025-05-18",
     content:
       "Advanced Claude tip: instead of saying 'be concise,' show Claude what concise looks like in your domain. A concise medical note is very different from a concise code review. Give a concrete example of the output length and format you expect. Ambiguous adjectives are the enemy of good prompts.",
