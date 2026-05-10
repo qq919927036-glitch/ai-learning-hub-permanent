@@ -57,7 +57,7 @@ describe("Content Data Integrity", () => {
 
     expect(mod.thinkers).toBeDefined();
     expect(Array.isArray(mod.thinkers)).toBe(true);
-    expect(mod.thinkers.length).toBe(15);
+    expect(mod.thinkers.length).toBe(18);
   });
 
   it("content.ts exports CDN assets and navItems", async () => {
