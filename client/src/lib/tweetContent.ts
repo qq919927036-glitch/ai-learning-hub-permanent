@@ -2540,7 +2540,7 @@ export const tweetCards: TweetCard[] = [
     url: "https://x.com/karpathy",
   },
   {
-    id: "karpathy-vibe-coding",
+    id: "karpathy-vibe-coding-ecosystem",
     author: "Andrej Karpathy",
     handle: "@karpathy",
     avatar: "🧠",
