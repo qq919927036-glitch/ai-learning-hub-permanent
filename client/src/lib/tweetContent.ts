@@ -1930,6 +1930,182 @@ export const tweetCards: TweetCard[] = [
     insight: "Agent 时代的终极真相：AI 越强，「能判断 AI 对不对」的人越值钱。这就是为什么理解 AI 比使用 AI 更重要——也是这个网站存在的意义。",
     url: "https://www.linos.ai/technology/make-money-with-ai-2026/",
   },
+  // ═══════════════════════════════════════════════════════════════
+  // 🎓 AI Agent 完整知识体系（每个术语详细解释版）
+  // 目标：让读者从 0 到精通，不厌其烦地解释每个名词
+  // ═══════════════════════════════════════════════════════════════
+
+  // ━━━ 第一章：Claude Code 深度指南 ━━━
+
+  {
+    id: "kb-claude-code-anatomy",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "Agent 知识体系 · 深度解析",
+    date: "2026-05-11",
+    content:
+      "Claude Code Anatomy — the 5 systems that make it powerful: 1) CLAUDE.md — a markdown file in your project root that tells Claude your rules BEFORE every session (like an employee handbook). 2) Plan Mode (/plan) — Claude thinks out loud without touching code, you approve the plan first. 3) Skills — reusable prompt templates you save as .md files. Type /your-skill to load them. 4) Hooks — shell commands that fire automatically (format code after edit, block dangerous commands, notify you when done). 5) Subagents — Claude spawning other Claude instances for parallel work. Master these 5 systems = 10x productivity. Ignore them = expensive chatbot.",
+    translation:
+      "Claude Code 解剖学——让它强大的 5 个系统：1）CLAUDE.md——你项目根目录下的一个 markdown 文件，在每次会话开始前告诉 Claude 你的规则（就像员工手册）。2）Plan Mode（/plan）——Claude 先大声思考不碰代码，你批准计划后再执行。3）Skills（技能）——你保存为 .md 文件的可复用提示模板。输入 /你的技能名 就能加载。4）Hooks（钩子）——自动触发的 shell 命令（编辑后格式化代码、阻止危险命令、完成时通知你）。5）Subagents（子代理）——Claude 生成其他 Claude 实例进行并行工作。掌握这 5 个系统 = 10 倍生产力。忽略它们 = 昂贵的聊天机器人。",
+    likes: "89K",
+    category: "advanced",
+    categoryLabel: "Claude Code",
+    tagColor: "#CC5500",
+    insight: "Claude Code 的 5 大系统就像一辆车的 5 个部件：CLAUDE.md 是方向盘（指方向），Plan Mode 是导航（规划路线），Skills 是快捷键（一键执行），Hooks 是自动驾驶辅助（自动完成小事），Subagents 是副驾驶（帮你分担任务）。",
+    url: "https://blakecrosley.com/guides/claude-code",
+  },
+
+  {
+    id: "kb-claude-md-explained",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "Agent 知识体系 · 深度解析",
+    date: "2026-05-11",
+    content:
+      "CLAUDE.md — the most important file you'll ever write (and it's just markdown): What is it? A file named CLAUDE.md at your project root. Claude reads it at the START of every session, like reading a briefing document before a meeting. What goes in it? Only things Claude can't figure out by reading your code: build commands ('npm run dev'), style rules that differ from defaults ('use tabs not spaces'), architectural decisions ('never modify /core directly'), and verification steps ('always run tests before committing'). The golden rules: Keep it under 100 lines (Claude's attention drops after ~150 instructions). Update it every time Claude makes a preventable mistake. Version it with git so your whole team benefits.",
+    translation:
+      "CLAUDE.md——你将写的最重要的文件（而且它只是 markdown）：它是什么？你项目根目录下一个叫 CLAUDE.md 的文件。Claude 在每次会话开始时就读它，就像开会前看一份简报。里面放什么？只放 Claude 无法通过阅读你的代码推断出来的东西：构建命令（'npm run dev'）、不同于默认的代码风格（'用 tab 不用空格'）、架构决策（'永远不要直接修改 /core'）、验证步骤（'提交前必须跑测试'）。黄金法则：控制在 100 行以内（Claude 在约 150 条指令后注意力会下降）。每次 Claude 犯了可预防的错误就更新它。用 git 管理它，让整个团队受益。",
+    likes: "134K",
+    category: "advanced",
+    categoryLabel: "Claude Code",
+    tagColor: "#CC5500",
+    insight: "CLAUDE.md 是你和 AI 之间的「合同」。写得好，AI 按你的规矩来；写得差或没写，AI 就自由发挥——然后你花 3 倍时间修它的烂摊子。",
+    url: "https://paul-schick.com/posts/how-to-write-claude-md/",
+  },
+
+  // ━━━ 第二章：OpenAI Codex 深度指南 ━━━
+
+  {
+    id: "kb-codex-architecture",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "Agent 知识体系 · 深度解析",
+    date: "2026-05-11",
+    content:
+      "OpenAI Codex Architecture — explained layer by layer: Layer 1: Command Layer — slash commands (/plan, /fork, /review, /agent) control your session behavior. Layer 2: Agent Layer — TOML files in .codex/agents/ define custom agents with specific roles, models, and instructions. Layer 3: Worktrees — isolated git branches where agents work without touching your main code (like separate desks for each worker). Layer 4: Subagent Orchestration — a Manager agent decomposes your task, spawns specialist Worker agents (Security, Code Quality, Tests), each runs in its own container, results merge back. Layer 5: AGENTS.md — like CLAUDE.md but for Codex. Your project's rules that every agent reads first. The mental model: Codex is not one agent. It's an OFFICE of agents with a boss (Manager) and specialists (Workers), each at their own desk (Worktree), following company policy (AGENTS.md).",
+    translation:
+      "OpenAI Codex 架构——逐层解释：第 1 层：命令层——斜杠命令（/plan, /fork, /review, /agent）控制你的会话行为。第 2 层：Agent 层——.codex/agents/ 目录下的 TOML 文件定义自定义 Agent，各有特定角色、模型和指令。第 3 层：Worktrees（工作树）——隔离的 git 分支，Agent 在这里工作而不碰你的主代码（就像每个工人有自己的工位）。第 4 层：子 Agent 编排——一个 Manager Agent 分解你的任务，生成专家 Worker Agent（安全、代码质量、测试），各自在容器中运行，结果合并回来。第 5 层：AGENTS.md——像 CLAUDE.md 但用于 Codex。你的项目规则，每个 Agent 都先读它。心智模型：Codex 不是一个 Agent。它是一个 Agent 办公室，有老板（Manager）和专家（Workers），各在自己的工位（Worktree），遵守公司制度（AGENTS.md）。",
+    likes: "156K",
+    category: "advanced",
+    categoryLabel: "OpenAI Codex",
+    tagColor: "#10A37F",
+    insight: "Codex = Agent 办公室。Manager 是项目经理分活，Workers 是各领域专家干活，Worktrees 是每个人的独立工位不互相干扰，AGENTS.md 是公司制度手册。理解了这个比喻，你就理解了多 Agent 系统。",
+    url: "https://www.digitalapplied.com/blog/codex-subagents-ga-multi-agent-autonomous-coding-guide",
+  },
+
+  {
+    id: "kb-codex-subagent-pattern",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "Agent 知识体系 · 深度解析",
+    date: "2026-05-11",
+    content:
+      "Codex Subagent Pattern — how to make agents work in teams: The pattern: 1) You give ONE task to the Manager ('Review this PR thoroughly'). 2) Manager breaks it into subtasks (Security check, Code quality, Bug detection, Race conditions, Test coverage, Maintainability). 3) Each subtask goes to a specialized Subagent with its own instructions. 4) All subagents work IN PARALLEL in separate containers. 5) Results come back, Manager assembles the final answer. Why this matters: A single agent doing all 6 checks takes 10 minutes. 6 parallel subagents take 2 minutes. Same quality, 5x faster. The cost trade-off: More parallel agents = higher token cost but much faster. The sweet spot most teams find: 3-5 subagents per task. Pro tip: You don't NEED subagents for simple tasks. Use them when: the task has clear independent parts, quality matters more than cost, or you need it done fast.",
+    translation:
+      "Codex 子 Agent 模式——如何让 Agent 团队协作：模式：1）你给 Manager 一个任务（「彻底审查这个 PR」）。2）Manager 分解为子任务（安全检查、代码质量、Bug 检测、竞态条件、测试覆盖、可维护性）。3）每个子任务交给一个有专属指令的专业子 Agent。4）所有子 Agent 在独立容器中并行工作。5）结果返回，Manager 组装最终答案。为什么重要：一个 Agent 做 6 项检查要 10 分钟。6 个并行子 Agent 要 2 分钟。同等质量，5 倍速度。成本权衡：更多并行 Agent = 更高 token 成本但快得多。大多数团队找到的甜蜜点：每个任务 3-5 个子 Agent。专业提示：简单任务不需要子 Agent。在以下情况使用：任务有明确的独立部分、质量比成本重要、或者你需要快。",
+    likes: "98K",
+    category: "advanced",
+    categoryLabel: "OpenAI Codex",
+    tagColor: "#10A37F",
+    insight: "子 Agent 的精髓用一句话说：「一个聪明人想 10 分钟」不如「6 个专家各想 2 分钟然后汇总」。这就是并行的力量。但记住——简单任务用单 Agent 就够了，别杀鸡用牛刀。",
+    url: "https://lushbinary.com/blog/openai-codex-subagents-autonomous-coding-teams-guide/",
+  },
+
+  // ━━━ 第三章：MCP 协议完全指南 ━━━
+
+  {
+    id: "kb-mcp-deep-dive",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "Agent 知识体系 · 深度解析",
+    date: "2026-05-11",
+    content:
+      "MCP (Model Context Protocol) — the FULL explanation: What: An open standard by Anthropic (November 2024) that standardizes how AI connects to external tools. Before MCP: M apps × N tools = M×N custom integrations (nightmare). After MCP: M apps + N tools = M+N standard connections (paradise). The 3 Primitives (三个基本组件): 1) Tools — actions the AI can perform (send email, query database, create file). Like buttons the AI can press. 2) Resources — data the AI can read (documents, database records, API responses). Like books the AI can open. 3) Prompts — reusable prompt templates stored on the server. Like recipe cards the AI can follow. How it works technically: JSON-RPC protocol. The AI (client) sends structured requests to your MCP server. The server executes and returns results. Stateful sessions (remembers context across calls). Who uses it: Claude, ChatGPT, Cursor, VS Code, Gemini — ALL major AI tools now support MCP. That's why knowing MCP = being able to connect AI to literally anything.",
+    translation:
+      "MCP（模型上下文协议）——完整解释：是什么：Anthropic 在 2024 年 11 月发布的开放标准，标准化了 AI 连接外部工具的方式。MCP 之前：M 个应用 × N 个工具 = M×N 个自定义集成（噩梦）。MCP 之后：M 个应用 + N 个工具 = M+N 个标准连接（天堂）。三个基本组件：1）Tools（工具）——AI 可以执行的动作（发邮件、查数据库、创建文件）。就像 AI 能按的按钮。2）Resources（资源）——AI 可以读取的数据（文档、数据库记录、API 响应）。就像 AI 能翻开的书。3）Prompts（提示模板）——存储在服务器上的可复用提示模板。就像 AI 能参照的菜谱。技术原理：JSON-RPC 协议。AI（客户端）向你的 MCP 服务器发送结构化请求。服务器执行并返回结果。有状态会话（跨调用记住上下文）。谁在用：Claude、ChatGPT、Cursor、VS Code、Gemini——所有主流 AI 工具现在都支持 MCP。这就是为什么懂 MCP = 能把 AI 连接到任何东西。",
+    likes: "178K",
+    category: "advanced",
+    categoryLabel: "MCP 协议",
+    tagColor: "#CC5500",
+    insight: "MCP 的三个组件用餐厅比喻：Tools = 厨房设备（能做菜），Resources = 食材库（能取材料），Prompts = 菜谱（标准做法）。一个 MCP 服务器就是一个配备齐全的厨房，任何 AI 大厨走进来都能直接开工。",
+    url: "https://about.fast.io/resources/model-context-protocol/",
+  },
+
+  // ━━━ 第四章：多 Agent 编排模式 ━━━
+
+  {
+    id: "kb-multi-agent-patterns",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "Agent 知识体系 · 深度解析",
+    date: "2026-05-11",
+    content:
+      "The 4 Multi-Agent Orchestration Patterns (2026 production reality): 1) SUPERVISOR — one boss agent controls everything, workers report back. Like a traditional company. Best for: tasks needing quality control. 2) ROUTER — a traffic cop sends each request to the right specialist. No one agent sees everything. Best for: customer service (route billing questions to billing agent). 3) PIPELINE — agents work in sequence, each one's output feeds the next. Like an assembly line. Best for: content creation (Research → Write → Edit → Format). 4) SWARM — agents communicate peer-to-peer, no central controller. Like a bee colony. Best for: exploration tasks where you don't know the path in advance. The 2026 verdict: In production, most teams use Supervisor or Pipeline. Swarm sounds cool but is unreliable. Router is great for specific use cases. Don't overthink it — start with Supervisor, it covers 80% of needs.",
+    translation:
+      "四种多 Agent 编排模式（2026 生产实战）：1）SUPERVISOR（监督者）——一个老板 Agent 控制一切，Worker 们向它汇报。就像传统公司。适合：需要质量控制的任务。2）ROUTER（路由器）——一个交通警察把每个请求发到正确的专家。没有一个 Agent 看到全貌。适合：客服（把账单问题路由给账单 Agent）。3）PIPELINE（流水线）——Agent 按顺序工作，每个的输出是下一个的输入。就像装配线。适合：内容创作（研究 → 写作 → 编辑 → 排版）。4）SWARM（蜂群）——Agent 点对点通信，没有中心控制器。就像蜂群。适合：你不知道路径的探索任务。2026 结论：生产中大多数团队用 Supervisor 或 Pipeline。Swarm 听着酷但不稳定。Router 适合特定场景。别想太多——从 Supervisor 开始，它覆盖 80% 的需求。",
+    likes: "123K",
+    category: "advanced",
+    categoryLabel: "Agent 架构",
+    tagColor: "#D4A017",
+    insight: "选模式的决策树：需要质量把关？→ Supervisor。有明确的处理步骤？→ Pipeline。需要分流到不同专家？→ Router。完全探索性任务？→ Swarm。记住：80% 的情况用 Supervisor 就够了，别被花哨的架构图迷惑。",
+    url: "https://www.groovyweb.co/blog/multi-agent-orchestration-patterns-supervisor-router-pipeline-swarm-2026",
+  },
+
+  // ━━━ 第五章：Context Engineering 完全指南 ━━━
+
+  {
+    id: "kb-context-engineering-layers",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "Agent 知识体系 · 深度解析",
+    date: "2026-05-11",
+    content:
+      "Context Engineering — the 5 layers explained like building a house: Layer 1: SYSTEM INSTRUCTIONS (Foundation) — the always-present rules. 'You are a Python expert. Never use eval(). Always explain your reasoning.' This is your CLAUDE.md / AGENTS.md. Layer 2: KNOWLEDGE RETRIEVAL (Walls) — pulling relevant docs/data BEFORE the AI thinks. RAG, vector search, or just reading files. 'Here are the 3 most relevant API docs for this question.' Layer 3: MEMORY (Furniture) — what the AI remembers from past sessions. Short-term = current conversation. Long-term = saved summaries of past work. Layer 4: HISTORY COMPRESSION (Cleaning) — when context gets too long, intelligently summarize old messages instead of dropping them. Like keeping meeting minutes instead of full recordings. Layer 5: TOOL RESOLUTION (Appliances) — deciding WHICH tools the agent can access right now. Not all tools all the time — that confuses it. Load tools dynamically based on the current task. The insight: Most people only do Layer 1 (write a system prompt). The pros do all 5 layers. That's the 10x gap.",
+    translation:
+      "Context Engineering（上下文工程）——用建房子比喻解释 5 个层次：第 1 层：系统指令（地基）——始终存在的规则。「你是 Python 专家。永远不要用 eval()。总是解释你的推理」。这就是你的 CLAUDE.md / AGENTS.md。第 2 层：知识检索（墙壁）——在 AI 思考之前拉取相关文档/数据。RAG、向量搜索、或者直接读文件。「这里是与这个问题最相关的 3 份 API 文档」。第 3 层：记忆（家具）——AI 从过去会话中记住的东西。短期 = 当前对话。长期 = 过去工作的保存摘要。第 4 层：历史压缩（清洁）——当上下文太长时，智能地总结旧消息而不是丢掉它们。就像保留会议纪要而不是完整录音。第 5 层：工具解析（电器）——决定 Agent 现在能访问哪些工具。不是所有工具所有时候都给——那会让它困惑。根据当前任务动态加载工具。洞见：大多数人只做第 1 层（写个系统提示）。高手做全部 5 层。这就是 10 倍差距的来源。",
+    likes: "203K",
+    category: "advanced",
+    categoryLabel: "Context Engineering",
+    tagColor: "#D4A017",
+    insight: "Context Engineering 的 5 层就像装修房子：地基（规则）→ 墙壁（知识）→ 家具（记忆）→ 清洁（压缩）→ 电器（工具）。大多数人只打了地基就住进去了。难怪 Agent 表现差——你试过住在只有地基没有墙的房子里吗？",
+    url: "https://www.taskade.com/blog/context-engineering",
+  },
+
+  // ━━━ 第六章：从入门到赚钱的完整路径 ━━━
+
+  {
+    id: "kb-learning-path",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "Agent 知识体系 · 深度解析",
+    date: "2026-05-11",
+    content:
+      "The Complete Agent Learning Path (from zero to making money): WEEK 1-2: Foundation — Learn what agents are (Level 1-5). Try Claude Code or Cursor free tier. Build your first vibe-coded app. Read 3 CLAUDE.md examples. WEEK 3-4: Intermediate — Write your own CLAUDE.md. Use Plan Mode for complex tasks. Learn MCP basics (what Tools/Resources/Prompts are). Build one automation with Make.com. WEEK 5-6: Advanced — Set up Codex subagents for a real project. Create a custom MCP server. Learn the Supervisor pattern. Study Context Engineering 5 layers. WEEK 7-8: Monetize — Pick ONE niche (local restaurants? real estate? content creators?). Build 3 demo automations. Cold-email 20 businesses showing before/after. Price: $500-2000 per automation. The secret: You don't need to be an expert. You just need to be 2 weeks ahead of your client. In 2026, that's enough.",
+    translation:
+      "完整 Agent 学习路径（从零到赚钱）：第 1-2 周：基础——了解 Agent 是什么（Level 1-5）。试用 Claude Code 或 Cursor 免费版。做出你的第一个 Vibe Coding 应用。读 3 个 CLAUDE.md 的例子。第 3-4 周：中级——写你自己的 CLAUDE.md。用 Plan Mode 做复杂任务。学 MCP 基础（什么是 Tools/Resources/Prompts）。用 Make.com 建一个自动化。第 5-6 周：高级——为一个真实项目设置 Codex 子 Agent。创建一个自定义 MCP 服务器。学习 Supervisor 模式。研究 Context Engineering 5 层。第 7-8 周：变现——选一个垂直领域（本地餐厅？房地产？内容创作者？）。做 3 个演示自动化。冷邮件 20 家企业展示前后对比。定价：每个自动化 $500-2000。秘密：你不需要成为专家。你只需要比你的客户领先 2 周。在 2026 年，这就够了。",
+    likes: "345K",
+    category: "basic",
+    categoryLabel: "学习路径",
+    tagColor: "#4ECDC4",
+    insight: "8 周从零到赚钱。不是开玩笑。72% 的小企业知道需要 AI 但不知道怎么用——你只需要比他们多懂一点点，就是他们的 AI 顾问。比你的客户领先 2 周 = 月入 $3000-8000 的 AI 自由职业者。",
+    url: "https://www.linos.ai/technology/make-money-with-ai-2026/",
+  },
 ];
 
 // 按类别分组
