@@ -1,16 +1,32 @@
 // Knowledge Atlas Design: Single-page scrolling learning experience
 // Sections: Hero -> KnowledgeMap -> Basics -> Advanced -> Practice -> Footer
+import { lazy, Suspense } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import DeepBasicSection from "@/components/DeepBasicSection";
-import DeepAdvancedSections from "@/components/DeepAdvancedSection";
-import PracticeSection from "@/components/PracticeSection";
-import TweetWall from "@/components/TweetWall";
 import Footer from "@/components/Footer";
 import TableOfContents from "@/components/TableOfContents";
 import KnowledgeMap from "@/components/KnowledgeMap";
 
 import { deepBasicSections } from "@/lib/deepBasicContent";
+
+// Lazy load heavy below-fold sections for better initial page load
+const DeepAdvancedSections = lazy(() => import("@/components/DeepAdvancedSection"));
+const PracticeSection = lazy(() => import("@/components/PracticeSection"));
+const TweetWall = lazy(() => import("@/components/TweetWall"));
+
+function SectionLoader() {
+  return (
+    <div className="flex items-center justify-center py-20">
+      <div className="animate-pulse text-center">
+        <div className="w-8 h-8 border-2 border-[#4ECDC4] border-t-transparent rounded-full animate-spin mx-auto mb-3" />
+        <p className="text-sm text-stone-400" style={{ fontFamily: "'DM Mono', monospace" }}>
+          加载中...
+        </p>
+      </div>
+    </div>
+  );
+}
 
 function SectionDivider({
   id,
@@ -95,7 +111,9 @@ export default function Home() {
         subtitle="深入 AI Agent 的六大核心组件，理解 Harness 架构的工程设计哲学"
         color="amber"
       />
-      <DeepAdvancedSections />
+      <Suspense fallback={<SectionLoader />}>
+        <DeepAdvancedSections />
+      </Suspense>
 
       {/* ===== 实践篇 ===== */}
       <SectionDivider
@@ -104,10 +122,14 @@ export default function Home() {
         subtitle="不只是理论！认识 Claude Code、OpenClaw、Cursor 等真实 AI Agent 工具，上手实践就在今天"
         color="teal"
       />
-      <PracticeSection />
+      <Suspense fallback={<SectionLoader />}>
+        <PracticeSection />
+      </Suspense>
 
       {/* ===== 大佬说 ===== */}
-      <TweetWall />
+      <Suspense fallback={<SectionLoader />}>
+        <TweetWall />
+      </Suspense>
 
       <Footer />
       <TableOfContents />

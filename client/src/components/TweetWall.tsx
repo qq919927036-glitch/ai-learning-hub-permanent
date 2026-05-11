@@ -26,6 +26,7 @@ export default function TweetWall() {
   const [activeCategory, setActiveCategory] = useState<TweetCategory | "all">("all");
   const [activeThinker, setActiveThinker] = useState<string | null>(null);
   const [expandedTranslations, setExpandedTranslations] = useState<Set<string>>(new Set());
+  const [visibleCount, setVisibleCount] = useState(12); // Load 12 initially, then paginate
 
   const toggleTranslation = (id: string) => {
     setExpandedTranslations((prev) => {
@@ -41,6 +42,17 @@ export default function TweetWall() {
     const thinkerMatch = !activeThinker || t.handle === activeThinker;
     return catMatch && thinkerMatch;
   });
+
+  // Reset visible count when filters change
+  const filteredKey = `${activeCategory}-${activeThinker}`;
+  const [lastFilterKey, setLastFilterKey] = useState(filteredKey);
+  if (filteredKey !== lastFilterKey) {
+    setVisibleCount(12);
+    setLastFilterKey(filteredKey);
+  }
+
+  const visibleTweets = filtered.slice(0, visibleCount);
+  const hasMore = visibleCount < filtered.length;
 
   return (
     <section id="tweet-wall" className="py-20 bg-[#0F2419]">
@@ -132,7 +144,7 @@ export default function TweetWall() {
 
         {/* Tweet Cards Grid */}
         <div className="columns-1 md:columns-2 lg:columns-3 gap-5 space-y-5">
-          {filtered.map((tweet) => {
+          {visibleTweets.map((tweet) => {
             const isExpanded = expandedTranslations.has(tweet.id);
             return (
               <div
@@ -308,6 +320,24 @@ export default function TweetWall() {
             );
           })}
         </div>
+
+        {/* Load More Button */}
+        {hasMore && (
+          <div className="text-center mt-10">
+            <button
+              onClick={() => setVisibleCount((prev) => prev + 12)}
+              className="px-6 py-2.5 rounded-full text-sm font-semibold transition-all border hover:scale-105"
+              style={{
+                fontFamily: "'DM Mono', monospace",
+                background: "rgba(78, 205, 196, 0.1)",
+                color: "#4ECDC4",
+                borderColor: "rgba(78, 205, 196, 0.3)",
+              }}
+            >
+              加载更多（还有 {filtered.length - visibleCount} 条）
+            </button>
+          </div>
+        )}
 
         {/* Empty state */}
         {filtered.length === 0 && (

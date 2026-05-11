@@ -167,6 +167,15 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('tweetContent')) return 'tweet-content';
+          if (id.includes('deepBasicContent')) return 'deep-basic-content';
+          if (id.includes('deepAdvancedContent')) return 'deep-advanced-content';
+        },
+      },
+    },
   },
   server: {
     host: true,
