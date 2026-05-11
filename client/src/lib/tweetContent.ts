@@ -1803,6 +1803,133 @@ export const tweetCards: TweetCard[] = [
     insight: "2025 年的热门技能是 Prompt Engineering，2026 年是 Context Engineering。区别？前者是每次给 AI 写一封好邮件，后者是给 AI 建一整套信息系统。",
     url: "https://startuphub.ai/ai-news/startup-news/2026/context-engineering-is-the-new-ai-moat-langchains-harrison-chase-on-long-horizon-agents",
   },
+  // ===== Agent 工具全景 & 入门实操（续）=====
+
+  // --- AI 编程工具选择指南 ---
+  {
+    id: "explainer-coding-tools-map",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "通俗解读 · 让小白秒懂 AI",
+    date: "2026-05-11",
+    content:
+      "The 2026 AI Coding Tool Map (explained like choosing a car): Cursor = Tesla Model 3 (polished daily driver, great for everyday coding). Claude Code = F1 race car (raw power, terminal-only, for serious builders). Codex = Uber (you assign a destination, it drives itself in the cloud). Replit Agent = rental car with GPS (zero setup, goes from idea to deployed app). Devin = hiring a full-time chauffeur ($500/mo, does everything while you sleep). Pick based on: budget, skill level, and whether you want to drive or ride.",
+    translation:
+      "2026 AI 编程工具地图（像选车一样解释）：Cursor = 特斯拉 Model 3（精致的日常代步，适合每天编码）。Claude Code = F1 赛车（原始动力，只在终端跑，给认真的建造者）。Codex = 网约车（你指定目的地，它在云端自己开）。Replit Agent = 带导航的租车（零配置，从想法到部署应用）。Devin = 全职私人司机（$500/月，你睡觉它干活）。选择标准：预算、技能水平、以及你想自己开还是坐着。",
+    likes: "156K",
+    category: "basic",
+    categoryLabel: "工具选择",
+    tagColor: "#4ECDC4",
+    insight: "不会编程选 Replit，每天写代码选 Cursor，想甩手掌柜选 Codex，想让 AI 全权负责选 Devin。预算紧张？Cursor + Claude Code 是性价比之王。",
+    url: "https://www.digitalapplied.com/blog/ai-coding-agents-claude-code-cursor-codex-replit-2026",
+  },
+
+  // --- Vibe Coding 入门 ---
+  {
+    id: "explainer-vibe-coding-howto",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "通俗解读 · 让小白秒懂 AI",
+    date: "2026-05-11",
+    content:
+      "Vibe Coding for absolute beginners — your first app in 3 hours: Step 1: Pick ONE tiny idea (a timer, a to-do list, a link page). Step 2: Open Replit or use VS Code + Cline extension (both free). Step 3: Describe what you want in plain English: 'Build me a pomodoro timer with a dark theme.' Step 4: Review what the AI built, say 'change the button color to blue', iterate. That's it. You are now a vibe coder. Zero coding knowledge required. People are shipping Chrome extensions, landing pages, even small SaaS products this way.",
+    translation:
+      "给纯小白的 Vibe Coding——3 小时做出你的第一个应用：第 1 步：选一个小想法（计时器、待办清单、链接页面）。第 2 步：打开 Replit 或用 VS Code + Cline 插件（都免费）。第 3 步：用普通话描述你想要什么：「帮我做一个暗黑主题的番茄钟」。第 4 步：看 AI 做出来的东西，说「把按钮改成蓝色」，反复迭代。就这样。你现在是一个 Vibe Coder 了。零编程知识要求。人们已经用这种方式发布了 Chrome 插件、落地页、甚至小型 SaaS 产品。",
+    likes: "234K",
+    category: "basic",
+    categoryLabel: "实操入门",
+    tagColor: "#4ECDC4",
+    insight: "2026 年做应用的门槛已经是 0。你唯一需要的技能是：能用人话清楚描述你想要什么。描述越具体，AI 做出来的东西越好。",
+    url: "https://vibecoding.app/blog/beginners-guide-build-first-app",
+  },
+
+  // --- 无代码自动化工具对比 ---
+  {
+    id: "explainer-nocode-automation",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "通俗解读 · 让小白秒懂 AI",
+    date: "2026-05-11",
+    content:
+      "n8n vs Make.com vs Zapier for AI agents (food analogy): Zapier = microwave meals (fastest, simplest, but limited menu and expensive per serving). Make.com = meal kit delivery (more control, visual recipes, great for non-chefs). n8n = your own kitchen (most flexible, self-hosted, free but you need to know where the knives are). All three now support AI agents natively. For beginners making money: Start with Make.com. Build 3 automations for local businesses. Charge $500-2000 each. Graduate to n8n when you need full control.",
+    translation:
+      "n8n vs Make.com vs Zapier 的 AI Agent 对比（用食物类比）：Zapier = 微波炉加热即食餐（最快最简单，但菜单有限且每份贵）。Make.com = 食材配送包（更多控制，可视化食谱，适合非厨师）。n8n = 自己的厨房（最灵活，自托管，免费但你得知道刀在哪）。三个现在都原生支持 AI Agent。给想赚钱的新手建议：从 Make.com 开始。为本地企业做 3 个自动化。每个收 $500-2000。需要完全控制时再毕业到 n8n。",
+    likes: "89K",
+    category: "basic",
+    categoryLabel: "工具选择",
+    tagColor: "#4ECDC4",
+    insight: "想赚快钱？Make.com + AI Agent = 最快变现路径。一个本地餐厅的订单自动化就值 $1000，你只需要拖拽几个方块。",
+    url: "https://howdoiuseai.com/blog/2026-04-16-how-to-build-ai-agents-beginners",
+  },
+
+  // --- Agent 的5个层级 ---
+  {
+    id: "explainer-agent-levels",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "通俗解读 · 让小白秒懂 AI",
+    date: "2026-05-11",
+    content:
+      "The 5 Levels of AI Agent (like video game difficulty): Level 1 — Chatbot (answers questions, that's it. Tutorial mode). Level 2 — Tool User (can Google things, read files, call APIs. Easy mode). Level 3 — Task Executor (can complete multi-step tasks autonomously. Normal mode). Level 4 — Orchestrator (manages other agents, delegates work. Hard mode). Level 5 — Autonomous Worker (runs for hours/days, makes decisions, self-corrects. Boss mode). In 2026, most commercial agents are Level 2-3. Codex Subagents are Level 4. Level 5 exists only in labs. We are NOT at Level 5 yet. Anyone who tells you otherwise is selling something.",
+    translation:
+      "AI Agent 的 5 个等级（像游戏难度一样）：Level 1 — 聊天机器人（回答问题，仅此而已。新手教程模式）。Level 2 — 工具使用者（能搜索、读文件、调 API。简单模式）。Level 3 — 任务执行者（能自主完成多步任务。普通模式）。Level 4 — 编排者（管理其他 Agent，分配工作。困难模式）。Level 5 — 自主工人（运行几小时/几天，做决策，自我纠错。老板模式）。2026 年，大多数商业 Agent 是 Level 2-3。Codex Subagents 是 Level 4。Level 5 只存在于实验室。我们还没到 Level 5。谁告诉你到了，他在卖东西。",
+    likes: "167K",
+    category: "basic",
+    categoryLabel: "基础认知",
+    tagColor: "#4ECDC4",
+    insight: "看到「全自动 AI Agent」的广告？先问它是哪个 Level。大多数是 Level 2 套了个好看的壳。真正的 Level 4+ 目前只有 Codex 和 Claude Code 能做到。",
+    url: "https://www.verdent.ai/de/guides/ai-coding-tools-comparison-2026",
+  },
+
+  // --- 为什么你的 Agent 总是翻车 ---
+  {
+    id: "explainer-why-agents-fail",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "通俗解读 · 让小白秒懂 AI",
+    date: "2026-05-11",
+    content:
+      "Why your AI agent keeps crashing (and how to fix it): 1) You gave it a vague goal → Fix: be stupidly specific. Not 'write content' but 'write a 500-word blog post about MCP for beginners, tone: casual, include 3 examples.' 2) No guardrails → Fix: tell it what NOT to do. 'Never delete files. Never push to main. Always ask before spending money.' 3) No verification → Fix: make it prove its work. 'After each step, show me what changed and why.' 4) Too much autonomy too fast → Fix: start supervised, expand freedom gradually. Think of it like training a puppy, not hiring a CEO.",
+    translation:
+      "为什么你的 AI Agent 总是翻车（以及怎么修）：1）你给了它一个模糊目标 → 修复：具体到愚蠢的程度。不是「写内容」而是「写一篇 500 字关于 MCP 的入门博文，语气：轻松，包含 3 个例子」。2）没有护栏 → 修复：告诉它什么不能做。「永远不要删文件。永远不要 push 到 main。花钱前必须问我」。3）没有验证 → 修复：让它证明自己的工作。「每一步之后，告诉我什么变了，为什么」。4）太快给太多自主权 → 修复：从有监督开始，逐步扩大自由。把它当训练小狗，不是聘请 CEO。",
+    likes: "198K",
+    category: "basic",
+    categoryLabel: "实操入门",
+    tagColor: "#4ECDC4",
+    insight: "Agent 翻车的 4 大原因用一句话概括：你把它当 CEO 用，但它现在还是实习生水平。给实习生的说明书越详细，翻车越少。",
+    url: "https://www.anthropic.com/engineering/claude-code-best-practices",
+  },
+
+  // --- Agent 时代的核心技能 ---
+  {
+    id: "explainer-skills-2026",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "通俗解读 · 让小白秒懂 AI",
+    date: "2026-05-11",
+    content:
+      "The 3 skills that will make you rich in the Agent era (none of them are 'coding'): 1) DECOMPOSITION — breaking big messy problems into small clear tasks an agent can handle. (Like being a project manager, but for robots). 2) EVALUATION — knowing when agent output is good vs garbage. (Humans who can quality-check AI output are worth gold). 3) ORCHESTRATION — connecting multiple agents and tools into a system that works reliably. (The new 'full-stack' is human + 5 agents + 3 tools working in concert). The irony: these are all HUMAN skills. The age of agents makes human judgment MORE valuable, not less.",
+    translation:
+      "Agent 时代让你致富的 3 个技能（没有一个是「编程」）：1）分解能力——把大的混乱问题拆成 Agent 能处理的小而清晰的任务。（就像做项目经理，但管理的是机器人）。2）评估能力——知道 Agent 输出的是好东西还是垃圾。（能质检 AI 输出的人现在值黄金价）。3）编排能力——把多个 Agent 和工具连成一个可靠运行的系统。（新的「全栈」= 人类 + 5 个 Agent + 3 个工具协同工作）。讽刺的是：这些全是人类技能。Agent 时代让人类判断力更值钱了，不是更不值钱。",
+    likes: "312K",
+    category: "basic",
+    categoryLabel: "AI 趋势",
+    tagColor: "#4ECDC4",
+    insight: "Agent 时代的终极真相：AI 越强，「能判断 AI 对不对」的人越值钱。这就是为什么理解 AI 比使用 AI 更重要——也是这个网站存在的意义。",
+    url: "https://www.linos.ai/technology/make-money-with-ai-2026/",
+  },
 ];
 
 // 按类别分组
