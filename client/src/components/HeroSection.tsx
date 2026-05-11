@@ -105,16 +105,16 @@ export default function HeroSection() {
                 lineHeight: 1.75,
               }}
             >
-              不需要数学基础，不需要编程经验。用最通俗的语言，带你搞懂大语言模型、推理模型和 AI 智能体的工作原理——从基础概念到工程架构，一站式学透。
+              不需要数学基础，不需要编程经验。用最通俗的语言，带你搞懂大语言模型、推理模型和 AI 智能体的工作原理——从基础概念到 Agent 架构、从 Claude Code 到 Codex 编排，一站式学透并上手赚钱。
             </p>
 
             {/* Stats row */}
             <div className="flex items-center gap-8 mb-10">
               {[
-                { num: "28", label: "基础概念" },
-                { num: "14", label: "进阶模块" },
+                { num: "7", label: "基础模块" },
+                { num: "7", label: "进阶模块" },
                 { num: "5", label: "实战工具" },
-                { num: "44", label: "大佬推文" },
+                { num: "80+", label: "知识卡片" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
                   <div

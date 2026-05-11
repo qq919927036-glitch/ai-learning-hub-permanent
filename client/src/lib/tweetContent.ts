@@ -2108,6 +2108,9 @@ export const tweetCards: TweetCard[] = [
   },
 ];
 
+// 按日期排序（最新在前）
+tweetCards.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
 // 按类别分组
 export const basicTweets = tweetCards.filter((t) => t.category === "basic");
 export const advancedTweets = tweetCards.filter((t) => t.category === "advanced");

@@ -13,7 +13,7 @@ const practiceNavItems = [
 ];
 
 const tweetNavItems = [
-  { id: "tweet-wall", title: "大佬说", chapterNum: "T0" },
+  { id: "tweet-wall", title: "Agent 知识库 & 大佬说", chapterNum: "T0" },
 ];
 
 const allSections = [...deepBasicSections, ...deepAdvancedSections, ...practiceNavItems, ...tweetNavItems];

@@ -63,21 +63,51 @@ export default function TweetWall() {
             className="text-xs mb-3 tracking-widest uppercase"
             style={{ fontFamily: "'DM Mono', monospace", color: "rgba(250,250,247,0.35)" }}
           >
-            Thinkers · 大佬说
+            Thinkers & Agent Knowledge · 大佬说 & Agent 知识库
           </p>
           <h2
             className="text-3xl lg:text-4xl font-bold mb-4"
             style={{ fontFamily: "'Playfair Display', serif", color: "#FAFAF7" }}
           >
-            AI 大佬推文精华
+            AI Agent 知识库 & 大佬精华
           </h2>
           <p
-            className="text-sm max-w-2xl mx-auto leading-relaxed"
+            className="text-sm max-w-2xl mx-auto leading-relaxed mb-4"
             style={{ fontFamily: "'Lora', serif", color: "rgba(250,250,247,0.5)" }}
           >
-            Karpathy、Sam Altman、Yann LeCun、Geoffrey Hinton、Ilya Sutskever、Demis Hassabis、Gary Marcus——
-            这些改变 AI 历史的人，他们是怎么看待 LLM、Agent 和 AGI 的？
+            从 Karpathy 的 Vibe Coding 到 Codex 子 Agent 编排，从 MCP 协议到 Context Engineering——
+            18 位 AI 思想领袖的精华观点 + 完整 Agent 工具知识体系，一站式学透。
           </p>
+          <div className="flex items-center justify-center gap-4">
+            <span
+              className="text-xs px-3 py-1 rounded-full"
+              style={{
+                fontFamily: "'DM Mono', monospace",
+                background: "rgba(78, 205, 196, 0.15)",
+                color: "#4ECDC4",
+                border: "1px solid rgba(78, 205, 196, 0.3)",
+              }}
+            >
+              共 {tweetCards.length} 条精华
+            </span>
+            <span
+              className="text-xs px-3 py-1 rounded-full"
+              style={{
+                fontFamily: "'DM Mono', monospace",
+                background: "rgba(212, 160, 23, 0.15)",
+                color: "#D4A017",
+                border: "1px solid rgba(212, 160, 23, 0.3)",
+              }}
+            >
+              {thinkers.length} 位思想领袖
+            </span>
+            <span
+              className="text-xs"
+              style={{ fontFamily: "'DM Mono', monospace", color: "rgba(250,250,247,0.3)" }}
+            >
+              更新于 2026-05-11
+            </span>
+          </div>
         </div>
 
         {/* Thinker Avatars */}
