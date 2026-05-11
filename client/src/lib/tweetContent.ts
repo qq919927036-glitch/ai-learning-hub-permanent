@@ -1634,6 +1634,175 @@ export const tweetCards: TweetCard[] = [
     insight: "开发者社区的集体智慧：Agent 的价值不在于「能做什么」，而在于「能可靠地做什么」。验证 > 生成，编排 > 自主——这是2026年最重要的Agent工程共识。",
     url: "https://www.developersdigest.tech/blog/what-hacker-news-gets-right-about-ai-coding-agents-2026",
   },
+  // ===== Agent 实战 & 赚钱专题（通俗幽默版）=====
+
+  // --- 什么是 Agent？ ---
+  {
+    id: "explainer-what-is-agent",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "通俗解读 · 让小白秒懂 AI",
+    date: "2026-05-10",
+    content:
+      "What is an AI Agent? Think of it this way: ChatGPT is like texting a really smart friend who gives you advice. An Agent is like hiring that friend full-time — they don't just answer questions, they actually DO things. They read your files, run your code, book your meetings, and order your pizza. The difference between a chatbot and an agent = the difference between a GPS that tells you to turn left, and a self-driving car that actually turns.",
+    translation:
+      "什么是 AI Agent？这样理解：ChatGPT 就像给一个超聪明的朋友发微信，他给你建议。Agent 就像把这个朋友全职雇佣了——他不只回答问题，还真的动手干活。他读你的文件、跑你的代码、订你的会议、点你的外卖。聊天机器人和 Agent 的区别 = 导航软件告诉你「左转」vs 自动驾驶汽车真的帮你转弯。",
+    likes: "45K",
+    category: "basic",
+    categoryLabel: "基础认知",
+    tagColor: "#4ECDC4",
+    insight: "一句话总结：ChatGPT 是嘴炮达人，Agent 是行动派。前者给建议，后者干活。",
+    url: "https://blink.new/blog/claude-code-tutorial-beginners-2026",
+  },
+
+  // --- Claude Code vs Codex 对比 ---
+  {
+    id: "explainer-claude-vs-codex",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "通俗解读 · 让小白秒懂 AI",
+    date: "2026-05-10",
+    content:
+      "Claude Code vs OpenAI Codex — explained like you're 5: Claude Code lives in your terminal. You say 'fix this bug' and it reads your whole project, edits files, runs tests, fixes failures, and keeps going. It's like a junior developer who never sleeps. Codex lives in the cloud. You assign it tasks like 'add dark mode' and it works in a sandbox while you go grab coffee. It's like sending work to a remote contractor. Claude = pair programmer sitting next to you. Codex = remote team working in parallel.",
+    translation:
+      "Claude Code vs OpenAI Codex——像给5岁小孩解释一样：Claude Code 住在你的终端里。你说「修这个 bug」，它就读你整个项目、改文件、跑测试、修失败、一直干到搞定。就像一个永远不睡觉的初级开发者。Codex 住在云端。你分配任务「加个暗黑模式」，它在沙箱里干活，你可以去买杯咖啡。就像把工作发给远程外包。Claude = 坐在你旁边的结对程序员。Codex = 并行工作的远程团队。",
+    likes: "67K",
+    category: "basic",
+    categoryLabel: "基础认知",
+    tagColor: "#4ECDC4",
+    insight: "选择困难症？记住这个：想要实时陪伴选 Claude Code，想要甩手掌柜选 Codex。前者是身边的助手，后者是云端的团队。",
+    url: "https://developersdigest.tech/blog/what-is-claude-code-complete-guide-2026",
+  },
+
+  // --- MCP 是什么？ ---
+  {
+    id: "explainer-what-is-mcp",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "通俗解读 · 让小白秒懂 AI",
+    date: "2026-05-10",
+    content:
+      "MCP (Model Context Protocol) explained with food delivery: Before MCP, every AI agent needed a custom adapter for each app — like ordering food where every restaurant has its own app (麦当劳 app, 肯德基 app, 海底捞 app...). MCP is like Uber Eats — one standard interface that connects ALL restaurants. Build one MCP server and suddenly every AI agent can use your tool. That's why there are 9,400+ MCP servers now. It's the USB-C of AI.",
+    translation:
+      "MCP（模型上下文协议）用外卖来解释：MCP 之前，每个 AI Agent 需要为每个应用做一个自定义适配器——就像点外卖每家餐厅都有自己的 App（麦当劳 App、肯德基 App、海底捞 App...）。MCP 就像美团外卖——一个标准接口连接所有餐厅。做一个 MCP 服务器，突然所有 AI Agent 都能用你的工具了。这就是为什么现在有 9400+ MCP 服务器。它是 AI 世界的 USB-C。",
+    likes: "34K",
+    category: "basic",
+    categoryLabel: "基础认知",
+    tagColor: "#4ECDC4",
+    insight: "MCP = AI 世界的 USB-C 接口。插上就能用，不用管是什么品牌的 Agent。这就是为什么懂 MCP 的开发者现在很值钱。",
+    url: "https://particula.tech/blog/mcp-developer-guide",
+  },
+
+  // --- Agent 赚钱方式 1: 自动化咨询 ---
+  {
+    id: "agent-money-automation",
+    author: "IndieHackers 社区",
+    handle: "@IndieHackers",
+    avatar: "💰",
+    avatarColor: "#FF6600",
+    role: "独立开发者社区 · 赚钱实战",
+    date: "2026-04-13",
+    content:
+      "5 AI Agent workflows actually making money in 2026: 1) Voice AI replacing call centers (60-80% cost savings). 2) Custom GPT bots for small businesses ($800/project). 3) AI content pipelines that compound ($1K-15K/month). 4) MCP server development for enterprises. 5) Agent-powered data analysis consulting. The key insight: 72% of small companies KNOW they need AI but haven't implemented it. That gap = your revenue.",
+    translation:
+      "2026 年真正在赚钱的 5 种 AI Agent 工作流：1）语音 AI 取代呼叫中心（节省 60-80% 成本）。2）为小企业做定制 GPT 机器人（每个项目 $800）。3）可复利的 AI 内容管道（$1K-15K/月）。4）为企业开发 MCP 服务器。5）Agent 驱动的数据分析咨询。关键洞察：72% 的小公司知道他们需要 AI 但还没实施。这个缺口 = 你的收入来源。",
+    likes: "89K",
+    category: "basic",
+    categoryLabel: "Agent 赚钱",
+    tagColor: "#4ECDC4",
+    insight: "2026 年 AI 赚钱的核心逻辑：不是卖技术，是卖「帮你实施」。72% 的小公司是你的客户——他们需要的不是 ChatGPT，而是有人帮他们把 AI 接进业务流程。",
+    url: "https://www.indiehackers.com/post/5-ai-agent-workflows-actually-making-money-in-2026-with-real-numbers-ea266790ba",
+  },
+
+  // --- Agent 赚钱方式 2: 开发 MCP 服务器 ---
+  {
+    id: "agent-money-mcp-server",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "通俗解读 · 让小白秒懂 AI",
+    date: "2026-05-10",
+    content:
+      "Want to charge AI agents for using your tools? Now you can. Three production-ready payment options exist for MCP servers: x402, Stripe MPP, and ATXP. Build a useful MCP server, add a payment layer, and every time an AI agent calls your tool, you get paid. It's like building an app for the App Store — except the 'users' are AI agents, not humans. The addressable market? Every AI agent in the world that needs data or tools.",
+    translation:
+      "想要让 AI Agent 付费使用你的工具？现在可以了。MCP 服务器有三种生产就绪的支付方案：x402、Stripe MPP 和 ATXP。建一个有用的 MCP 服务器，加上支付层，每次 AI Agent 调用你的工具，你就收钱。就像在 App Store 上架应用——只不过「用户」是 AI Agent，不是人类。可覆盖市场？全世界每一个需要数据或工具的 AI Agent。",
+    likes: "56K",
+    category: "advanced",
+    categoryLabel: "Agent 赚钱",
+    tagColor: "#D4A017",
+    insight: "这是 2026 年最被低估的商业模式：给 AI Agent 卖工具。人类用 App Store，Agent 用 MCP。你的 MCP 服务器就是 Agent 时代的 App。",
+    url: "https://atxp.ai/blog/how-to-add-payments-to-mcp-server-2026",
+  },
+
+  // --- Agent 赚钱方式 3: 无代码自动化 ---
+  {
+    id: "agent-money-nocode",
+    author: "AI Side Hustle School",
+    handle: "@SideHustleSchool",
+    avatar: "🎯",
+    avatarColor: "#DC2626",
+    role: "AI 副业实战 · 真实案例",
+    date: "2026-03-15",
+    content:
+      "She hit her first $1,000 within months, building every bot using no-code tools. Not complex enterprise AI — simple, focused bots that help busy people draft LinkedIn posts, summarize meeting notes, and generate weekly reports. The market pays for specificity: 'I can do AI stuff' earns nothing. 'I automate customer support ticket routing using Claude API via Zapier' earns $800 a project within 18 days.",
+    translation:
+      "她在几个月内就赚到了第一个 $1000，所有机器人都用无代码工具构建。不是复杂的企业 AI——而是简单、专注的机器人，帮忙碌的人起草 LinkedIn 帖子、总结会议记录、生成周报。市场为具体性付费：「我会 AI」一分不值。「我用 Claude API + Zapier 自动化客服工单路由」= 18 天内每个项目赚 $800。",
+    likes: "123K",
+    category: "basic",
+    categoryLabel: "Agent 赚钱",
+    tagColor: "#4ECDC4",
+    insight: "Agent 赚钱的黄金法则：具体 > 泛泛。不要说「我会 AI」，而是说「我能帮你每天省 3 小时处理客服邮件」。越具体，客户越愿意付钱。",
+    url: "https://sidehustleschool.com/guides/ai-side-hustles/",
+  },
+
+  // --- Agent 落地的真相 ---
+  {
+    id: "agent-reality-check",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "通俗解读 · 让小白秒懂 AI",
+    date: "2026-05-10",
+    content:
+      "The brutal truth about AI agents in 2026, served with love: Demo ≠ Production. Your agent works perfectly on your laptop demo? Cool. Now try it with 10,000 users, bad internet, wrong inputs, and Karen from accounting who types in ALL CAPS. That's why 89% of agent projects die before production. The winners? They don't build the fanciest agent. They build the most reliable one. Boring beats brilliant every single time.",
+    translation:
+      "2026 年 AI Agent 的残酷真相，含着爱说给你听：Demo ≠ 生产。你的 Agent 在你笔记本的演示里完美运行？很酷。现在试试 10000 个用户、烂网络、错误输入、还有会计部的 Karen 用全大写打字的场景。这就是为什么 89% 的 Agent 项目死在生产化之前。赢家？他们不是构建最酷炫的 Agent，而是最可靠的。无聊但稳定，每次都赢过炫酷但崩溃。",
+    likes: "78K",
+    category: "advanced",
+    categoryLabel: "AI Agent",
+    tagColor: "#D4A017",
+    insight: "Agent 落地的第一法则：Karen 定律——如果用户能用错误的方式使用你的 Agent，他们一定会。设计时假设所有用户都是 Karen。",
+    url: "https://designkey.studio/post/ai-agents-for-business-2026",
+  },
+
+  // --- Prompt Engineering → Context Engineering ---
+  {
+    id: "explainer-context-engineering",
+    author: "AI 学习站",
+    handle: "@AILearningHub",
+    avatar: "📚",
+    avatarColor: "#059669",
+    role: "通俗解读 · 让小白秒懂 AI",
+    date: "2026-05-10",
+    content:
+      "Prompt Engineering is dead. Long live Context Engineering. Here's the difference: Prompt Engineering = writing the perfect question to get a good answer (like crafting the perfect Google search). Context Engineering = building a system that automatically gives the AI all the information it needs BEFORE it even starts working (like giving a new employee a 200-page onboarding manual + access to every company tool). In 2026, the people making the most money aren't writing better prompts. They're designing better context systems.",
+    translation:
+      "Prompt 工程已死。上下文工程万岁。区别在这里：Prompt 工程 = 写出完美的问题来获得好答案（就像精心设计 Google 搜索词）。Context 工程 = 构建一个系统，在 AI 开始工作之前就自动给它所有需要的信息（就像给新员工一本 200 页的入职手册 + 所有公司工具的权限）。2026 年赚最多钱的人，不是写更好的 Prompt，而是设计更好的上下文系统。",
+    likes: "98K",
+    category: "advanced",
+    categoryLabel: "AI Agent",
+    tagColor: "#D4A017",
+    insight: "2025 年的热门技能是 Prompt Engineering，2026 年是 Context Engineering。区别？前者是每次给 AI 写一封好邮件，后者是给 AI 建一整套信息系统。",
+    url: "https://startuphub.ai/ai-news/startup-news/2026/context-engineering-is-the-new-ai-moat-langchains-harrison-chase-on-long-horizon-agents",
+  },
 ];
 
 // 按类别分组
