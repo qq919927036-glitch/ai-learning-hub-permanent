@@ -1387,6 +1387,253 @@ export const tweetCards: TweetCard[] = [
     insight: "Nadella 在新年博客中定义了 2026 的核心命题：从 Demo 到 Production，从奇观到实质。这是对整个行业的清醒预判。",
     url: "https://www.techspot.com/news/110789-satya-nadella-starts-blogging-about-ai-wants-move.html",
   },
+  // ===== Agent 专题高质量推文 =====
+
+  // --- Jim Fan: Foundation Agent ---
+  {
+    id: "jimfan-foundation-agent",
+    author: "Jim Fan",
+    handle: "@DrJimFan",
+    avatar: "🤖",
+    avatarColor: "#76B900",
+    role: "NVIDIA AI Agent 负责人 · 前 OpenAI 研究员",
+    date: "2026-03-17",
+    content:
+      "My TED talk proposed the recipe for the 'Foundation Agent': a single model that learns how to act in different worlds. LLM scales across lots of texts. Foundation Agent scales across lots of realities — physical and virtual. The next few years will see agents that generalize across skills, embodiments, and worlds.",
+    translation:
+      "我的 TED 演讲提出了「基础 Agent」的配方：一个单一模型学习如何在不同世界中行动。LLM 跨大量文本进行扩展。基础 Agent 跨大量现实进行扩展——物理的和虚拟的。未来几年，我们将看到能跨技能、跨身体、跨世界泛化的 Agent。",
+    likes: "89K",
+    category: "advanced",
+    categoryLabel: "物理 AI",
+    tagColor: "#76B900",
+    insight: "LLM 是文本世界的基础模型，Foundation Agent 是物理世界的基础模型。Jim Fan 提出了机器人 AI 的 GPT 时刻。",
+    url: "https://jimfan.me/",
+  },
+  {
+    id: "jimfan-robotics-endgame",
+    author: "Jim Fan",
+    handle: "@DrJimFan",
+    avatar: "🤖",
+    avatarColor: "#76B900",
+    role: "NVIDIA AI Agent 负责人 · 前 OpenAI 研究员",
+    date: "2026-05-05",
+    content:
+      "VLAs are dead. Long live World Action Models. Progress in physical AI depends less on ever-larger models and more on solving fundamental problems: exploration-driven learning, scalable data pipelines, and synthetic simulation. Our generation was born just in time to solve robotics.",
+    translation:
+      "VLA 已死。世界行动模型万岁。物理 AI 的进步不太依赖越来越大的模型，而更依赖解决根本问题：探索驱动学习、可扩展数据管道和合成仿真。我们这一代人生得正好——正好赶上解决机器人学。",
+    likes: "56K",
+    category: "advanced",
+    categoryLabel: "物理 AI",
+    tagColor: "#76B900",
+    insight: "Jim Fan 宣告了视觉语言动作模型（VLA）的死亡——未来属于能理解世界物理规律并据此行动的「世界行动模型」。",
+    url: "https://scour.ing/redirect/https:%2F%2Fwww.daft.ai%2Fblog%2Fvlas-are-dead-long-live-world-action-models",
+  },
+
+  // --- Harrison Chase: Agent 生产化 ---
+  {
+    id: "harrison-models-wont-fix",
+    author: "Harrison Chase",
+    handle: "@hwchase17",
+    avatar: "🔗",
+    avatarColor: "#1C4532",
+    role: "LangChain CEO · Agent 框架创始人",
+    date: "2026-03-08",
+    content:
+      "Better models won't fix AI agent production problems. 57% of organizations have agents in production, but quality remains the biggest barrier for 32%. The solution: let LLMs control their own context engineering. Rather than hard-code everything into one big system prompt, have the agent read skills dynamically — skill for X, skill for Y.",
+    translation:
+      "更好的模型不会解决 AI Agent 的生产化问题。57% 的组织已有 Agent 在生产环境运行，但质量仍是 32% 公司的最大障碍。解决方案：让 LLM 控制自己的上下文工程。不要把所有东西硬编码到一个大系统提示中，而是让 Agent 动态读取技能——X 的技能、Y 的技能。",
+    likes: "34K",
+    category: "advanced",
+    categoryLabel: "AI Agent",
+    tagColor: "#D4A017",
+    insight: "Harrison Chase 揭示了 Agent 落地的真相：瓶颈不在模型能力，而在工程质量。「动态技能加载」是 2026 年 Agent 架构的核心模式。",
+    url: "https://saassentinel.com/2026/03/08/langchain-ceo-better-models-wont-fix-ai-agent-production-problems/",
+  },
+  {
+    id: "harrison-agent-lifecycle",
+    author: "Harrison Chase",
+    handle: "@hwchase17",
+    avatar: "🔗",
+    avatarColor: "#1C4532",
+    role: "LangChain CEO · Agent 框架创始人",
+    date: "2026-05-09",
+    content:
+      "The Agent Development Lifecycle: Build → Test → Deploy → Monitor → Iterate. Testing should start BEFORE an agent reaches production, not after. Teams need offline evals, controlled deployment, production monitoring, and feedback loops back into the next iteration. This is software engineering discipline applied to agents.",
+    translation:
+      "Agent 开发生命周期：构建 → 测试 → 部署 → 监控 → 迭代。测试应该在 Agent 到达生产环境之前开始，而不是之后。团队需要离线评估、受控部署、生产监控，以及将学习反馈回下一次迭代的循环。这是将软件工程纪律应用于 Agent。",
+    likes: "28K",
+    category: "advanced",
+    categoryLabel: "AI Agent",
+    tagColor: "#D4A017",
+    insight: "Agent 不是一次性产品，而是需要持续迭代的系统。Harrison 定义的 Agent 开发生命周期，正在成为行业标准工作流。",
+    url: "https://www.langchain.com/blog/the-agent-development-lifecycle",
+  },
+  {
+    id: "harrison-context-engineering",
+    author: "Harrison Chase",
+    handle: "@hwchase17",
+    avatar: "🔗",
+    avatarColor: "#1C4532",
+    role: "LangChain CEO · Agent 框架创始人",
+    date: "2026-01-22",
+    content:
+      "Context Engineering is the new AI moat. The core challenge of long-horizon agents is managing state and context over extended periods. It's not about prompt engineering anymore — it's about building systems that dynamically assemble the right context at the right time for the right task.",
+    translation:
+      "上下文工程是新的 AI 护城河。长时间运行 Agent 的核心挑战是在长时间内管理状态和上下文。这不再是关于 Prompt 工程——而是关于构建能够在正确的时间为正确的任务动态组装正确上下文的系统。",
+    likes: "45K",
+    category: "advanced",
+    categoryLabel: "AI Agent",
+    tagColor: "#D4A017",
+    insight: "从 Prompt Engineering 到 Context Engineering——这是 Agent 时代最重要的范式转移。谁掌握了上下文管理，谁就掌握了 Agent 的质量。",
+    url: "https://startuphub.ai/ai-news/startup-news/2026/context-engineering-is-the-new-ai-moat-langchains-harrison-chase-on-long-horizon-agents",
+  },
+
+  // --- Anthropic: Claude Computer Use ---
+  {
+    id: "anthropic-computer-use",
+    author: "Anthropic",
+    handle: "@AnthropicAI",
+    avatar: "🛡️",
+    avatarColor: "#CC5500",
+    role: "Anthropic · Claude 开发团队",
+    date: "2026-03-24",
+    content:
+      "Claude can now use your computer. Send a prompt from your phone, watch Claude control your Mac — moving the mouse, typing, switching apps, completing tasks autonomously. Computer Use transforms Claude from a conversational AI into an autonomous digital worker. The harness decouples the brain from the hands.",
+    translation:
+      "Claude 现在可以使用你的电脑了。从手机发送一个提示，看着 Claude 控制你的 Mac——移动鼠标、打字、切换应用、自主完成任务。Computer Use 将 Claude 从对话式 AI 转变为自主数字工人。架构将「大脑」与「手」解耦。",
+    likes: "234K",
+    category: "advanced",
+    categoryLabel: "AI Agent",
+    tagColor: "#CC5500",
+    insight: "Claude Computer Use 是 Agent 从「对话」到「行动」的里程碑：AI 不再只是回答问题，而是直接操作你的电脑完成任务。",
+    url: "https://www.anthropic.com/engineering/managed-agents",
+  },
+
+  // --- OpenAI Codex Agent ---
+  {
+    id: "openai-codex-subagents",
+    author: "OpenAI",
+    handle: "@OpenAI",
+    avatar: "🌐",
+    avatarColor: "#10A37F",
+    role: "OpenAI · Codex 团队",
+    date: "2026-03-14",
+    content:
+      "Codex Subagents is now GA. A production-ready system where one manager agent coordinates multiple specialized coding agents across your entire repository. We built and shipped an internal product with 0 lines of manually-written code — all agent-generated. The era of multi-agent software engineering is here.",
+    translation:
+      "Codex 子 Agent 正式 GA。一个生产就绪的系统，其中一个管理 Agent 协调多个专门的编码 Agent 横跨整个代码仓库。我们构建并发布了一个内部产品，0 行手写代码——全部由 Agent 生成。多 Agent 软件工程的时代已经到来。",
+    likes: "189K",
+    category: "advanced",
+    categoryLabel: "AI Agent",
+    tagColor: "#10A37F",
+    insight: "从单一 Agent 到多 Agent 编排——Codex Subagents 证明了「一个管理者 + 多个工人」的模式可以完全取代人类编码。0 行手写代码不是噱头，是已验证的生产实践。",
+    url: "https://openai.com/index/harness-engineering/",
+  },
+
+  // --- Simon Willison: Agentic Engineering Patterns ---
+  {
+    id: "simon-agentic-patterns",
+    author: "Simon Willison",
+    handle: "@simonw",
+    avatar: "🛠️",
+    avatarColor: "#2D3748",
+    role: "独立开发者 · Datasette 作者 · AI 工程博主",
+    date: "2026-02-23",
+    content:
+      "Agentic Engineering Patterns I've found work: 1) Red/Green TDD — test-first development helps agents write succinct, reliable code. 2) Showboat — agents build documents to demo their work. 3) Prove code works — we need artifacts showing progress, not just passing tests. Agents need verification, not trust.",
+    translation:
+      "我发现有效的 Agentic 工程模式：1）红/绿 TDD——测试先行帮助 Agent 写出简洁可靠的代码。2）Showboat——Agent 构建文档来展示它们的工作。3）证明代码有效——我们需要展示进展的制品，不只是通过的测试。Agent 需要验证，不是信任。",
+    likes: "23K",
+    category: "advanced",
+    categoryLabel: "AI Agent",
+    tagColor: "#D4A017",
+    insight: "Simon Willison 定义了与 Agent 协作的最佳实践：不要信任 Agent 的输出，而是设计系统让 Agent 自己证明它的工作是正确的。",
+    url: "https://simonwillison.net/2026/feb/23/agentic-engineering-patterns",
+  },
+
+  // --- Scott Wu: Devin 的愿景 ---
+  {
+    id: "scott-wu-devin-vision",
+    author: "Scott Wu",
+    handle: "@scott_wu",
+    avatar: "💻",
+    avatarColor: "#6B21A8",
+    role: "Cognition Labs CEO · Devin 创始人",
+    date: "2026-03-24",
+    content:
+      "We envision a world of software abundance where engineers become architects, solving the most challenging problems and focusing on their creative visions while tasking an army of autonomous agents to support them on everything else. Devin is not replacing engineers — it's giving every engineer an infinite team.",
+    translation:
+      "我们设想一个软件充裕的世界，工程师成为架构师，解决最具挑战性的问题并专注于创造性愿景，同时让一支自主 Agent 大军在其他所有事情上支持他们。Devin 不是在取代工程师——它是在给每个工程师一个无限的团队。",
+    likes: "67K",
+    category: "advanced",
+    categoryLabel: "AI Agent",
+    tagColor: "#D4A017",
+    insight: "「每个工程师一个无限团队」——这是 Devin 的终极愿景。AI Agent 不是取代人类，而是让每个人都拥有过去只有大公司才有的工程能力。",
+    url: "https://cognition.ai/blog/funding-growth-and-the-next-frontier-of-ai-coding-agents",
+  },
+
+  // --- Stanford HAI: Agent 生产化数据 ---
+  {
+    id: "stanford-hai-agent-gap",
+    author: "Stanford HAI",
+    handle: "@StanfordHAI",
+    avatar: "📊",
+    avatarColor: "#8C1515",
+    role: "斯坦福以人为中心 AI 研究所",
+    date: "2026-04-15",
+    content:
+      "Stanford HAI 2026 AI Index Report: Agents now hit 66.3% on OSWorld and 77.3% on Terminal-Bench. Yet 89% of enterprise agent projects never reach production. The gap between benchmark performance and real-world deployment remains the defining challenge of the agent era.",
+    translation:
+      "斯坦福 HAI 2026 AI 指数报告：Agent 在 OSWorld 上达到 66.3%，在 Terminal-Bench 上达到 77.3%。然而 89% 的企业 Agent 项目永远无法到达生产环境。基准性能与真实世界部署之间的差距仍然是 Agent 时代最核心的挑战。",
+    likes: "45K",
+    category: "advanced",
+    categoryLabel: "AI Agent",
+    tagColor: "#D4A017",
+    insight: "89% 的 Agent 项目死在生产化路上——这个数字比任何炒作都更真实地描述了 2026 年 Agent 的现状：Demo 很强，落地很难。",
+    url: "https://designkey.studio/post/ai-agents-for-business-2026",
+  },
+
+  // --- MCP 生态爆发 ---
+  {
+    id: "mcp-ecosystem-explosion",
+    author: "Anthropic",
+    handle: "@AnthropicAI",
+    avatar: "🛡️",
+    avatarColor: "#CC5500",
+    role: "Anthropic · MCP 协议设计者",
+    date: "2026-04-30",
+    content:
+      "MCP servers crossed 9,400 in published registries in Q2 2026. The Model Context Protocol solved the basic connectivity problem — instead of custom adapters for every API, developers expose tools as MCP servers that AI agents invoke with structured requests. The open questions now: security, governance, and scale.",
+    translation:
+      "MCP 服务器在 2026 年 Q2 的公开注册表中超过了 9,400 个。模型上下文协议解决了基本的连接问题——开发者不再为每个 API 构建自定义适配器，而是将工具暴露为 MCP 服务器，让 AI Agent 用结构化请求调用。现在的开放问题是：安全性、治理和规模化。",
+    likes: "78K",
+    category: "advanced",
+    categoryLabel: "AI Agent",
+    tagColor: "#CC5500",
+    insight: "9,400+ MCP 服务器 = Agent 生态系统的 App Store 时刻。MCP 正在成为 AI Agent 世界的 HTTP 协议——连接一切的基础设施标准。",
+    url: "https://www.digitalapplied.com/blog/state-of-agentic-ai-q2-2026-quarterly-report",
+  },
+
+  // --- Hacker News 社区共识 ---
+  {
+    id: "hn-agent-truths",
+    author: "Hacker News 社区",
+    handle: "@ycombinator",
+    avatar: "🟠",
+    avatarColor: "#FF6600",
+    role: "开发者社区 · 技术讨论前线",
+    date: "2026-04-15",
+    content:
+      "Four truths about AI coding agents that Hacker News keeps rediscovering: 1) Workflows matter more than demos. 2) Verification is the bottleneck, not generation. 3) Skills beat prompts. 4) Orchestration matters more than raw autonomy. Under the noise, the community converges on the same fundamentals.",
+    translation:
+      "Hacker News 反复验证的关于 AI 编码 Agent 的四个真相：1）工作流比演示重要。2）验证是瓶颈，不是生成。3）技能胜过提示。4）编排比原始自主性更重要。在噪音之下，社区收敛于相同的基本面。",
+    likes: "12K",
+    category: "advanced",
+    categoryLabel: "AI Agent",
+    tagColor: "#D4A017",
+    insight: "开发者社区的集体智慧：Agent 的价值不在于「能做什么」，而在于「能可靠地做什么」。验证 > 生成，编排 > 自主——这是2026年最重要的Agent工程共识。",
+    url: "https://www.developersdigest.tech/blog/what-hacker-news-gets-right-about-ai-coding-agents-2026",
+  },
 ];
 
 // 按类别分组
@@ -1411,4 +1658,7 @@ export const thinkers = [
   { name: "Elon Musk", handle: "@elonmusk", emoji: "🚀", color: "#1D4ED8", role: "xAI / Tesla / SpaceX CEO", count: tweetCards.filter(t => t.handle === "@elonmusk").length },
   { name: "Mark Zuckerberg", handle: "@zaborgg", emoji: "👁️", color: "#0866FF", role: "Meta CEO · 开源→闭源", count: tweetCards.filter(t => t.handle === "@zaborgg").length },
   { name: "Satya Nadella", handle: "@sataborgg", emoji: "💼", color: "#00A4EF", role: "Microsoft CEO · AI 平台化", count: tweetCards.filter(t => t.handle === "@sataborgg").length },
+  { name: "Jim Fan", handle: "@DrJimFan", emoji: "🤖", color: "#76B900", role: "NVIDIA AI Agent · 物理 AI", count: tweetCards.filter(t => t.handle === "@DrJimFan").length },
+  { name: "Harrison Chase", handle: "@hwchase17", emoji: "🔗", color: "#1C4532", role: "LangChain CEO · Agent 框架", count: tweetCards.filter(t => t.handle === "@hwchase17").length },
+  { name: "Scott Wu", handle: "@scott_wu", emoji: "💻", color: "#6B21A8", role: "Cognition Labs · Devin", count: tweetCards.filter(t => t.handle === "@scott_wu").length },
 ];
