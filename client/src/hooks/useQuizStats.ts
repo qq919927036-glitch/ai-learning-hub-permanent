@@ -1,5 +1,5 @@
 // Quiz statistics hook - manages quiz history in localStorage
-import { useCallback } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 export interface QuizRecord {
   date: string; // ISO date string
@@ -33,36 +33,41 @@ function saveRecords(records: QuizRecord[]) {
 }
 
 export function useQuizStats() {
+  // Refresh trigger to re-read localStorage after addRecord
+  const [version, setVersion] = useState(0);
+
+  // Parse localStorage once per render (or when version changes)
+  const records = useMemo(() => loadRecords(), [version]);
+
   const getHistory = useCallback((): QuizRecord[] => {
-    return loadRecords().sort((a, b) => b.timestamp - a.timestamp);
-  }, []);
+    return [...records].sort((a, b) => b.timestamp - a.timestamp);
+  }, [records]);
 
   const addRecord = useCallback(
     (record: Omit<QuizRecord, "timestamp">): void => {
-      const records = loadRecords();
-      records.push({ ...record, timestamp: Date.now() });
-      saveRecords(records);
+      const current = loadRecords();
+      current.push({ ...record, timestamp: Date.now() });
+      saveRecords(current);
+      setVersion((v) => v + 1);
     },
     []
   );
 
   const getTodayAttempts = useCallback((): QuizRecord[] => {
     const today = new Date().toISOString().slice(0, 10);
-    return loadRecords().filter((r) => r.date === today);
-  }, []);
+    return records.filter((r) => r.date === today);
+  }, [records]);
 
   const getBestScore = useCallback((): number => {
-    const records = loadRecords();
     if (records.length === 0) return 0;
     return Math.max(...records.map((r) => r.percentage));
-  }, []);
+  }, [records]);
 
   const getTotalAttempts = useCallback((): number => {
-    return loadRecords().length;
-  }, []);
+    return records.length;
+  }, [records]);
 
   const getStreak = useCallback((): number => {
-    const records = loadRecords();
     if (records.length === 0) return 0;
 
     // Get unique dates sorted descending
@@ -86,7 +91,7 @@ export function useQuizStats() {
       }
     }
     return streak;
-  }, []);
+  }, [records]);
 
   return {
     getHistory,

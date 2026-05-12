@@ -2,19 +2,21 @@ import { useState, useEffect } from "react";
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Router, Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import SearchDialog from "./components/SearchDialog";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 
-function Router() {
+function AppRoutes() {
   return (
-    <Switch>
-      <Route path={"/"} component={Home} />
-      <Route path={"/404"} component={NotFound} />
-      <Route component={NotFound} />
-    </Switch>
+    <Router base="/ai-learning-hub-permanent/">
+      <Switch>
+        <Route path={"/"} component={Home} />
+        <Route path={"/404"} component={NotFound} />
+        <Route component={NotFound} />
+      </Switch>
+    </Router>
   );
 }
 
@@ -44,7 +46,7 @@ function App() {
       <ThemeProvider defaultTheme="light">
         <TooltipProvider>
           <Toaster />
-          <Router />
+          <AppRoutes />
           <SearchDialog open={searchOpen} onClose={() => setSearchOpen(false)} />
         </TooltipProvider>
       </ThemeProvider>

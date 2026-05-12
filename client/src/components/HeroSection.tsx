@@ -153,7 +153,7 @@ export default function HeroSection() {
               {quizTotal > 0 ? (
                 <a
                   href="#quiz-mode"
-                  className="text-xs px-3 py-1.5 rounded-full transition-all hover:opacity-80 mb-4 inline-block"
+                  className="text-xs px-3 py-1.5 rounded-full transition-all hover:opacity-80"
                   style={{
                     fontFamily: "'DM Mono', monospace",
                     background: "rgba(212, 160, 23, 0.1)",
@@ -166,7 +166,7 @@ export default function HeroSection() {
               ) : (
                 <a
                   href="#quiz-mode"
-                  className="text-xs px-3 py-1.5 rounded-full transition-all hover:opacity-80 mb-4 inline-block"
+                  className="text-xs px-3 py-1.5 rounded-full transition-all hover:opacity-80"
                   style={{
                     fontFamily: "'DM Mono', monospace",
                     background: "rgba(27,67,50,0.06)",
@@ -177,9 +177,6 @@ export default function HeroSection() {
                   开始第一次测验 →
                 </a>
               )}
-            </div>
-            {/* CTA */}
-            <div className="flex items-center gap-4">
               <button
                 onClick={scrollToFirst}
                 className="px-6 py-3 rounded-sm text-sm font-medium transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5"

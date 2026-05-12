@@ -1,7 +1,7 @@
 // Comprehensive Quiz Mode - random questions from all chapters
 // Modes: daily 5-question quick review, full quiz (10/20/all)
 import { useState, useMemo, useCallback } from "react";
-import { Brain, Trophy, RotateCcw, ChevronDown, ChevronUp, CheckCircle, XCircle, Flame } from "lucide-react";
+import { RotateCcw, ChevronDown, ChevronUp, CheckCircle, XCircle, Flame } from "lucide-react";
 import { useQuizStats, QuizRecord } from "@/hooks/useQuizStats";
 import { deepBasicSections } from "@/lib/deepBasicContent";
 import { deepAdvancedSections } from "@/lib/deepAdvancedContent";
