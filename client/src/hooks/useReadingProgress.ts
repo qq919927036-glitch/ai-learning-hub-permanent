@@ -18,15 +18,30 @@ const defaultProgress: ReadingProgress = {
   practiceRead: [],
 };
 
+// Valid IDs for reconciliation (filter out stale entries on load)
+const validBasicIds = new Set(deepBasicSections.map((s) => s.id));
+const validAdvancedIds = new Set([
+  ...deepAdvancedSections.map((s) => s.id),
+  ...deepAdvancedSectionsExtra.map((s) => s.id),
+]);
+const validPracticeIds = new Set(practiceSection.tools.map((t) => t.name));
+
 function loadProgress(): ReadingProgress {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
     if (raw) {
       const parsed = JSON.parse(raw);
+
+      // Validate that read arrays are actually arrays; fall back to [] if corrupted
+      const basicRead = Array.isArray(parsed.basicRead) ? parsed.basicRead : [];
+      const advancedRead = Array.isArray(parsed.advancedRead) ? parsed.advancedRead : [];
+      const practiceRead = Array.isArray(parsed.practiceRead) ? parsed.practiceRead : [];
+
+      // Reconcile: remove IDs that no longer exist in the current content
       return {
-        basicRead: parsed.basicRead ?? [],
-        advancedRead: parsed.advancedRead ?? [],
-        practiceRead: parsed.practiceRead ?? [],
+        basicRead: basicRead.filter((id: string) => validBasicIds.has(id)),
+        advancedRead: advancedRead.filter((id: string) => validAdvancedIds.has(id)),
+        practiceRead: practiceRead.filter((id: string) => validPracticeIds.has(id)),
         lastRead: parsed.lastRead,
       };
     }
