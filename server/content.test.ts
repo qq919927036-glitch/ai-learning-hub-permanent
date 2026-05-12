@@ -4,11 +4,11 @@ import { describe, expect, it } from "vitest";
 // These are client-side modules but we can validate their structure
 
 describe("Content Data Integrity", () => {
-  it("deepBasicContent exports 33 sections (B1-B33)", async () => {
+  it("deepBasicContent exports 38 sections (B1-B38)", async () => {
     const mod = await import("../client/src/lib/deepBasicContent");
     expect(mod.deepBasicSections).toBeDefined();
     expect(Array.isArray(mod.deepBasicSections)).toBe(true);
-    expect(mod.deepBasicSections.length).toBeGreaterThanOrEqual(33);
+    expect(mod.deepBasicSections.length).toBeGreaterThanOrEqual(38);
 
     // Verify chapter numbering
     mod.deepBasicSections.forEach((section: any, index: number) => {
@@ -18,20 +18,20 @@ describe("Content Data Integrity", () => {
     });
   });
 
-  it("deepAdvancedContent exports 20 sections total (A1-A10 + A11-A20 extra)", async () => {
+  it("deepAdvancedContent exports 24 sections total (A1-A10 + A11-A24 extra)", async () => {
     const mod = await import("../client/src/lib/deepAdvancedContent");
-    // A1-A10 in deepAdvancedSections, A11-A20 in deepAdvancedSectionsExtra
+    // A1-A10 in deepAdvancedSections, A11-A24 in deepAdvancedSectionsExtra
     expect(mod.deepAdvancedSections).toBeDefined();
     expect(Array.isArray(mod.deepAdvancedSections)).toBe(true);
     expect(mod.deepAdvancedSections.length).toBeGreaterThanOrEqual(10);
 
     expect(mod.deepAdvancedSectionsExtra).toBeDefined();
     expect(Array.isArray(mod.deepAdvancedSectionsExtra)).toBe(true);
-    expect(mod.deepAdvancedSectionsExtra.length).toBeGreaterThanOrEqual(10);
+    expect(mod.deepAdvancedSectionsExtra.length).toBeGreaterThanOrEqual(14);
 
-    // Combined total should be 20
+    // Combined total should be 24
     const allSections = [...mod.deepAdvancedSections, ...mod.deepAdvancedSectionsExtra];
-    expect(allSections.length).toBeGreaterThanOrEqual(20);
+    expect(allSections.length).toBeGreaterThanOrEqual(24);
 
     // Verify A1-A10 chapter numbering
     mod.deepAdvancedSections.forEach((section: any, index: number) => {

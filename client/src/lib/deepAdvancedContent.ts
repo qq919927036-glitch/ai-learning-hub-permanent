@@ -2885,4 +2885,529 @@ const result = calculateAIEconomics({
     ],
   },
 
+
+  // ============================================================
+  // A21: 合成数据生成
+  // ============================================================
+  {
+    id: "synthetic-data-generation",
+    chapterNum: "A21",
+    tag: "进阶篇",
+    tagColor: "amber" as const,
+    emoji: "🧪",
+    title: "合成数据生成",
+    subtitle: "用 AI 制造训练 AI 的数据",
+    mainDiagram: ADV_CDN.harnessLayers,
+    mainDiagramCaption: "合成数据生成管道：从种子数据到大规模高质量训练集的完整流程",
+    auxImages: [],
+    paragraphs: [
+      "训练 AI 模型最大的瓶颈往往不是算力，而是数据。高质量标注数据获取成本高昂（人工标注每条 $0.1-$5）、时间漫长（数月到数年）、且存在隐私限制（医疗、金融数据不能随意使用）。合成数据生成（Synthetic Data Generation）提供了一个优雅的解决方案：用 AI 来生成训练 AI 的数据。",
+      "合成数据的生成方法大致分为三类：1）**基于规则的合成**——通过模板和规则生成结构化数据，如用正则表达式生成各种格式的地址、电话号码；2）**基于模型的合成**——用 LLM（如 GPT-4）生成文本数据，用 Stable Diffusion 生成图像数据；3）**基于 GAN/VAE 的合成**——用生成对抗网络学习真实数据分布后生成新样本。其中，基于 LLM 的方法在 2024 年最为流行。",
+      "数据增强（Data Augmentation）是合成数据的一个重要子类：不是从零生成新数据，而是对现有数据进行变换来扩充数据集。文本领域的增强包括：同义词替换、回译（翻译到另一种语言再翻译回来）、句子重排、以及用 LLM 改写（保持语义但变换表达）。图像领域则有旋转、裁剪、色彩变换、CutMix 等经典方法，以及基于扩散模型的高级增强。",
+      "合成数据的关键挑战是**分布对齐**：合成数据的分布必须足够接近真实数据的分布，否则在合成数据上训练的模型在真实场景中表现会很差（distribution shift）。验证方法包括：1）用统计测试（KL散度、FID分数）比较分布相似性；2）在真实数据上做验证集评估；3）混合真实 + 合成数据训练，逐步增加合成比例并监控性能变化。",
+      "隐私保护合成数据是另一个重要应用。差分隐私（Differential Privacy）技术可以在生成合成数据时提供数学上可证明的隐私保证——即使攻击者看到整个合成数据集，也无法推断出任何单个真实数据点的信息。这使得医院可以共享合成医疗数据用于研究，银行可以用合成交易数据训练欺诈检测模型，而不违反隐私法规。",
+    ],
+    steps: [
+      { num: "01", title: "种子数据准备", desc: "收集少量高质量的真实数据作为种子（seed），分析其分布特征、标注模式、和边界情况。这些种子数据将引导合成过程。", icon: "🌱" },
+      { num: "02", title: "生成策略设计", desc: "根据任务需求选择生成方法：规则模板（适合结构化数据）、LLM 生成（适合文本）、GAN/扩散模型（适合图像）。设计 prompt 模板和变换规则。", icon: "📐" },
+      { num: "03", title: "大规模生成", desc: "批量生成合成数据。对 LLM 方法，通过变换 prompt 中的条件变量生成多样化样本。实施质量过滤：去除低质量、重复、或不符合目标分布的样本。", icon: "🏭" },
+      { num: "04", title: "分布验证与混合", desc: "用统计方法验证合成数据与真实数据的分布对齐程度。确定最优的真实:合成数据混合比例。在验证集上确认模型性能不下降。", icon: "✅" },
+    ],
+    compareTable: {
+      title: "合成数据生成方法对比",
+      headers: ["方法", "适用场景", "优缺点"] as [string, string, string],
+      rows: [
+        { aspect: "基于规则/模板", without: "结构化数据（地址、ID、表单）", with: "精确可控，但多样性有限" },
+        { aspect: "基于 LLM 生成", without: "文本数据（对话、文档、代码）", with: "多样性强，但可能有幻觉" },
+        { aspect: "基于 GAN/VAE", without: "图像、表格数据", with: "学习真实分布，但训练不稳定" },
+        { aspect: "数据增强", without: "已有少量真实数据的场景", with: "保留原始特征，但变化有限" },
+        { aspect: "差分隐私合成", without: "需要隐私保护的敏感数据", with: "数学隐私保证，但质量有损" },
+      ],
+    },
+    codeBlocks: [
+      {
+        language: "python",
+        label: "用 LLM 批量生成合成训练数据",
+        code: `from openai import OpenAI
+import json
+import random
+
+client = OpenAI()
+
+# 种子示例：用于引导 LLM 生成风格
+SEED_EXAMPLES = [
+    {"input": "这个产品怎么退货？", "intent": "退货咨询", "entities": ["产品"]},
+    {"input": "我的订单到哪了", "intent": "物流查询", "entities": ["订单"]},
+]
+
+INTENTS = ["退货咨询", "物流查询", "价格咨询", "投诉建议", "账户问题"]
+
+def generate_synthetic_batch(intent: str, count: int = 50) -> list:
+    """用 LLM 为指定意图生成合成训练数据"""
+    prompt = f"""生成 {count} 条客服对话的训练数据。
+意图类别: {intent}
+要求:
+- 表达方式多样（口语化、正式、带错别字等）
+- 包含不同场景变体
+- 格式: JSON 数组，每条包含 input/intent/entities
+
+参考示例:
+{json.dumps(SEED_EXAMPLES[:2], ensure_ascii=False)}
+
+生成 {count} 条 "{intent}" 类别的数据:"""
+
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.9,  # 高温度增加多样性
+    )
+    return json.loads(response.choices[0].message.content)
+
+def validate_distribution(synthetic_data: list, real_data: list):
+    """验证合成数据的分布是否与真实数据对齐"""
+    syn_lengths = [len(d["input"]) for d in synthetic_data]
+    real_lengths = [len(d["input"]) for d in real_data]
+    # 检查长度分布是否相似
+    print(f"合成数据平均长度: {sum(syn_lengths)/len(syn_lengths):.1f}")
+    print(f"真实数据平均长度: {sum(real_lengths)/len(real_lengths):.1f}")
+
+# 为每个意图生成数据
+all_synthetic = []
+for intent in INTENTS:
+    batch = generate_synthetic_batch(intent, count=100)
+    all_synthetic.extend(batch)
+    print(f"已生成 {intent}: {len(batch)} 条")
+
+print(f"总计合成数据: {len(all_synthetic)} 条")`,
+      },
+    ],
+    insights: [
+      { icon: "⚠️", title: "合成数据的「模式坍塌」风险", body: "用 AI 生成数据训练 AI 有一个隐患：如果合成数据缺乏多样性（模式坍塌），训练出的模型会过拟合到合成数据的特定模式上，在真实场景表现变差。解决方法：高温度采样增加多样性、混合多个生成模型的输出、始终保留一定比例的真实数据做'锚点'。" },
+      { icon: "🔒", title: "差分隐私给合成数据加上数学保证", body: "差分隐私合成数据的核心承诺是：无论攻击者多聪明，看到合成数据集后，对任何单个真实数据点的推断能力增加量不超过 epsilon（一个很小的数）。这使得医疗机构可以安全共享合成患者数据用于药物研究，而不泄露任何真实患者的隐私信息。" },
+      { icon: "📈", title: "合成数据正在改变 AI 训练的经济学", body: "传统人工标注：$0.1-$5/条，时间以周计。LLM 合成：$0.001-$0.01/条，时间以小时计。成本降低了 10-100 倍。Anthropic 公开表示 Claude 的训练大量使用了合成数据（由之前版本的模型生成）。这种'AI 训练 AI'的自举模式正在成为行业标准，但也引发了关于'数据近亲繁殖'导致质量下降的担忧。" },
+    ],
+    funFact: "Anthropic 在训练 Claude 时大量使用了'宪法 AI'方法生成的合成偏好数据——让一个 AI 根据一组原则（'宪法'）来评判另一个 AI 的输出是否安全、有帮助。这意味着 Claude 的安全性在很大程度上是由 AI 自己'教'出来的，而非完全依赖人类标注员。Meta 的 Llama 3 训练过程中也使用了大量由 Llama 2 生成的合成数据来提升指令遵循能力。",
+    quiz: [
+      {
+        question: "合成数据生成中，「分布对齐」为什么是关键挑战？",
+        options: ["因为数据要好看", "因为合成数据的分布必须接近真实数据分布，否则模型在真实场景中表现会大幅下降（distribution shift）", "因为需要排列整齐", "因为要节省存储空间"],
+        correct: 1,
+        explanation: "模型在训练数据的分布上学习模式。如果合成数据的分布偏离真实数据（比如合成的客服对话都是正式用语，但真实用户都用口语），模型就会学到错误的模式，在真实环境中犯错。这就是为什么需要用 KL 散度、FID 分数等指标验证分布相似性，并在真实验证集上测试性能。"
+      },
+      {
+        question: "差分隐私合成数据的核心保证是什么？",
+        options: ["数据看起来很真实", "无论攻击者多聪明，看到合成数据集后对任何单个真实数据点的推断能力增加不超过 epsilon", "生成速度快", "不需要真实数据就能生成"],
+        correct: 1,
+        explanation: "差分隐私提供的是数学可证明的隐私保证，而非'看起来没泄露'的主观判断。参数 epsilon 控制隐私水平：epsilon 越小保护越强（但数据质量可能越差）。典型设置 epsilon = 1-10。这使得机构可以在合规框架下共享敏感领域的训练数据。"
+      },
+      {
+        question: "为什么用 LLM 生成合成数据时需要使用高温度（temperature）采样？",
+        options: ["让输出更准确", "高温度增加输出的随机性和多样性，避免合成数据过于同质化导致模式坍塌", "减少 API 成本", "让文本更短"],
+        correct: 1,
+        explanation: "温度参数控制 LLM 输出的随机性。低温度（如 0.2）会让模型总是选择最可能的下一个 token，输出高度确定性但缺乏多样性。高温度（如 0.9-1.0）让模型更愿意选择概率较低的 token，产生更多样化的表达。对于合成数据生成，多样性至关重要——否则 1000 条合成数据可能只是同一句话的 1000 种微小变体，训练价值很低。"
+      },
+    ],
+  },
+
+  // ============================================================
+  // A22: 模型蒸馏与压缩
+  // ============================================================
+  {
+    id: "model-distillation-compression",
+    chapterNum: "A22",
+    tag: "进阶篇",
+    tagColor: "green" as const,
+    emoji: "🧬",
+    title: "模型蒸馏与压缩",
+    subtitle: "让大模型的智慧装进小模型的身体",
+    mainDiagram: ADV_CDN.multiAgentHierarchy,
+    mainDiagramCaption: "模型压缩技术栈：从大型教师模型到轻量级部署模型的完整流程",
+    auxImages: [],
+    paragraphs: [
+      "GPT-4 有超过万亿参数，运行一次推理需要多块 A100 GPU。但实际生产环境中，我们经常只需要模型在某个特定任务上表现好——比如情感分类、客服意图识别。把全部万亿参数带到这些场景，就像用航母去钓鱼。模型蒸馏（Knowledge Distillation）和压缩技术可以把大模型的能力「浓缩」到小模型中。",
+      "知识蒸馏的核心思想简单而优雅：用一个大模型（教师模型）的输出来训练一个小模型（学生模型）。学生不是学习原始训练数据的标签（硬标签，如「正面情感」），而是学习教师模型的输出概率分布（软标签，如「正面 85%、中性 12%、负面 3%」）。软标签包含了更丰富的信息——「这条评论大概率是正面的，但有一点中性」比「正面」这个硬标签传达了更多知识。这就是为什么学生模型可以用远少的参数达到接近教师的性能。",
+      "量化（Quantization）是另一种重要的压缩手段。模型参数通常用 FP32 或 FP16 浮点数存储，但实验表明很多参数可以安全地降低到 INT8 甚至 INT4 精度而性能损失很小。GPTQ 和 AWQ 是两种流行的量化方法：GPTQ 通过逐层优化找到最佳量化方案，AWQ（Activation-aware Weight Quantization）通过分析激活值的重要性来决定哪些权重需要保留更高精度。INT4 量化可以将模型大小缩小到 FP16 的 1/4。",
+      "模型剪枝（Pruning）移除对输出影响最小的参数或结构。非结构化剪枝将单个权重设为零（稀疏化），结构化剪枝移除整个注意力头或 FFN 层。SparseGPT 证明可以在不重训练的情况下将 LLM 稀疏化到 50-60% 而性能损失极小。LoRA（Low-Rank Adaptation）则从另一个角度实现压缩：不是压缩整个模型，而是冻结原模型，只训练极少量的低秩适配器参数（通常只有原模型的 0.1-1%）。",
+      "这些技术可以组合使用：先用知识蒸馏从 GPT-4 级别蒸馏到一个 7B 模型，再用 LoRA 在特定任务上微调，最后用 INT4 量化进一步压缩。最终你可能得到一个 4GB 大小的模型，在你的特定任务上性能接近 GPT-4（达到其 90-95%），但推理成本降低了 100 倍以上，且可以在消费级 GPU 甚至 CPU 上运行。",
+    ],
+    steps: [
+      { num: "01", title: "教师模型准备", desc: "选择在目标任务上表现最好的大模型作为教师（如 GPT-4、Claude）。用教师模型对训练数据生成软标签——即完整的概率分布而非单一类别。", icon: "👨‍🏫" },
+      { num: "02", title: "学生模型蒸馏", desc: "设计一个参数量远小的学生模型架构。用 KL 散度损失训练学生去模仿教师的输出分布。蒸馏温度 T 控制软标签的平滑程度，典型值 T=2-5。", icon: "📖" },
+      { num: "03", title: "量化压缩", desc: "对蒸馏后的学生模型应用量化：INT8 用于对精度敏感的场景，INT4 用于极致压缩。AWQ 方法会自动识别重要权重并保留其精度。", icon: "📦" },
+      { num: "04", title: "部署验证", desc: "在目标硬件上测试推理速度和质量。对比教师模型设置可接受的性能阈值（如达到教师的 90% 性能即可）。监控延迟和吞吐量。", icon: "🚀" },
+    ],
+    compareTable: {
+      title: "模型压缩技术对比",
+      headers: ["技术", "压缩效果", "性能损失"] as [string, string, string],
+      rows: [
+        { aspect: "知识蒸馏", without: "模型缩小 10-100 倍（参数量）", with: "5-15%，取决于任务复杂度" },
+        { aspect: "INT8 量化", without: "模型缩小 2 倍（FP16 -> INT8）", with: "< 1%，几乎无损" },
+        { aspect: "INT4 量化", without: "模型缩小 4 倍（FP16 -> INT4）", with: "2-5%，大多数任务可接受" },
+        { aspect: "结构化剪枝", without: "移除 30-50% 的层/注意力头", with: "5-10%，需要微调恢复" },
+        { aspect: "LoRA 微调", without: "只训练 0.1-1% 参数量的适配器", with: "接近全量微调，通常 < 2%" },
+      ],
+    },
+    codeBlocks: [
+      {
+        language: "python",
+        label: "知识蒸馏训练循环",
+        code: `import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+class DistillationTrainer:
+    """知识蒸馏训练器：让学生模型模仿教师模型"""
+
+    def __init__(self, teacher, student, temperature=3.0, alpha=0.7):
+        self.teacher = teacher.eval()  # 教师模型冻结
+        self.student = student
+        self.temperature = temperature  # 蒸馏温度，越高软标签越平滑
+        self.alpha = alpha  # 蒸馏损失权重
+
+    def distillation_loss(self, student_logits, teacher_logits, true_labels):
+        """组合损失 = alpha * 蒸馏损失 + (1-alpha) * 标准损失"""
+        T = self.temperature
+
+        # 蒸馏损失：学生模仿教师的软概率分布
+        soft_student = F.log_softmax(student_logits / T, dim=-1)
+        soft_teacher = F.softmax(teacher_logits / T, dim=-1)
+        distill_loss = F.kl_div(soft_student, soft_teacher, reduction='batchmean') * (T * T)
+
+        # 标准交叉熵损失：学生也学习真实标签
+        hard_loss = F.cross_entropy(student_logits, true_labels)
+
+        # 加权组合
+        return self.alpha * distill_loss + (1 - self.alpha) * hard_loss
+
+    def train_step(self, batch):
+        inputs, labels = batch
+
+        # 教师推理（不计算梯度）
+        with torch.no_grad():
+            teacher_logits = self.teacher(inputs)
+
+        # 学生推理
+        student_logits = self.student(inputs)
+
+        # 计算蒸馏损失
+        loss = self.distillation_loss(student_logits, teacher_logits, labels)
+        return loss
+
+# 使用示例
+# teacher = load_large_model("gpt2-xl")    # 1.5B 参数
+# student = create_small_model("gpt2-sm")  # 124M 参数
+# trainer = DistillationTrainer(teacher, student, temperature=4.0)
+# 训练后学生模型可达到教师 90%+ 的性能，但推理快 10 倍`,
+      },
+    ],
+    insights: [
+      { icon: "🌡️", title: "蒸馏温度是关键超参数", body: "温度 T 控制软标签的信息量。T=1 时软标签接近硬标签（信息少）。T=5 时概率分布被'拉平'，让学生能看到教师在各个类别上的细微概率差异（更多信息）。经验规则：任务越简单用越低的温度（T=2-3），任务越复杂或类别越多用越高的温度（T=4-8），让学生学到更丰富的类间关系。" },
+      { icon: "🎯", title: "量化不是简单的四舍五入", body: "将 FP16 权重量化到 INT4 不是简单地把每个数字截断——那样会严重损害性能。GPTQ 和 AWQ 等方法通过数学优化找到最佳量化方案：哪些权重可以安全压缩，哪些对输出影响大需要保留精度。AWQ 的核心洞察是：只有约 1% 的'显著'权重对模型输出影响巨大，保护这些权重的精度就能在 INT4 下保持大部分性能。" },
+      { icon: "🔗", title: "LoRA 让微调成本降低 100 倍", body: "传统全量微调需要更新所有参数，对 7B 模型需要约 28GB 显存（梯度 + 优化器状态）。LoRA 冻结原模型，只在注意力层插入极小的低秩矩阵（秩 r=8-64），训练参数量降到 0.1-1%，显存需求降到 4-8GB。一张消费级 GPU 就能微调。且多个 LoRA 适配器可以共享基座模型，通过'热切换'服务不同任务。" },
+    ],
+    funFact: "Google 的 DistilBERT 是知识蒸馏的经典案例：从 BERT-base（110M 参数）蒸馏出的 DistilBERT 只有 66M 参数（缩小 40%），推理速度快 60%，但保留了原模型 97% 的语言理解能力。更令人惊叹的是，Meta 证明用 Llama 2 70B 作为教师蒸馏出的 7B 模型，在多项基准上超越了直接训练的 13B 模型。这说明'好的老师'比'更多的参数'更重要。",
+    quiz: [
+      {
+        question: "知识蒸馏中，学生模型为什么要学习教师的'软标签'（概率分布）而不是'硬标签'（类别）？",
+        options: ["软标签计算更快", "软标签包含了类间关系的丰富信息（如'85% 正面、12% 中性'比'正面'传达了更多知识），帮助学生用更少参数学到更多", "硬标签不准确", "软标签更容易存储"],
+        correct: 1,
+        explanation: "考虑一个情感分类任务：教师输出'正面 85%、中性 12%、负面 3%'告诉学生这条文本'偏正面但有一点中性色彩'。而硬标签'正面'只是一个类别标记，丢失了所有细微信息。这种丰富的信息让学生模型可以用远少的参数达到接近的性能——因为它从每个样本中学到了更多。这就是'dark knowledge'（暗知识）的概念。"
+      },
+      {
+        question: "INT4 量化可以将模型缩小到 FP16 的 1/4，为什么不总是使用 INT4？",
+        options: ["INT4 需要特殊硬件", "量化有性能损失——越低精度损失越大，对推理要求高的复杂任务（如数学推理、代码生成）可能无法接受 INT4 的 2-5% 性能下降", "INT4 是非法的", "INT4 比 FP16 慢"],
+        correct: 1,
+        explanation: "量化的核心权衡是大小 vs 质量。INT8 几乎无损（<1%），适合大多数场景。INT4 损失稍大（2-5%），对简单任务（分类、摘要）影响不明显，但对需要精确推理的任务（多步数学、复杂代码生成）可能产生可察觉的质量下降。选择策略：先用 INT4 部署，如果用户反馈质量不够再回退到 INT8。"
+      },
+      {
+        question: "LoRA 与传统全量微调相比，核心优势是什么？",
+        options: ["LoRA 让模型更准确", "LoRA 冻结原模型只训练极少量低秩适配器参数（0.1-1%），将微调的显存需求和计算成本降低约 100 倍", "LoRA 不需要训练数据", "LoRA 只适用于图像模型"],
+        correct: 1,
+        explanation: "全量微调 7B 模型需要更新 70 亿参数，梯度和优化器状态需要约 28GB 显存。LoRA 只在注意力层插入秩为 r 的小矩阵，可训练参数约 700 万（0.1%），显存需求降到 4-8GB。一张 RTX 4090（24GB）就够了。此外，一个基座模型可以加载不同 LoRA 适配器服务不同任务，实现'一模型多用途'的高效部署。"
+      },
+    ],
+  },
+
+  // ============================================================
+  // A23: 端侧 AI
+  // ============================================================
+  {
+    id: "on-device-ai",
+    chapterNum: "A23",
+    tag: "进阶篇",
+    tagColor: "amber" as const,
+    emoji: "📱",
+    title: "端侧 AI",
+    subtitle: "让 AI 模型在手机和边缘设备上奔跑",
+    mainDiagram: ADV_CDN.contextCompressionFunnel,
+    mainDiagramCaption: "端侧 AI 部署流程：从云端训练到边缘设备推理的优化管线",
+    auxImages: [],
+    paragraphs: [
+      "当你对 iPhone 说'嘿 Siri'，语音识别是在本地完成的——不需要联网。当 Google Photos 识别照片中的人脸，这也是在手机上运行的 AI 模型。端侧 AI（On-Device AI）将模型推理从云端搬到终端设备上运行，实现零延迟、强隐私、离线可用。随着手机芯片中 NPU（神经网络处理器）的性能提升，越来越多的 AI 能力正在'下沉'到设备端。",
+      "端侧部署面临的核心挑战是资源约束：手机只有 4-8GB 内存（且要与操作系统和其他 App 共享）、电池有限（AI 推理不能太耗电）、芯片算力有限（即使有 NPU，也远不及云端 GPU）。因此，端侧模型必须极致精简——通常控制在 100MB-500MB 以内（对比云端 LLM 动辄几十 GB）。这就需要前面学过的蒸馏、量化、剪枝等压缩技术的极致运用。",
+      "端侧 AI 的推理框架是关键基础设施。**ONNX Runtime**（微软）提供跨平台的统一推理接口——同一个模型可以在 Windows、Android、iOS 上运行。**CoreML**（苹果）针对 Apple 芯片深度优化，充分利用 Neural Engine 的并行计算能力。**TensorFlow Lite**（Google）是 Android 生态的标准选择，支持 GPU、NPU 加速委托。**MediaPipe**（Google）进一步封装了常见的 CV/NLP 任务为开箱即用的解决方案。",
+      "模型转换和优化是端侧部署的关键步骤。PyTorch 训练的模型不能直接在手机上运行——需要经过：1）导出为中间表示（ONNX 格式或 TorchScript）；2）应用端侧优化（算子融合、内存规划、量化）；3）转换为目标框架格式（.mlmodel、.tflite、.onnx）；4）在目标设备上做性能调优（选择最优的执行计划和内存分配策略）。每一步都可能引入精度损失，需要仔细验证。",
+      "端侧 AI 的前沿发展包括：Apple Intelligence 将 3B 参数的语言模型跑在 iPhone 上（通过极致量化和 Neural Engine 加速），Google 的 Gemini Nano 专为移动设备设计（1.8B/3.25B 参数），高通的 AI Engine 支持在骁龙芯片上运行超 10 亿参数的模型。未来趋势是'混合推理'——简单任务设备端处理，复杂任务上传云端，用户无感切换。",
+    ],
+    steps: [
+      { num: "01", title: "模型选择与压缩", desc: "选择适合端侧的轻量模型架构（如 MobileNet、EfficientNet），或从大模型蒸馏。应用 INT8/INT4 量化将模型压缩到目标大小（通常 < 500MB）。", icon: "🗜️" },
+      { num: "02", title: "格式转换", desc: "将 PyTorch/TensorFlow 模型导出为端侧框架支持的格式：CoreML (.mlmodel)、TFLite (.tflite)、ONNX (.onnx)。验证转换后精度不下降。", icon: "🔄" },
+      { num: "03", title: "硬件适配优化", desc: "针对目标设备的硬件特性优化：选择 CPU/GPU/NPU 执行路径、配置算子融合、优化内存分配、设置线程数。不同芯片的最优配置可能完全不同。", icon: "⚡" },
+      { num: "04", title: "集成与监控", desc: "将模型集成到 App 中，设置模型更新机制（OTA 下发新版本）、性能监控（推理耗时、内存占用、电池消耗）、以及降级策略（模型加载失败时的兜底方案）。", icon: "📲" },
+    ],
+    compareTable: {
+      title: "端侧推理框架对比",
+      headers: ["框架", "平台支持", "核心优势"] as [string, string, string],
+      rows: [
+        { aspect: "CoreML", without: "iOS/macOS 独占", with: "Apple Neural Engine 深度优化，性能最佳" },
+        { aspect: "TensorFlow Lite", without: "Android/iOS/嵌入式", with: "生态成熟，GPU/NPU delegate 支持好" },
+        { aspect: "ONNX Runtime", without: "全平台（Win/Mac/Linux/Mobile）", with: "一次导出到处运行，跨平台一致性" },
+        { aspect: "MediaPipe", without: "Android/iOS/Web", with: "开箱即用的 CV/NLP 解决方案" },
+        { aspect: "MNN (阿里)", without: "Android/iOS/嵌入式", with: "轻量高效，适合中国 Android 生态" },
+      ],
+    },
+    codeBlocks: [
+      {
+        language: "python",
+        label: "PyTorch 模型转换为端侧格式",
+        code: `import torch
+import coremltools as ct
+import onnx
+from onnxruntime.quantization import quantize_dynamic, QuantType
+
+# ============ 步骤 1: PyTorch -> ONNX ============
+model = torch.load("my_model.pt")
+model.eval()
+
+dummy_input = torch.randn(1, 3, 224, 224)  # 示例输入
+
+torch.onnx.export(
+    model,
+    dummy_input,
+    "model.onnx",
+    input_names=["image"],
+    output_names=["prediction"],
+    dynamic_axes={"image": {0: "batch_size"}},
+    opset_version=13,
+)
+print("ONNX 导出完成")
+
+# ============ 步骤 2: ONNX 动态量化 (INT8) ============
+quantize_dynamic(
+    "model.onnx",
+    "model_int8.onnx",
+    weight_type=QuantType.QInt8,
+)
+print("INT8 量化完成，模型体积约缩小 4 倍")
+
+# ============ 步骤 3: ONNX -> CoreML (iOS) ============
+onnx_model = onnx.load("model_int8.onnx")
+mlmodel = ct.converters.onnx.convert(
+    model=onnx_model,
+    minimum_ios_deployment_target="16",
+)
+mlmodel.save("MyModel.mlpackage")
+print("CoreML 转换完成，可部署到 iPhone/iPad")
+
+# ============ 步骤 4: 推理性能测试 ============
+import onnxruntime as ort
+import numpy as np
+import time
+
+session = ort.InferenceSession("model_int8.onnx")
+test_input = np.random.randn(1, 3, 224, 224).astype(np.float32)
+
+# 预热
+for _ in range(10):
+    session.run(None, {"image": test_input})
+
+# 测速
+start = time.time()
+for _ in range(100):
+    session.run(None, {"image": test_input})
+avg_ms = (time.time() - start) / 100 * 1000
+
+print(f"平均推理耗时: {avg_ms:.1f}ms")  # 目标: < 50ms`,
+      },
+    ],
+    insights: [
+      { icon: "🔋", title: "功耗是端侧 AI 的隐形杀手", body: "模型推理消耗的不只是计算资源，还有电池。在手机上持续运行 AI 推理（如实时视频分析），可能在 1-2 小时内耗尽电池。解决策略：1）只在需要时激活推理（如检测到人脸才启动识别）；2）利用 NPU 而非 CPU/GPU（NPU 能效比高 10 倍）；3）降低推理频率（不需要每帧都跑模型）；4）分级策略——简单检测用轻量模型，只有确认有目标时才调用重量级模型。" },
+      { icon: "🔄", title: "模型更新是端侧部署的持续挑战", body: "云端模型更新只需替换服务器上的文件。端侧模型更新则要考虑：用户何时下载新版本（Wi-Fi 环境下后台下载）？新旧模型如何切换（原子替换避免崩溃）？如果新模型有 bug 如何回滚？模型包大小如何控制（增量更新）？这些工程细节决定了端侧 AI 产品的长期可维护性。" },
+      { icon: "🤝", title: "混合推理是最优解", body: "纯端侧推理受限于设备算力，纯云端推理受限于网络和隐私。混合推理（Hybrid Inference）将两者结合：设备端运行轻量级模型做初步处理和筛选，只有需要深度分析的内容才上传云端。例如：手机端用小模型判断照片是否包含文字 -> 如果是，再上传到云端用 OCR 大模型识别内容。这样既保护了不含敏感内容的照片隐私，又获得了云端模型的高质量结果。" },
+    ],
+    funFact: "Apple 的 Neural Engine 每秒可以执行 17 万亿次运算（17 TOPS），但功耗只有约 8 瓦。作为对比，NVIDIA H100 GPU 的算力约 1000 TOPS，但功耗是 700 瓦。这意味着在能效比（每瓦算力）上，Apple 的专用 AI 芯片是通用 GPU 的约 3 倍。专用芯片之所以高效，是因为它们的电路结构专门为矩阵乘法和卷积运算优化，不浪费晶体管在通用计算上。",
+    quiz: [
+      {
+        question: "端侧 AI 相比云端 AI 的核心优势是什么？",
+        options: ["模型更大更准确", "零网络延迟、完全离线可用、数据不离开设备保护隐私", "部署成本更高", "只能处理图像任务"],
+        correct: 1,
+        explanation: "端侧 AI 的三大核心优势：1）零延迟——不需要网络往返，响应在毫秒级别；2）离线可用——飞机上、地铁里都能正常工作；3）强隐私——数据完全在本地处理，不上传到任何服务器。这使得端侧 AI 特别适合对延迟敏感（实时 AR）、隐私敏感（人脸识别）、或网络不稳定（IoT 设备）的场景。"
+      },
+      {
+        question: "为什么 PyTorch 训练的模型不能直接在手机上运行？",
+        options: ["PyTorch 不支持移动设备", "手机算力不够", "需要经过格式转换和优化（导出 ONNX -> 量化 -> 转换为端侧框架格式 -> 硬件适配），因为 PyTorch 的动态计算图和 Python 运行时不适合移动端", "需要付费授权"],
+        correct: 2,
+        explanation: "PyTorch 使用动态计算图和 Python 运行时，这在研究和训练时很灵活，但移动设备没有 Python 环境，也需要静态优化的执行计划来最大化硬件利用率。转换流程（PyTorch -> ONNX -> 量化 -> CoreML/TFLite）将模型固化为静态图、应用算子融合等优化、并转换为目标硬件可以直接执行的格式。每一步都是为了适配端侧的资源约束。"
+      },
+      {
+        question: "为什么 NPU（神经网络处理器）比 GPU 更适合端侧 AI 推理？",
+        options: ["NPU 更便宜", "NPU 的电路结构专门为 AI 运算（矩阵乘法、卷积）优化，能效比（每瓦算力）远高于通用 GPU", "NPU 支持更多模型格式", "NPU 是最新技术所以一定更好"],
+        correct: 1,
+        explanation: "GPU 是通用并行处理器，需要支持图形渲染、科学计算等多种任务，所以芯片上有大量通用逻辑。NPU 则只做 AI 推理需要的运算（矩阵乘法、激活函数等），每个晶体管都在做'有用的事'。结果是：同样的芯片面积和功耗下，NPU 的 AI 算力远超 GPU。在手机这种电池受限的设备上，高能效比意味着更长的续航和更低的发热。"
+      },
+    ],
+  },
+
+  // ============================================================
+  // A24: AI 评估框架
+  // ============================================================
+  {
+    id: "ai-eval-frameworks",
+    chapterNum: "A24",
+    tag: "进阶篇",
+    tagColor: "green" as const,
+    emoji: "📊",
+    title: "AI 评估框架",
+    subtitle: "如何科学地衡量 AI 系统的真实能力",
+    mainDiagram: ADV_CDN.toolPermissionFlow,
+    mainDiagramCaption: "AI 评估体系：从基准测试到生产监控的完整质量保障流程",
+    auxImages: [],
+    paragraphs: [
+      "如何判断一个 AI 模型'好不好'？准确率 95% 就是好模型吗？如果这 5% 的错误全部集中在高风险场景怎么办？AI 评估（Evaluation, 简称 Eval）是 AI 工程中最被低估但最重要的环节——没有好的评估，你就不知道模型是在进步还是在退步，更不知道它什么时候会在生产环境中翻车。",
+      "AI 评估分为三个层次：**基准测试（Benchmarks）**衡量模型的通用能力——MMLU 测试知识广度、HumanEval 测试代码能力、GSM8K 测试数学推理。但基准分数只能说明'模型很聪明'，不能说明'模型适合我的场景'。**任务特定评估**则针对你的实际应用设计测试用例——如果你做客服机器人，就要测试它能否正确理解各种投诉场景并给出合理回复。**人类评估**让真人评判模型输出的质量，是最权威但最昂贵的评估方式。",
+      "设计好的 Eval 是一门艺术。关键原则：1）评估数据必须与生产数据分布一致（否则评估结果没有参考价值）；2）要包含边界情况和对抗样本（模型在'正常'输入上表现好不代表能处理'刁钻'输入）；3）评估指标要与业务目标对齐（不是所有场景都追求准确率——有些场景召回率更重要，有些场景响应速度更重要）；4）评估要可重复和可自动化（每次模型更新都能快速跑完全部评估）。",
+      "**LLM-as-Judge**（用 LLM 评判 LLM）是 2024 年的重要趋势。对于开放性任务（如创意写作、对话质量），传统指标（BLEU、ROUGE）几乎无用。更好的方法是用一个强大的 LLM（如 GPT-4）作为裁判，给被评估模型的输出打分。研究表明 GPT-4 的评分与人类评审的一致性超过 80%，而成本只有人类评审的 1/100。但要注意 LLM-as-Judge 的偏见：它倾向于给更长的回答打高分、偏好自己生成风格的内容。",
+      "生产环境中的 AI 评估是一个持续过程，而非一次性事件。模型部署后需要持续监控：输出质量是否下降（数据漂移导致）、用户满意度如何变化、有没有出现新的失败模式。设置自动化报警：当评估分数低于阈值时自动通知团队。建立反馈闭环：收集用户的负面反馈 -> 分析失败原因 -> 补充评估用例 -> 改进模型 -> 重新评估。这种持续改进循环是 AI 系统长期可靠的关键。",
+    ],
+    steps: [
+      { num: "01", title: "评估集设计", desc: "基于生产数据采样 + 人工构造边界情况设计评估集。确保覆盖：典型场景、边界情况、对抗样本、长尾分布。标注黄金答案或评分标准。", icon: "📋" },
+      { num: "02", title: "指标选择", desc: "根据业务目标选择评估指标：准确率、F1、BLEU（文本相似度）、人类偏好胜率、任务完成率、响应延迟。不同场景权重不同。", icon: "📐" },
+      { num: "03", title: "自动化评估管线", desc: "搭建 CI/CD 集成的自动评估管线：每次模型更新自动触发评估 -> 生成报告 -> 与基线对比 -> 未通过则阻止部署。使用 LLM-as-Judge 降低开放性任务的评估成本。", icon: "🔄" },
+      { num: "04", title: "生产监控与反馈", desc: "部署后持续监控：用户满意度追踪、异常检测（输出质量突然下降）、A/B 测试（新旧模型对比）。将用户反馈转化为新的评估用例。", icon: "📡" },
+    ],
+    compareTable: {
+      title: "AI 评估方法对比",
+      headers: ["方法", "适用场景", "优缺点"] as [string, string, string],
+      rows: [
+        { aspect: "基准测试 (Benchmarks)", without: "模型通用能力对比", with: "标准化、可重复，但可能与实际应用脱节" },
+        { aspect: "任务特定评估", without: "特定业务场景的质量把控", with: "贴合需求，但设计和维护成本高" },
+        { aspect: "人类评估", without: "开放性任务（创意、对话）", with: "最权威，但昂贵且不可大规模" },
+        { aspect: "LLM-as-Judge", without: "大规模开放性任务评估", with: "成本低、速度快，但有系统性偏见" },
+        { aspect: "A/B 测试", without: "生产环境中对比模型版本", with: "直接衡量业务影响，但需要足够流量" },
+      ],
+    },
+    codeBlocks: [
+      {
+        language: "python",
+        label: "AI 评估框架示例",
+        code: `from dataclasses import dataclass
+from typing import Callable
+import json
+
+@dataclass
+class EvalCase:
+    """单个评估用例"""
+    input: str
+    expected: str  # 黄金答案（用于精确匹配）或评分标准（用于 LLM 判分）
+    category: str  # 用例类别（正常/边界/对抗）
+    weight: float = 1.0  # 权重（高风险场景权重更大）
+
+@dataclass
+class EvalResult:
+    score: float  # 0-1
+    passed: bool
+    details: str
+
+class AIEvalFramework:
+    """通用 AI 评估框架"""
+
+    def __init__(self, model_fn: Callable[[str], str], judge_fn: Callable = None):
+        self.model_fn = model_fn  # 被评估模型
+        self.judge_fn = judge_fn  # LLM-as-Judge 函数（可选）
+
+    def eval_exact_match(self, case: EvalCase) -> EvalResult:
+        """精确匹配评估"""
+        output = self.model_fn(case.input)
+        score = 1.0 if output.strip() == case.expected.strip() else 0.0
+        return EvalResult(score=score, passed=score >= 0.5, details=output)
+
+    def eval_llm_judge(self, case: EvalCase) -> EvalResult:
+        """LLM-as-Judge 评估"""
+        output = self.model_fn(case.input)
+        judge_prompt = f"""评分标准: {case.expected}
+模型输出: {output}
+请给出 1-5 分评分和理由。格式: {{"score": N, "reason": "..."}}"""
+
+        judgment = self.judge_fn(judge_prompt)
+        result = json.loads(judgment)
+        normalized_score = result["score"] / 5.0
+        return EvalResult(
+            score=normalized_score,
+            passed=normalized_score >= 0.6,
+            details=result["reason"]
+        )
+
+    def run_eval_suite(self, cases: list[EvalCase], method="exact") -> dict:
+        """运行完整评估套件"""
+        results = []
+        for case in cases:
+            if method == "exact":
+                result = self.eval_exact_match(case)
+            else:
+                result = self.eval_llm_judge(case)
+            results.append((case, result))
+
+        # 计算加权平均分
+        total_weight = sum(c.weight for c, _ in results)
+        weighted_score = sum(c.weight * r.score for c, r in results) / total_weight
+
+        # 按类别分析
+        categories = {}
+        for case, result in results:
+            if case.category not in categories:
+                categories[case.category] = []
+            categories[case.category].append(result.score)
+
+        return {
+            "overall_score": weighted_score,
+            "pass_rate": sum(1 for _, r in results if r.passed) / len(results),
+            "by_category": {k: sum(v)/len(v) for k, v in categories.items()},
+            "failures": [(c.input, r.details) for c, r in results if not r.passed],
+        }
+
+# 使用示例
+# evaluator = AIEvalFramework(model_fn=my_model, judge_fn=gpt4_judge)
+# report = evaluator.run_eval_suite(eval_cases, method="llm_judge")
+# if report["overall_score"] < 0.8:
+#     print("模型未通过评估，阻止部署")`,
+      },
+    ],
+    insights: [
+      { icon: "⚠️", title: "基准分数 ≠ 实际表现", body: "一个模型在 MMLU 上得分 90% 不代表它在你的客服场景中表现好。基准测试衡量的是通用智力，但实际应用需要的是特定技能。更危险的是'基准污染'：如果模型在训练时见过基准测试的题目（有意或无意），分数就失去了意义。始终用自己业务数据构建的评估集作为最终决策依据。" },
+      { icon: "🤖", title: "LLM-as-Judge 有系统性偏见", body: "GPT-4 做裁判时有几个已知偏见：1）长度偏见——更长的回答容易得高分；2）位置偏见——如果让它比较两个回答，先出现的容易被偏好；3）风格偏见——偏好与自己生成风格相似的内容。缓解方法：随机化呈现顺序、设置长度归一化、使用多个裁判模型投票、定期与人类评审校准。" },
+      { icon: "🔁", title: "评估是持续过程而非一次性事件", body: "模型部署后，数据分布会随时间变化（用户行为改变、新场景出现），导致模型性能悄悄下降（data drift）。必须建立持续评估机制：每周自动运行评估套件、监控线上指标变化、对用户负反馈自动分类分析。当评估分数低于阈值时触发警报和模型更新流程。" },
+    ],
+    funFact: "OpenAI 在发布 GPT-4 时公布了它在各种考试上的成绩：律师资格考试排名前 10%、SAT 数学满分 800、生物奥赛前 1%。但这些'考试分数'真的代表 AI 的能力吗？后来研究发现，如果把同样的考试题目改变表述方式（保持语义不变但换种说法），GPT-4 的正确率会下降 10-20%。这说明模型在某种程度上是在'背题'（记忆训练数据中的类似题目）而非真正理解。这也是为什么自定义评估集比公开基准更有参考价值。",
+    quiz: [
+      {
+        question: "为什么基准测试（如 MMLU）的分数不能直接代表模型在实际应用中的表现？",
+        options: ["基准测试太简单", "基准测试衡量的是通用能力，而实际应用需要特定场景的技能；且存在基准污染（模型可能在训练中见过测试题）的风险", "基准测试是英文的", "基准测试已经过时"],
+        correct: 1,
+        explanation: "基准测试像是'入学考试'——能证明模型'聪明'，但不能证明它能胜任你的'工作'。MMLU 分数高说明模型知识面广，但你的客服场景可能需要的是对特定产品知识的精确掌握和情绪化用户的安抚能力。此外，基准测试的题目如果出现在训练数据中（互联网公开可获取），模型可能只是'记住了答案'而非'理解了问题'。"
+      },
+      {
+        question: "LLM-as-Judge 方法的核心优势和主要风险是什么？",
+        options: ["优势是免费，风险是不准", "优势是成本低（人类评审的 1/100）且可大规模自动化；风险是存在系统性偏见（长度偏见、位置偏见、风格偏见）", "优势是最准确，风险是太慢", "优势是不需要评估数据，风险是需要互联网"],
+        correct: 1,
+        explanation: "人类评审每条 $1-5、耗时数天，LLM-as-Judge 每条 < $0.01、秒级完成，这使得大规模评估成为可能。但 LLM 裁判有系统性偏见：倾向给长回答打高分（即使内容冗余）、对先出现的选项有偏好、偏爱与自己风格相似的文本。最佳实践是：用 LLM-as-Judge 做大规模筛选，对关键决策点辅以少量人类评审校准。"
+      },
+      {
+        question: "AI 评估框架中，为什么'边界情况和对抗样本'如此重要？",
+        options: ["让评估看起来更全面", "模型在'正常'输入上表现好不代表能处理'刁钻'输入——而生产环境中用户行为不可预测，边界情况正是模型最容易出错的地方", "对抗样本更容易生成", "边界情况占大多数用户请求"],
+        correct: 1,
+        explanation: "模型在标准测试集上 95% 的准确率很好看，但如果那 5% 的错误全部集中在高风险场景（如用户发怒时给出不当回复、输入包含 SQL 注入时泄露数据），后果可能是灾难性的。边界情况评估确保模型在各种意外输入下仍能安全运行。这就像测试汽车安全性——不只测试正常路况，还要测试紧急刹车、侧面碰撞、恶劣天气等极端情况。"
+      },
+    ],
+  },
+
 ];
