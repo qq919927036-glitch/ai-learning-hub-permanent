@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { deepBasicSections } from "@/lib/deepBasicContent";
 import { deepAdvancedSections, deepAdvancedSectionsExtra } from "@/lib/deepAdvancedContent";
+import { practiceSection } from "@/lib/practiceContent";
 
 const allAdvancedSectionsForMap = [...deepAdvancedSections, ...deepAdvancedSectionsExtra];
 
@@ -196,7 +197,7 @@ export default function KnowledgeMap() {
               lineHeight: 1.8,
             }}
           >
-            从「LLM 是什么」到「上手实践」，33 个基础概念 + 20 个进阶模块 + 10 个实战工具，
+            从「LLM 是什么」到「上手实践」，{deepBasicSections.length} 个基础概念 + {allAdvancedSectionsForMap.length} 个进阶模块 + {practiceSection.tools.length} 个实战工具，
             循序渐进地掌握 AI Agent 的完整知识体系
           </p>
         </div>
@@ -206,13 +207,13 @@ export default function KnowledgeMap() {
           <CardGroup
             items={deepBasicSections}
             color="teal"
-            label="基础篇 · 33 个概念"
+            label={`基础篇 · ${deepBasicSections.length} 个概念`}
             targetSection="basics"
           />
           <CardGroup
             items={allAdvancedSectionsForMap}
             color="amber"
-            label="进阶篇 · 20 个模块"
+            label={`进阶篇 · ${allAdvancedSectionsForMap.length} 个模块`}
             targetSection="advanced"
           />
           {/* Practice section card */}
@@ -227,7 +228,7 @@ export default function KnowledgeMap() {
                   letterSpacing: "0.08em",
                 }}
               >
-                实践篇 · 10 个工具
+                {`实践篇 · ${practiceSection.tools.length} 个工具`}
               </span>
             </div>
             <button

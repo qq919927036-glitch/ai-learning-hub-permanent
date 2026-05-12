@@ -2,6 +2,9 @@
 // Dark text on light parchment background
 import { useEffect, useRef } from "react";
 import { CDN } from "@/lib/content";
+import { deepBasicSections } from "@/lib/deepBasicContent";
+import { deepAdvancedSections, deepAdvancedSectionsExtra } from "@/lib/deepAdvancedContent";
+import { practiceSection } from "@/lib/practiceContent";
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -111,9 +114,9 @@ export default function HeroSection() {
             {/* Stats row */}
             <div className="flex items-center gap-8 mb-10">
               {[
-                { num: "33", label: "基础概念" },
-                { num: "20", label: "进阶模块" },
-                { num: "10", label: "实战工具" },
+                { num: String(deepBasicSections.length), label: "基础概念" },
+                { num: String(deepAdvancedSections.length + deepAdvancedSectionsExtra.length), label: "进阶模块" },
+                { num: String(practiceSection.tools.length), label: "实战工具" },
                 { num: "120+", label: "知识卡片" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">

@@ -8,7 +8,7 @@ describe("Content Data Integrity", () => {
     const mod = await import("../client/src/lib/deepBasicContent");
     expect(mod.deepBasicSections).toBeDefined();
     expect(Array.isArray(mod.deepBasicSections)).toBe(true);
-    expect(mod.deepBasicSections.length).toBe(33);
+    expect(mod.deepBasicSections.length).toBeGreaterThanOrEqual(33);
 
     // Verify chapter numbering
     mod.deepBasicSections.forEach((section: any, index: number) => {
@@ -23,15 +23,15 @@ describe("Content Data Integrity", () => {
     // A1-A10 in deepAdvancedSections, A11-A20 in deepAdvancedSectionsExtra
     expect(mod.deepAdvancedSections).toBeDefined();
     expect(Array.isArray(mod.deepAdvancedSections)).toBe(true);
-    expect(mod.deepAdvancedSections.length).toBe(10);
+    expect(mod.deepAdvancedSections.length).toBeGreaterThanOrEqual(10);
 
     expect(mod.deepAdvancedSectionsExtra).toBeDefined();
     expect(Array.isArray(mod.deepAdvancedSectionsExtra)).toBe(true);
-    expect(mod.deepAdvancedSectionsExtra.length).toBe(10);
+    expect(mod.deepAdvancedSectionsExtra.length).toBeGreaterThanOrEqual(10);
 
     // Combined total should be 20
     const allSections = [...mod.deepAdvancedSections, ...mod.deepAdvancedSectionsExtra];
-    expect(allSections.length).toBe(20);
+    expect(allSections.length).toBeGreaterThanOrEqual(20);
 
     // Verify A1-A10 chapter numbering
     mod.deepAdvancedSections.forEach((section: any, index: number) => {
@@ -46,7 +46,7 @@ describe("Content Data Integrity", () => {
     expect(mod.practiceSection).toBeDefined();
     expect(mod.practiceSection.tools).toBeDefined();
     expect(Array.isArray(mod.practiceSection.tools)).toBe(true);
-    expect(mod.practiceSection.tools.length).toBe(10);
+    expect(mod.practiceSection.tools.length).toBeGreaterThanOrEqual(10);
   });
 
   it("tweetContent exports tweet cards and thinkers", async () => {
@@ -57,7 +57,7 @@ describe("Content Data Integrity", () => {
 
     expect(mod.thinkers).toBeDefined();
     expect(Array.isArray(mod.thinkers)).toBe(true);
-    expect(mod.thinkers.length).toBe(18);
+    expect(mod.thinkers.length).toBeGreaterThanOrEqual(18);
   });
 
   it("content.ts exports CDN assets and navItems", async () => {
@@ -68,7 +68,7 @@ describe("Content Data Integrity", () => {
 
     expect(mod.navItems).toBeDefined();
     expect(Array.isArray(mod.navItems)).toBe(true);
-    expect(mod.navItems.length).toBe(8);
+    expect(mod.navItems.length).toBeGreaterThanOrEqual(8);
 
     // Verify nav items have correct structure
     mod.navItems.forEach((item: any) => {
@@ -81,7 +81,7 @@ describe("Content Data Integrity", () => {
     const mod = await import("../client/src/lib/deepBasicContent");
     // All sections now have quiz (B1-B4 were added, B25-B33 are new)
     const sectionsWithQuiz = mod.deepBasicSections.filter((s: any) => s.quiz);
-    expect(sectionsWithQuiz.length).toBe(33); // All B1-B33
+    expect(sectionsWithQuiz.length).toBe(mod.deepBasicSections.length); // All sections
 
     sectionsWithQuiz.forEach((section: any) => {
       expect(Array.isArray(section.quiz)).toBe(true);

@@ -182,13 +182,4 @@ export const timelineEvents: TimelineEvent[] = [
     category: "model",
     icon: "🚀",
   },
-  {
-    year: "2025",
-    month: "Jun",
-    title: "Claude 4 Opus 与 GPT-4.5",
-    description:
-      "Anthropic 发布 Claude 4 Opus，OpenAI 推出 GPT-4.5，前沿模型进入「深度推理」时代。",
-    category: "model",
-    icon: "✨",
-  },
 ];
