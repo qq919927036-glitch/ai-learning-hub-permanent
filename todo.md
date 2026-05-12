@@ -119,3 +119,17 @@
 - [x] 集成到 Home.tsx（KnowledgeMap 后、基础篇前）
 - [x] 导航栏添加测验入口
 - [x] HeroSection 添加测验统计预览
+
+## SVG 信息图 + 图片画廊 + 图文混排
+- [x] TransformerArchitecture SVG 信息图组件
+- [x] RAGPipeline SVG 信息图组件
+- [x] AgentArchitecture SVG 信息图组件
+- [x] LLMComparison SVG 信息图组件
+- [x] AITimeline SVG 信息图组件
+- [x] TokenVisualization SVG 信息图组件
+- [x] ImageGallery 图片画廊组件（网格布局、Lightbox、键盘导航、懒加载）
+- [x] IllustratedSection 图文混排布局组件（四种布局变体）
+- [x] InfographicShowcase 概念图解展示区
+- [x] 首页集成概念图解板块
+- [x] 导航栏添加"图解"入口
+- [x] 构建验证通过

@@ -316,6 +316,7 @@ export const advancedSections: AdvancedSection[] = [
 export const navItems = [
   { label: "首页", href: "#hero" },
   { label: "测验", href: "#quiz-mode" },
+  { label: "图解", href: "#infographics" },
   { label: "基础篇", href: "#basics" },
   { label: "进阶篇", href: "#advanced" },
   { label: "实践篇", href: "#practice" },

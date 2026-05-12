@@ -23,6 +23,7 @@ const MythsFacts = lazy(() => import("@/components/MythsFacts"));
 const ToolComparator = lazy(() => import("@/components/ToolComparator"));
 const KnowledgeDependency = lazy(() => import("@/components/KnowledgeDependency"));
 const QuizMode = lazy(() => import("@/components/QuizMode"));
+const InfographicShowcase = lazy(() => import("@/components/InfographicShowcase"));
 
 function SectionLoader() {
   return (
@@ -122,6 +123,17 @@ export default function Home() {
       />
       <Suspense fallback={<SectionLoader />}>
         <QuizMode />
+      </Suspense>
+
+      {/* ===== 概念图解 ===== */}
+      <SectionDivider
+        id="infographics"
+        label="概念图解 · INFOGRAPHICS"
+        subtitle="用精美的可视化图解，直观理解核心 AI 概念"
+        color="teal"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <InfographicShowcase />
       </Suspense>
 
       {/* ===== 基础篇 ===== */}
