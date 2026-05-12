@@ -88,3 +88,13 @@
 - [x] 测试断言改为灵活断言（不再硬编码数量）
 - [ ] 术语表 Glossary 新板块
 - [x] 阅读进度追踪
+
+## 第四批功能扩充（8项任务）
+- [x] 任务一：进阶/实践篇接入阅读进度（DeepAdvancedSection + PracticeSection 添加已读标记）
+- [x] 任务二：暗色模式（主题切换按钮、CSS变量、localStorage持久化）
+- [x] 任务三：移动端响应式检查与修复（Timeline/Glossary/LearningPath/ProgressBar）
+- [x] 任务四：基础篇 B34-B38（AI搜索引擎、本地部署、AI音频、AI视频、AI编程助手）
+- [x] 任务五：进阶篇 A21-A24（合成数据、模型蒸馏、端侧AI、AI评估框架）
+- [x] 任务六：常见误区 Myths vs Facts 新板块
+- [x] 任务七：AI 工具对比器新板块
+- [x] 任务八：章节间知识依赖图新板块

@@ -68,7 +68,7 @@ describe("Content Data Integrity", () => {
 
     expect(mod.navItems).toBeDefined();
     expect(Array.isArray(mod.navItems)).toBe(true);
-    expect(mod.navItems.length).toBeGreaterThanOrEqual(8);
+    expect(mod.navItems.length).toBeGreaterThanOrEqual(11);
 
     // Verify nav items have correct structure
     mod.navItems.forEach((item: any) => {
@@ -138,5 +138,40 @@ describe("Content Data Integrity", () => {
     expect(categories.has("技术术语")).toBe(true);
     expect(categories.has("应用概念")).toBe(true);
     expect(categories.has("商业/生态")).toBe(true);
+  });
+
+  it("mythsContent exports at least 12 myths with valid structure", async () => {
+    const mod = await import("../client/src/lib/mythsContent");
+    expect(mod.mythsData).toBeDefined();
+    expect(Array.isArray(mod.mythsData)).toBe(true);
+    expect(mod.mythsData.length).toBeGreaterThanOrEqual(12);
+
+    const categories = new Set<string>();
+    mod.mythsData.forEach((myth: any) => {
+      expect(myth.id).toBeTruthy();
+      expect(myth.myth).toBeTruthy();
+      expect(myth.fact).toBeTruthy();
+      expect(myth.explanation).toBeTruthy();
+      expect(["capability", "technical", "social"]).toContain(myth.category);
+      categories.add(myth.category);
+    });
+
+    // All 3 categories should be represented
+    expect(categories.size).toBe(3);
+  });
+
+  it("dependencyContent exports valid graph with nodes and edges", async () => {
+    const mod = await import("../client/src/lib/dependencyContent");
+    expect(mod.dependencyGraph).toBeDefined();
+    expect(mod.dependencyGraph.nodes).toBeDefined();
+    expect(mod.dependencyGraph.edges).toBeDefined();
+    expect(mod.dependencyGraph.nodes.length).toBeGreaterThanOrEqual(15);
+    expect(mod.dependencyGraph.edges.length).toBeGreaterThanOrEqual(15);
+
+    const nodeIds = new Set(mod.dependencyGraph.nodes.map((n: any) => n.id));
+    mod.dependencyGraph.edges.forEach((edge: any) => {
+      expect(nodeIds.has(edge.from)).toBe(true);
+      expect(nodeIds.has(edge.to)).toBe(true);
+    });
   });
 });

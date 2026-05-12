@@ -19,6 +19,9 @@ const TweetWall = lazy(() => import("@/components/TweetWall"));
 const Timeline = lazy(() => import("@/components/Timeline"));
 const LearningPath = lazy(() => import("@/components/LearningPath"));
 const Glossary = lazy(() => import("@/components/Glossary"));
+const MythsFacts = lazy(() => import("@/components/MythsFacts"));
+const ToolComparator = lazy(() => import("@/components/ToolComparator"));
+const KnowledgeDependency = lazy(() => import("@/components/KnowledgeDependency"));
 
 function SectionLoader() {
   return (
@@ -154,6 +157,17 @@ export default function Home() {
         />
       </Suspense>
 
+      {/* ===== 工具对比 ===== */}
+      <SectionDivider
+        id="tool-comparator-divider"
+        label="工具对比 · TOOL COMPARATOR"
+        subtitle="选择 2-3 个 AI 工具进行横向对比，找到最适合你的选择"
+        color="teal"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <ToolComparator />
+      </Suspense>
+
       {/* ===== 大佬说 ===== */}
       <Suspense fallback={<SectionLoader />}>
         <TweetWall />
@@ -181,6 +195,17 @@ export default function Home() {
         <LearningPath />
       </Suspense>
 
+      {/* ===== 知识依赖 ===== */}
+      <SectionDivider
+        id="dependency-graph-divider"
+        label="知识依赖 · KNOWLEDGE DEPENDENCIES"
+        subtitle="章节间的前置知识关系，帮你找到最优学习路径"
+        color="amber"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <KnowledgeDependency />
+      </Suspense>
+
       {/* ===== 术语表 ===== */}
       <SectionDivider
         id="glossary-divider"
@@ -190,6 +215,17 @@ export default function Home() {
       />
       <Suspense fallback={<SectionLoader />}>
         <Glossary />
+      </Suspense>
+
+      {/* ===== 误区纠正 ===== */}
+      <SectionDivider
+        id="myths-divider"
+        label="误区纠正 · MYTHS vs FACTS"
+        subtitle="那些广为流传但并不准确的 AI 认知，让我们用事实说话"
+        color="amber"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <MythsFacts />
       </Suspense>
 
       <Footer />
