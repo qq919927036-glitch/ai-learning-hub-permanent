@@ -16,6 +16,7 @@ const PracticeSection = lazy(() => import("@/components/PracticeSection"));
 const TweetWall = lazy(() => import("@/components/TweetWall"));
 const Timeline = lazy(() => import("@/components/Timeline"));
 const LearningPath = lazy(() => import("@/components/LearningPath"));
+const Glossary = lazy(() => import("@/components/Glossary"));
 
 function SectionLoader() {
   return (
@@ -153,6 +154,17 @@ export default function Home() {
       />
       <Suspense fallback={<SectionLoader />}>
         <LearningPath />
+      </Suspense>
+
+      {/* ===== 术语表 ===== */}
+      <SectionDivider
+        id="glossary-divider"
+        label="术语表 · GLOSSARY"
+        subtitle="AI 领域常用术语速查，从基础概念到前沿技术一网打尽"
+        color="teal"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <Glossary />
       </Suspense>
 
       <Footer />

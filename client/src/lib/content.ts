@@ -321,5 +321,6 @@ export const navItems = [
   { label: "Agent 知识库", href: "#tweet-wall" },
   { label: "里程碑", href: "#timeline" },
   { label: "学习路径", href: "#learning-path" },
+  { label: "术语表", href: "#glossary" },
   { label: "知识地图", href: "#knowledge-map" },
 ];

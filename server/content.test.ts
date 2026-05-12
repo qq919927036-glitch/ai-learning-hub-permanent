@@ -114,4 +114,29 @@ describe("Content Data Integrity", () => {
       expect(url).toMatch(/^https:\/\//);
     });
   });
+
+  it("glossaryContent exports at least 30 terms with valid structure", async () => {
+    const mod = await import("../client/src/lib/glossaryContent");
+    expect(mod.glossaryTerms).toBeDefined();
+    expect(Array.isArray(mod.glossaryTerms)).toBe(true);
+    expect(mod.glossaryTerms.length).toBeGreaterThanOrEqual(30);
+
+    const categories = new Set<string>();
+    mod.glossaryTerms.forEach((term: any) => {
+      expect(term.id).toBeTruthy();
+      expect(term.term).toBeTruthy();
+      expect(term.termEn).toBeTruthy();
+      expect(term.definition).toBeTruthy();
+      expect(term.example).toBeTruthy();
+      expect(term.category).toBeTruthy();
+      categories.add(term.category);
+    });
+
+    // All 4 categories should be represented
+    expect(categories.size).toBe(4);
+    expect(categories.has("基础概念")).toBe(true);
+    expect(categories.has("技术术语")).toBe(true);
+    expect(categories.has("应用概念")).toBe(true);
+    expect(categories.has("商业/生态")).toBe(true);
+  });
 });
