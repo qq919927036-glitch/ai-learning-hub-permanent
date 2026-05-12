@@ -7,6 +7,8 @@ import DeepBasicSection from "@/components/DeepBasicSection";
 import Footer from "@/components/Footer";
 import TableOfContents from "@/components/TableOfContents";
 import KnowledgeMap from "@/components/KnowledgeMap";
+import ProgressBar from "@/components/ProgressBar";
+import { useReadingProgress } from "@/hooks/useReadingProgress";
 
 import { deepBasicSections } from "@/lib/deepBasicContent";
 
@@ -86,10 +88,25 @@ function SectionDivider({
 }
 
 export default function Home() {
+  const { markAsRead, isRead, getStats, lastRead } = useReadingProgress();
+  const stats = getStats();
+  const hasProgress = stats.basic.read + stats.advanced.read + stats.practice.read > 0;
+
   return (
     <div className="min-h-screen" style={{ background: "#FAFAF7" }}>
       <Navbar />
       <HeroSection />
+      <ProgressBar
+        stats={stats}
+        lastRead={lastRead}
+        onContinueReading={() => {
+          if (lastRead) {
+            const el = document.getElementById(lastRead.id);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }
+        }}
+        visible={hasProgress}
+      />
       <KnowledgeMap />
 
       {/* ===== 基础篇 ===== */}
@@ -104,6 +121,8 @@ export default function Home() {
           key={section.id}
           data={section}
           isAlt={index % 2 === 1}
+          isRead={isRead("basic", section.id)}
+          onMarkRead={(id) => markAsRead("basic", id)}
         />
       ))}
 
