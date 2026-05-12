@@ -105,3 +105,10 @@
 - [x] 创建 client/public/404.html（SPA 路由回退）
 - [x] index.html 添加 sessionStorage 重定向恢复脚本
 - [x] package.json 添加 build:static 脚本（仅 vite 构建）
+
+## 全站搜索功能
+- [x] 创建 useSearch hook（搜索索引 + 实时过滤）
+- [x] 创建 SearchDialog 组件（模态搜索框 + 分类结果 + 高亮匹配）
+- [x] App.tsx 添加 Cmd+K / Ctrl+K 全局快捷键
+- [x] Navbar 添加搜索按钮 + 快捷键提示
+- [x] 支持中英文搜索、暗色模式、ESC 关闭、点击跳转

@@ -2,7 +2,7 @@
 // Playfair Display for brand name, DM Mono for nav items
 import { useState, useEffect } from "react";
 import { navItems } from "@/lib/content";
-import { Sun, Moon } from "lucide-react";
+import { Sun, Moon, Search } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -123,8 +123,33 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Theme Toggle + Mobile Menu */}
+        {/* Theme Toggle + Search + Mobile Menu */}
         <div className="flex items-center gap-2">
+          {/* Search Button */}
+          <button
+            onClick={() => window.dispatchEvent(new Event("open-search"))}
+            className="p-2 rounded-md transition-colors flex items-center gap-1.5"
+            style={{
+              color: "var(--hub-text-muted)",
+              background: "transparent",
+            }}
+            aria-label="Search"
+            title="Search (Ctrl+K)"
+          >
+            <Search className="w-4 h-4" />
+            <kbd
+              className="hidden md:inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-mono"
+              style={{
+                border: "1px solid var(--hub-card-border)",
+                color: "var(--hub-text-muted)",
+                fontSize: "10px",
+                lineHeight: "1",
+              }}
+            >
+              ⌘K
+            </kbd>
+          </button>
+
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
