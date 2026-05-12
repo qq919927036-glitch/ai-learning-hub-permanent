@@ -315,9 +315,16 @@ export const advancedSections: AdvancedSection[] = [
 // ===== Navigation =====
 export const navItems = [
   { label: "首页", href: "#hero" },
+  { label: "测验", href: "#quiz-mode" },
   { label: "基础篇", href: "#basics" },
   { label: "进阶篇", href: "#advanced" },
   { label: "实践篇", href: "#practice" },
+  { label: "工具对比", href: "#tool-comparator" },
   { label: "Agent 知识库", href: "#tweet-wall" },
+  { label: "里程碑", href: "#timeline" },
+  { label: "学习路径", href: "#learning-path" },
+  { label: "知识依赖", href: "#dependency-graph" },
+  { label: "术语表", href: "#glossary" },
+  { label: "误区纠正", href: "#myths" },
   { label: "知识地图", href: "#knowledge-map" },
 ];

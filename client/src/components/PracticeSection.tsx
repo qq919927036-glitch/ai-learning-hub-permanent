@@ -112,7 +112,7 @@ function ScenarioAccordion({ scenario, index }: { scenario: ToolCard["realScenar
   );
 }
 
-function ToolDetailCard({ tool, isActive, onClick }: { tool: ToolCard; isActive: boolean; onClick: () => void }) {
+function ToolDetailCard({ tool, isActive, onClick, isToolRead, onMarkToolRead }: { tool: ToolCard; isActive: boolean; onClick: () => void; isToolRead?: boolean; onMarkToolRead?: () => void }) {
   const colors = colorMap[tool.color] || colorMap.emerald;
   return (
     <motion.div
@@ -128,7 +128,29 @@ function ToolDetailCard({ tool, isActive, onClick }: { tool: ToolCard; isActive:
           <div className="flex items-center gap-3">
             <span className="text-3xl">{tool.emoji}</span>
             <div>
-              <h3 className="font-bold text-stone-900 text-lg leading-tight">{tool.name}</h3>
+              <div className="flex items-center gap-2">
+                <h3 className="font-bold text-stone-900 text-lg leading-tight">{tool.name}</h3>
+                {isToolRead && (
+                  <span
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      width: "22px",
+                      height: "22px",
+                      borderRadius: "50%",
+                      background: "var(--hub-teal-text)",
+                      color: "var(--hub-bg)",
+                      fontSize: "0.7rem",
+                      fontWeight: 700,
+                      flexShrink: 0,
+                    }}
+                    title="已读"
+                  >
+                    ✓
+                  </span>
+                )}
+              </div>
               <p className={`text-sm font-medium ${colors.text}`}>{tool.tagline}</p>
             </div>
           </div>
@@ -231,6 +253,37 @@ function ToolDetailCard({ tool, isActive, onClick }: { tool: ToolCard; isActive:
                   <ExternalLink className="w-4 h-4" />
                   访问官网
                 </a>
+
+                {/* Mark as read button */}
+                {onMarkToolRead && (
+                  <div style={{ marginTop: "16px" }}>
+                    <button
+                      onClick={(e) => { e.stopPropagation(); onMarkToolRead(); }}
+                      disabled={isToolRead}
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        gap: "6px",
+                        fontFamily: "'DM Mono', monospace",
+                        fontSize: "0.75rem",
+                        padding: "8px 14px",
+                        borderRadius: "4px",
+                        border: isToolRead
+                          ? "1px solid var(--hub-teal-text)"
+                          : "1px solid rgba(26, 61, 43, 0.15)",
+                        background: isToolRead
+                          ? "rgba(42, 157, 143, 0.08)"
+                          : "rgba(26, 61, 43, 0.03)",
+                        color: isToolRead ? "var(--hub-teal-text)" : "var(--hub-text-muted)",
+                        cursor: isToolRead ? "default" : "pointer",
+                        transition: "all 0.2s",
+                      }}
+                    >
+                      <span style={{ fontSize: "0.85rem" }}>{isToolRead ? "✓" : "○"}</span>
+                      {isToolRead ? "已读" : "标记已读"}
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </motion.div>
@@ -240,12 +293,17 @@ function ToolDetailCard({ tool, isActive, onClick }: { tool: ToolCard; isActive:
   );
 }
 
-export default function PracticeSection() {
+interface PracticeSectionProps {
+  isRead?: (toolName: string) => boolean;
+  onMarkRead?: (toolName: string) => void;
+}
+
+export default function PracticeSection({ isRead, onMarkRead }: PracticeSectionProps) {
   const [activeToolIndex, setActiveToolIndex] = useState<number | null>(0);
   const { tools, comparisonTable, howToChoose } = practiceSection;
 
   return (
-    <section id="practice" className="py-20 bg-[#FAFAF7]">
+    <section id="practice" className="py-20" style={{ background: "var(--hub-bg)" }}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-14">
@@ -277,6 +335,8 @@ export default function PracticeSection() {
               tool={tool}
               isActive={activeToolIndex === index}
               onClick={() => setActiveToolIndex(activeToolIndex === index ? null : index)}
+              isToolRead={isRead ? isRead(tool.name) : false}
+              onMarkToolRead={onMarkRead ? () => onMarkRead(tool.name) : undefined}
             />
           ))}
         </div>

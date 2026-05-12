@@ -95,6 +95,77 @@
   --sidebar-accent-foreground: oklch(0.15 0.02 140);
   --sidebar-border: oklch(0.88 0.01 90);
   --sidebar-ring: oklch(0.28 0.08 145);
+
+  /* Dark mode custom properties - light defaults */
+  --hub-bg: #FAFAF7;
+  --hub-bg-alt: #F2F0EB;
+  --hub-text: #1C1C1A;
+  --hub-text-muted: #4A4A45;
+  --hub-text-light: #6B7280;
+  --hub-card-bg: #FFFFFF;
+  --hub-card-border: rgba(26, 61, 43, 0.1);
+  --hub-forest: #1A3D2B;
+  --hub-forest-mid: #2D5A3D;
+  --hub-teal: #4ECDC4;
+  --hub-teal-text: #2A9D8F;
+  --hub-amber: #D4A017;
+  --hub-amber-text: #B8860B;
+  --hub-nav-bg: rgba(250, 250, 247, 0.95);
+  --hub-nav-bg-blur: rgba(250, 250, 247, 0.7);
+  --hub-nav-border: rgba(26, 61, 43, 0.12);
+}
+
+.dark {
+  --background: oklch(0.16 0.015 260);
+  --foreground: oklch(0.9 0.01 90);
+  --card: oklch(0.2 0.015 260);
+  --card-foreground: oklch(0.9 0.01 90);
+  --popover: oklch(0.2 0.015 260);
+  --popover-foreground: oklch(0.9 0.01 90);
+  --primary: oklch(0.6 0.1 160);
+  --primary-foreground: oklch(0.98 0.003 90);
+  --secondary: oklch(0.22 0.012 260);
+  --secondary-foreground: oklch(0.85 0.01 90);
+  --muted: oklch(0.22 0.012 260);
+  --muted-foreground: oklch(0.65 0.01 90);
+  --accent: oklch(0.7 0.12 80);
+  --accent-foreground: oklch(0.15 0.02 140);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.28 0.015 260);
+  --input: oklch(0.28 0.015 260);
+  --ring: oklch(0.6 0.1 160);
+  --chart-1: oklch(0.6 0.1 160);
+  --chart-2: oklch(0.7 0.12 80);
+  --chart-3: oklch(0.55 0.1 160);
+  --chart-4: oklch(0.75 0.08 80);
+  --chart-5: oklch(0.45 0.06 160);
+  --sidebar: oklch(0.18 0.015 260);
+  --sidebar-foreground: oklch(0.9 0.01 90);
+  --sidebar-primary: oklch(0.6 0.1 160);
+  --sidebar-primary-foreground: oklch(0.98 0.003 90);
+  --sidebar-accent: oklch(0.22 0.012 260);
+  --sidebar-accent-foreground: oklch(0.9 0.01 90);
+  --sidebar-border: oklch(0.28 0.015 260);
+  --sidebar-ring: oklch(0.6 0.1 160);
+
+  /* Dark mode custom properties */
+  --hub-bg: #0f1419;
+  --hub-bg-alt: #1a1f2e;
+  --hub-text: #e8e6e3;
+  --hub-text-muted: #a8a29e;
+  --hub-text-light: #78716c;
+  --hub-card-bg: #1c2333;
+  --hub-card-border: rgba(255, 255, 255, 0.1);
+  --hub-forest: #4ade80;
+  --hub-forest-mid: #86efac;
+  --hub-teal: #5eead4;
+  --hub-teal-text: #5eead4;
+  --hub-amber: #fbbf24;
+  --hub-amber-text: #fbbf24;
+  --hub-nav-bg: rgba(15, 20, 25, 0.95);
+  --hub-nav-bg-blur: rgba(15, 20, 25, 0.7);
+  --hub-nav-border: rgba(255, 255, 255, 0.08);
 }
 
 @layer base {
@@ -104,8 +175,8 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Lora', Georgia, serif;
-    background-color: #FAFAF7;
-    color: #1C1C1A;
+    background-color: var(--hub-bg);
+    color: var(--hub-text);
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', Georgia, serif;

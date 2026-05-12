@@ -7,6 +7,8 @@ import DeepBasicSection from "@/components/DeepBasicSection";
 import Footer from "@/components/Footer";
 import TableOfContents from "@/components/TableOfContents";
 import KnowledgeMap from "@/components/KnowledgeMap";
+import ProgressBar from "@/components/ProgressBar";
+import { useReadingProgress } from "@/hooks/useReadingProgress";
 
 import { deepBasicSections } from "@/lib/deepBasicContent";
 
@@ -14,6 +16,13 @@ import { deepBasicSections } from "@/lib/deepBasicContent";
 const DeepAdvancedSections = lazy(() => import("@/components/DeepAdvancedSection"));
 const PracticeSection = lazy(() => import("@/components/PracticeSection"));
 const TweetWall = lazy(() => import("@/components/TweetWall"));
+const Timeline = lazy(() => import("@/components/Timeline"));
+const LearningPath = lazy(() => import("@/components/LearningPath"));
+const Glossary = lazy(() => import("@/components/Glossary"));
+const MythsFacts = lazy(() => import("@/components/MythsFacts"));
+const ToolComparator = lazy(() => import("@/components/ToolComparator"));
+const KnowledgeDependency = lazy(() => import("@/components/KnowledgeDependency"));
+const QuizMode = lazy(() => import("@/components/QuizMode"));
 
 function SectionLoader() {
   return (
@@ -59,7 +68,7 @@ function SectionDivider({
                 background: isTeal
                   ? "rgba(78, 205, 196, 0.15)"
                   : "rgba(212, 160, 23, 0.15)",
-                color: isTeal ? "#2A9D8F" : "#B8860B",
+                color: isTeal ? "var(--hub-teal-text)" : "var(--hub-amber-text)",
                 letterSpacing: "0.1em",
               }}
             >
@@ -69,7 +78,7 @@ function SectionDivider({
               className="text-sm"
               style={{
                 fontFamily: "'Lora', serif",
-                color: "#4A4A45",
+                color: "var(--hub-text-muted)",
                 lineHeight: 1.7,
               }}
             >
@@ -83,11 +92,37 @@ function SectionDivider({
 }
 
 export default function Home() {
+  const { markAsRead, isRead, getStats, lastRead } = useReadingProgress();
+  const stats = getStats();
+  const hasProgress = stats.basic.read + stats.advanced.read + stats.practice.read > 0;
+
   return (
-    <div className="min-h-screen" style={{ background: "#FAFAF7" }}>
+    <div className="min-h-screen" style={{ background: "var(--hub-bg)" }}>
       <Navbar />
       <HeroSection />
+      <ProgressBar
+        stats={stats}
+        lastRead={lastRead}
+        onContinueReading={() => {
+          if (lastRead) {
+            const el = document.getElementById(lastRead.id);
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }
+        }}
+        visible={hasProgress}
+      />
       <KnowledgeMap />
+
+      {/* ===== 综合测验 ===== */}
+      <SectionDivider
+        id="quiz-mode"
+        label="综合测验 · QUIZ MODE"
+        subtitle="从所有章节中随机抽题，检验你的 AI 知识掌握程度"
+        color="amber"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <QuizMode />
+      </Suspense>
 
       {/* ===== 基础篇 ===== */}
       <SectionDivider
@@ -101,6 +136,8 @@ export default function Home() {
           key={section.id}
           data={section}
           isAlt={index % 2 === 1}
+          isRead={isRead("basic", section.id)}
+          onMarkRead={(id) => markAsRead("basic", id)}
         />
       ))}
 
@@ -112,7 +149,10 @@ export default function Home() {
         color="amber"
       />
       <Suspense fallback={<SectionLoader />}>
-        <DeepAdvancedSections />
+        <DeepAdvancedSections
+          isRead={(id) => isRead("advanced", id)}
+          onMarkRead={(id) => markAsRead("advanced", id)}
+        />
       </Suspense>
 
       {/* ===== 实践篇 ===== */}
@@ -123,12 +163,81 @@ export default function Home() {
         color="teal"
       />
       <Suspense fallback={<SectionLoader />}>
-        <PracticeSection />
+        <PracticeSection
+          isRead={(name) => isRead("practice", name)}
+          onMarkRead={(name) => markAsRead("practice", name)}
+        />
+      </Suspense>
+
+      {/* ===== 工具对比 ===== */}
+      <SectionDivider
+        id="tool-comparator-divider"
+        label="工具对比 · TOOL COMPARATOR"
+        subtitle="选择 2-3 个 AI 工具进行横向对比，找到最适合你的选择"
+        color="teal"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <ToolComparator />
       </Suspense>
 
       {/* ===== 大佬说 ===== */}
       <Suspense fallback={<SectionLoader />}>
         <TweetWall />
+      </Suspense>
+
+      {/* ===== 里程碑 ===== */}
+      <SectionDivider
+        id="timeline-divider"
+        label="里程碑 · MILESTONES"
+        subtitle="从 Transformer 论文到 Agent 时代，AI 发展历程中的关键节点"
+        color="teal"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <Timeline />
+      </Suspense>
+
+      {/* ===== 学习路径 ===== */}
+      <SectionDivider
+        id="learning-path-divider"
+        label="学习路径 · LEARNING PATHS"
+        subtitle="根据你的角色和目标，选择最适合的学习路线"
+        color="amber"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <LearningPath />
+      </Suspense>
+
+      {/* ===== 知识依赖 ===== */}
+      <SectionDivider
+        id="dependency-graph-divider"
+        label="知识依赖 · KNOWLEDGE DEPENDENCIES"
+        subtitle="章节间的前置知识关系，帮你找到最优学习路径"
+        color="amber"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <KnowledgeDependency />
+      </Suspense>
+
+      {/* ===== 术语表 ===== */}
+      <SectionDivider
+        id="glossary-divider"
+        label="术语表 · GLOSSARY"
+        subtitle="AI 领域常用术语速查，从基础概念到前沿技术一网打尽"
+        color="teal"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <Glossary />
+      </Suspense>
+
+      {/* ===== 误区纠正 ===== */}
+      <SectionDivider
+        id="myths-divider"
+        label="误区纠正 · MYTHS vs FACTS"
+        subtitle="那些广为流传但并不准确的 AI 认知，让我们用事实说话"
+        color="amber"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <MythsFacts />
       </Suspense>
 
       <Footer />

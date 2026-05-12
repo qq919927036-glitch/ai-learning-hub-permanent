@@ -55,6 +55,8 @@ export interface DeepBasicSectionData {
 interface Props {
   data: DeepBasicSectionData;
   isAlt?: boolean;
+  isRead?: boolean;
+  onMarkRead?: (id: string) => void;
 }
 
 function ImageViewer({ images }: { images: ImageCard[] }) {
@@ -166,7 +168,7 @@ function ImageViewer({ images }: { images: ImageCard[] }) {
   );
 }
 
-export default function DeepBasicSection({ data, isAlt }: Props) {
+export default function DeepBasicSection({ data, isAlt, isRead, onMarkRead }: Props) {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -191,7 +193,7 @@ export default function DeepBasicSection({ data, isAlt }: Props) {
       id={data.id}
       ref={sectionRef}
       className="py-24 lg:py-32"
-      style={{ background: isAlt ? "#F2F0EB" : "#FAFAF7" }}
+      style={{ background: isAlt ? "var(--hub-bg-alt)" : "var(--hub-bg)" }}
     >
       <div className="container">
         {/* Chapter header */}
@@ -206,6 +208,26 @@ export default function DeepBasicSection({ data, isAlt }: Props) {
           >
             {data.chapterNum}
           </span>
+          {isRead && (
+            <span
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "22px",
+                height: "22px",
+                borderRadius: "50%",
+                background: "#2A9D8F",
+                color: "#FAFAF7",
+                fontSize: "0.7rem",
+                fontWeight: 700,
+                flexShrink: 0,
+              }}
+              title="已读"
+            >
+              ✓
+            </span>
+          )}
           <div
             className="flex-1 h-px"
             style={{ background: "rgba(26, 61, 43, 0.12)" }}
@@ -229,7 +251,7 @@ export default function DeepBasicSection({ data, isAlt }: Props) {
             className="text-4xl lg:text-5xl font-bold mb-3 leading-tight"
             style={{
               fontFamily: "'Playfair Display', serif",
-              color: "#1A3D2B",
+              color: "var(--hub-forest)",
             }}
           >
             {data.title}
@@ -238,7 +260,7 @@ export default function DeepBasicSection({ data, isAlt }: Props) {
             className="text-sm mb-6"
             style={{
               fontFamily: "'DM Mono', monospace",
-              color: "#2A9D8F",
+              color: "var(--hub-teal-text)",
               letterSpacing: "0.03em",
               fontSize: "0.8rem",
             }}
@@ -249,7 +271,7 @@ export default function DeepBasicSection({ data, isAlt }: Props) {
             className="text-lg leading-relaxed"
             style={{
               fontFamily: "'Lora', serif",
-              color: "#2A2A28",
+              color: "var(--hub-text)",
               lineHeight: 1.9,
               maxWidth: "780px",
             }}
@@ -640,6 +662,37 @@ export default function DeepBasicSection({ data, isAlt }: Props) {
         {data.quiz && data.quiz.length > 0 && (
           <div className="reveal">
             <QuizBlock questions={data.quiz} sectionTitle={data.title} />
+          </div>
+        )}
+
+        {/* Mark as read button */}
+        {onMarkRead && (
+          <div className="reveal" style={{ marginTop: "24px", display: "flex", justifyContent: "flex-end" }}>
+            <button
+              onClick={() => onMarkRead(data.id)}
+              disabled={isRead}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "6px",
+                fontFamily: "'DM Mono', monospace",
+                fontSize: "0.75rem",
+                padding: "8px 14px",
+                borderRadius: "4px",
+                border: isRead
+                  ? "1px solid rgba(42, 157, 143, 0.3)"
+                  : "1px solid rgba(26, 61, 43, 0.15)",
+                background: isRead
+                  ? "rgba(42, 157, 143, 0.08)"
+                  : "rgba(26, 61, 43, 0.03)",
+                color: isRead ? "#2A9D8F" : "#4A4A45",
+                cursor: isRead ? "default" : "pointer",
+                transition: "all 0.2s",
+              }}
+            >
+              <span style={{ fontSize: "0.85rem" }}>{isRead ? "✓" : "○"}</span>
+              {isRead ? "已读" : "标记已读"}
+            </button>
           </div>
         )}
       </div>
