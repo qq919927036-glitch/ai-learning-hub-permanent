@@ -35,7 +35,7 @@ export default function HeroSection() {
       id="hero"
       ref={heroRef}
       className="relative min-h-screen flex items-center overflow-hidden"
-      style={{ background: "#FAFAF7" }}
+      style={{ background: "var(--hub-bg)" }}
     >
       {/* Atlas background image */}
       <div
@@ -85,7 +85,7 @@ export default function HeroSection() {
               className="text-5xl lg:text-6xl font-bold leading-tight mb-6"
               style={{
                 fontFamily: "'Playfair Display', serif",
-                color: "#1A3D2B",
+                color: "var(--hub-forest)",
                 lineHeight: 1.15,
               }}
             >
@@ -93,7 +93,7 @@ export default function HeroSection() {
               <br />
               <span
                 className="italic"
-                style={{ color: "#D4A017" }}
+                style={{ color: "var(--hub-amber)" }}
               >
                 AI Agent
               </span>
@@ -104,7 +104,7 @@ export default function HeroSection() {
               className="text-lg leading-relaxed mb-8"
               style={{
                 fontFamily: "'Lora', serif",
-                color: "#4A4A45",
+                color: "var(--hub-text-muted)",
                 lineHeight: 1.75,
               }}
             >
@@ -124,7 +124,7 @@ export default function HeroSection() {
                     className="text-2xl font-bold"
                     style={{
                       fontFamily: "'Playfair Display', serif",
-                      color: "#1A3D2B",
+                      color: "var(--hub-forest)",
                     }}
                   >
                     {stat.num}
@@ -133,7 +133,7 @@ export default function HeroSection() {
                     className="text-xs mt-0.5"
                     style={{
                       fontFamily: "'DM Mono', monospace",
-                      color: "#4A4A45",
+                      color: "var(--hub-text-muted)",
                       letterSpacing: "0.05em",
                     }}
                   >
@@ -149,7 +149,7 @@ export default function HeroSection() {
                 onClick={scrollToFirst}
                 className="px-6 py-3 rounded-sm text-sm font-medium transition-all duration-200 hover:opacity-90 hover:-translate-y-0.5"
                 style={{
-                  background: "#1A3D2B",
+                  background: "var(--hub-forest)",
                   color: "#FAFAF7",
                   fontFamily: "'DM Mono', monospace",
                   letterSpacing: "0.04em",
@@ -163,10 +163,10 @@ export default function HeroSection() {
                   const el = document.getElementById("advanced");
                   if (el) el.scrollIntoView({ behavior: "smooth" });
                 }}
-                className="px-6 py-3 rounded-sm text-sm font-medium transition-all duration-200 hover:bg-[rgba(26,61,43,0.06)]"
+                className="px-6 py-3 rounded-sm text-sm font-medium transition-all duration-200"
                 style={{
-                  border: "1px solid rgba(26, 61, 43, 0.3)",
-                  color: "#1A3D2B",
+                  border: "1px solid var(--hub-card-border)",
+                  color: "var(--hub-forest)",
                   fontFamily: "'DM Mono', monospace",
                   letterSpacing: "0.04em",
                 }}

@@ -36,7 +36,7 @@ export default function LearningPath() {
     <section
       id="learning-path"
       ref={sectionRef}
-      style={{ background: "#FAFAF7", padding: "80px 0" }}
+      style={{ background: "var(--hub-bg)", padding: "80px 0" }}
     >
       <style>{`
         .lp-reveal {
@@ -58,7 +58,7 @@ export default function LearningPath() {
               fontFamily: "'DM Mono', monospace",
               fontSize: "0.75rem",
               letterSpacing: "0.15em",
-              color: "#D4A017",
+              color: "var(--hub-amber)",
               textTransform: "uppercase",
             }}
           >
@@ -68,7 +68,7 @@ export default function LearningPath() {
             style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: "2.5rem",
-              color: "#1A3D2B",
+              color: "var(--hub-forest)",
               margin: "8px 0 16px",
               fontWeight: 700,
             }}
@@ -78,7 +78,7 @@ export default function LearningPath() {
           <p
             style={{
               fontFamily: "'Lora', serif",
-              color: "#4A4A45",
+              color: "var(--hub-text-muted)",
               fontSize: "1.05rem",
               lineHeight: 1.7,
               maxWidth: 600,
@@ -93,7 +93,7 @@ export default function LearningPath() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
+            gridTemplateColumns: "repeat(auto-fit, minmax(min(280px, 100%), 1fr))",
             gap: 24,
           }}
         >
@@ -124,7 +124,7 @@ function PersonaCard({
     <div
       className="lp-reveal"
       style={{
-        background: "#FFFFFF",
+        background: "var(--hub-card-bg)",
         borderRadius: 12,
         border: `1px solid ${path.color}25`,
         overflow: "hidden",
@@ -162,7 +162,7 @@ function PersonaCard({
               style={{
                 fontFamily: "'Playfair Display', serif",
                 fontSize: "1.25rem",
-                color: "#1A3D2B",
+                color: "var(--hub-forest)",
                 margin: 0,
                 fontWeight: 600,
               }}
@@ -198,7 +198,7 @@ function PersonaCard({
           style={{
             fontFamily: "'Lora', serif",
             fontSize: "0.88rem",
-            color: "#4A4A45",
+            color: "var(--hub-text-muted)",
             lineHeight: 1.6,
             margin: 0,
           }}
@@ -305,7 +305,7 @@ function PersonaCard({
                   style={{
                     fontFamily: "'Playfair Display', serif",
                     fontSize: "0.95rem",
-                    color: "#1A3D2B",
+                    color: "var(--hub-forest)",
                     fontWeight: 600,
                   }}
                 >
@@ -333,7 +333,7 @@ function PersonaCard({
                     style={{
                       fontFamily: "'Lora', serif",
                       fontSize: "0.82rem",
-                      color: "#4A4A45",
+                      color: "var(--hub-text-muted)",
                       lineHeight: 1.6,
                       padding: "3px 0",
                       paddingLeft: 14,

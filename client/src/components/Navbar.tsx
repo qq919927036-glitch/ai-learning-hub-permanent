@@ -2,11 +2,34 @@
 // Playfair Display for brand name, DM Mono for nav items
 import { useState, useEffect } from "react";
 import { navItems } from "@/lib/content";
+import { Sun, Moon } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // Read theme from localStorage on mount
+    const saved = localStorage.getItem("ai-hub-theme");
+    if (saved === "dark") {
+      document.documentElement.classList.add("dark");
+      setIsDark(true);
+    }
+  }, []);
+
+  const toggleTheme = () => {
+    const next = !isDark;
+    setIsDark(next);
+    if (next) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("ai-hub-theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("ai-hub-theme", "light");
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -40,13 +63,13 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
         background: scrolled
-          ? "rgba(250, 250, 247, 0.95)"
-          : "rgba(250, 250, 247, 0.7)",
+          ? "var(--hub-nav-bg)"
+          : "var(--hub-nav-bg-blur)",
         backdropFilter: "blur(12px)",
         borderBottom: scrolled
-          ? "1px solid rgba(26, 61, 43, 0.12)"
+          ? "1px solid var(--hub-nav-border)"
           : "1px solid transparent",
-        boxShadow: scrolled ? "0 2px 16px rgba(26, 61, 43, 0.06)" : "none",
+        boxShadow: scrolled ? "0 2px 16px rgba(0, 0, 0, 0.06)" : "none",
       }}
     >
       <div className="container flex items-center justify-between h-16">
@@ -56,8 +79,8 @@ export default function Navbar() {
           className="flex items-center gap-2.5 group"
         >
           <div
-            className="w-8 h-8 rounded-sm flex items-center justify-center text-[#FAFAF7] text-sm font-bold transition-transform group-hover:scale-105"
-            style={{ background: "#1A3D2B", fontFamily: "'Playfair Display', serif" }}
+            className="w-8 h-8 rounded-sm flex items-center justify-center text-sm font-bold transition-transform group-hover:scale-105"
+            style={{ background: "var(--hub-forest)", color: "#FAFAF7", fontFamily: "'Playfair Display', serif" }}
           >
             AI
           </div>
@@ -65,7 +88,7 @@ export default function Navbar() {
             className="text-lg font-semibold tracking-tight"
             style={{
               fontFamily: "'Playfair Display', serif",
-              color: "#1A3D2B",
+              color: "var(--hub-forest)",
             }}
           >
             Learning Hub
@@ -86,8 +109,8 @@ export default function Navbar() {
                   fontFamily: "'DM Mono', monospace",
                   fontSize: "0.72rem",
                   letterSpacing: "0.04em",
-                  color: isActive ? "#1A3D2B" : "#4A4A45",
-                  background: isActive ? "rgba(26, 61, 43, 0.08)" : "transparent",
+                  color: isActive ? "var(--hub-forest)" : "var(--hub-text-muted)",
+                  background: isActive ? "rgba(128, 128, 128, 0.08)" : "transparent",
                   fontWeight: isActive ? 500 : 400,
                 }}
               >
@@ -97,34 +120,51 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Mobile menu button */}
-        <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span
-            className="block w-5 h-0.5 transition-all duration-200"
+        {/* Theme Toggle + Mobile Menu */}
+        <div className="flex items-center gap-2">
+          {/* Theme Toggle */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-md transition-colors"
             style={{
-              background: "#1A3D2B",
-              transform: menuOpen ? "rotate(45deg) translate(3px, 3px)" : "none",
+              color: "var(--hub-text-muted)",
+              background: "transparent",
             }}
-          />
-          <span
-            className="block w-5 h-0.5 transition-all duration-200"
-            style={{
-              background: "#1A3D2B",
-              opacity: menuOpen ? 0 : 1,
-            }}
-          />
-          <span
-            className="block w-5 h-0.5 transition-all duration-200"
-            style={{
-              background: "#1A3D2B",
-              transform: menuOpen ? "rotate(-45deg) translate(3px, -3px)" : "none",
-            }}
-          />
-        </button>
+            aria-label="Toggle dark mode"
+            title={isDark ? "Switch to light mode" : "Switch to dark mode"}
+          >
+            {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+          </button>
+
+          {/* Mobile menu button */}
+          <button
+            className="md:hidden flex flex-col gap-1.5 p-2"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span
+              className="block w-5 h-0.5 transition-all duration-200"
+              style={{
+                background: "var(--hub-forest)",
+                transform: menuOpen ? "rotate(45deg) translate(3px, 3px)" : "none",
+              }}
+            />
+            <span
+              className="block w-5 h-0.5 transition-all duration-200"
+              style={{
+                background: "var(--hub-forest)",
+                opacity: menuOpen ? 0 : 1,
+              }}
+            />
+            <span
+              className="block w-5 h-0.5 transition-all duration-200"
+              style={{
+                background: "var(--hub-forest)",
+                transform: menuOpen ? "rotate(-45deg) translate(3px, -3px)" : "none",
+              }}
+            />
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
@@ -132,20 +172,20 @@ export default function Navbar() {
         <div
           className="md:hidden border-t"
           style={{
-            background: "rgba(250, 250, 247, 0.98)",
-            borderColor: "rgba(26, 61, 43, 0.12)",
+            background: "var(--hub-nav-bg)",
+            borderColor: "var(--hub-nav-border)",
           }}
         >
           {navItems.map((item) => (
             <button
               key={item.href}
               onClick={() => handleNavClick(item.href)}
-              className="block w-full text-left px-6 py-3 text-sm border-b transition-colors hover:bg-[rgba(26,61,43,0.04)]"
+              className="block w-full text-left px-6 py-3 text-sm border-b transition-colors"
               style={{
                 fontFamily: "'DM Mono', monospace",
                 fontSize: "0.75rem",
-                color: "#1A3D2B",
-                borderColor: "rgba(26, 61, 43, 0.06)",
+                color: "var(--hub-forest)",
+                borderColor: "var(--hub-nav-border)",
               }}
             >
               {item.label}

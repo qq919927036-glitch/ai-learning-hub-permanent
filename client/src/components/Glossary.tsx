@@ -16,20 +16,20 @@ function TermCard({ term, isExpanded, onToggle }: { term: GlossaryTerm; isExpand
   return (
     <div
       style={{
-        background: "rgba(255, 255, 255, 0.7)",
-        border: "1px solid rgba(26, 61, 43, 0.1)",
+        background: "var(--hub-card-bg)",
+        border: "1px solid var(--hub-card-border)",
         borderRadius: "8px",
         cursor: "pointer",
         transition: "box-shadow 0.2s, border-color 0.2s",
       }}
       onClick={onToggle}
       onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 12px rgba(26, 61, 43, 0.08)";
+        (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 12px rgba(0, 0, 0, 0.08)";
         (e.currentTarget as HTMLElement).style.borderColor = colors.border;
       }}
       onMouseLeave={(e) => {
         (e.currentTarget as HTMLElement).style.boxShadow = "none";
-        (e.currentTarget as HTMLElement).style.borderColor = "rgba(26, 61, 43, 0.1)";
+        (e.currentTarget as HTMLElement).style.borderColor = "var(--hub-card-border)";
       }}
     >
       <div style={{ padding: "16px 20px" }}>
@@ -41,7 +41,7 @@ function TermCard({ term, isExpanded, onToggle }: { term: GlossaryTerm; isExpand
                   fontFamily: "'Playfair Display', serif",
                   fontSize: "1.05rem",
                   fontWeight: 700,
-                  color: "#1A3D2B",
+                  color: "var(--hub-forest)",
                 }}
               >
                 {term.term}
@@ -50,7 +50,7 @@ function TermCard({ term, isExpanded, onToggle }: { term: GlossaryTerm; isExpand
                 style={{
                   fontFamily: "'DM Mono', monospace",
                   fontSize: "0.75rem",
-                  color: "#6B7280",
+                  color: "var(--hub-text-light)",
                   letterSpacing: "0.02em",
                 }}
               >
@@ -61,7 +61,7 @@ function TermCard({ term, isExpanded, onToggle }: { term: GlossaryTerm; isExpand
               style={{
                 fontFamily: "'Lora', serif",
                 fontSize: "0.875rem",
-                color: "#4A4A45",
+                color: "var(--hub-text-muted)",
                 marginTop: "6px",
                 lineHeight: 1.6,
               }}
@@ -176,7 +176,7 @@ export default function Glossary() {
                 </span>
                 <div style={{ flex: 1, height: "1px", background: `${colors.border}` }} />
               </div>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "12px" }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(340px, 100%), 1fr))", gap: "12px" }}>
                 {items.map((term) => (
                   <TermCard
                     key={term.id}
@@ -213,15 +213,15 @@ export default function Glossary() {
                   fontFamily: "'Playfair Display', serif",
                   fontSize: "1.5rem",
                   fontWeight: 700,
-                  color: "#1A3D2B",
+                  color: "var(--hub-forest)",
                   lineHeight: 1,
                 }}
               >
                 {letter}
               </span>
-              <div style={{ flex: 1, height: "1px", background: "rgba(26, 61, 43, 0.1)" }} />
+              <div style={{ flex: 1, height: "1px", background: "var(--hub-card-border)" }} />
             </div>
-            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: "12px" }}>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(340px, 100%), 1fr))", gap: "12px" }}>
               {groups[letter].map((term) => (
                 <TermCard
                   key={term.id}
@@ -241,7 +241,7 @@ export default function Glossary() {
     <section
       id="glossary"
       style={{
-        background: "#FAFAF7",
+        background: "var(--hub-bg)",
         padding: "64px 0",
       }}
     >
@@ -253,7 +253,7 @@ export default function Glossary() {
               fontFamily: "'Playfair Display', serif",
               fontSize: "2.25rem",
               fontWeight: 700,
-              color: "#1A3D2B",
+              color: "var(--hub-forest)",
               marginBottom: "12px",
             }}
           >
@@ -263,7 +263,7 @@ export default function Glossary() {
             style={{
               fontFamily: "'Lora', serif",
               fontSize: "1rem",
-              color: "#6B7280",
+              color: "var(--hub-text-light)",
               lineHeight: 1.7,
             }}
           >
@@ -282,7 +282,7 @@ export default function Glossary() {
           }}
         >
           {/* Search Input */}
-          <div style={{ flex: 1, minWidth: "240px", position: "relative" }}>
+          <div style={{ flex: 1, minWidth: "200px", position: "relative" }}>
             <span
               style={{
                 position: "absolute",
@@ -306,18 +306,18 @@ export default function Glossary() {
                 padding: "10px 14px 10px 40px",
                 fontFamily: "'Lora', serif",
                 fontSize: "0.875rem",
-                border: "1px solid rgba(26, 61, 43, 0.15)",
+                border: "1px solid var(--hub-card-border)",
                 borderRadius: "8px",
-                background: "rgba(255, 255, 255, 0.8)",
-                color: "#1A3D2B",
+                background: "var(--hub-card-bg)",
+                color: "var(--hub-text)",
                 outline: "none",
                 transition: "border-color 0.2s",
               }}
               onFocus={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = "#4ECDC4";
+                (e.currentTarget as HTMLElement).style.borderColor = "var(--hub-teal)";
               }}
               onBlur={(e) => {
-                (e.currentTarget as HTMLElement).style.borderColor = "rgba(26, 61, 43, 0.15)";
+                (e.currentTarget as HTMLElement).style.borderColor = "var(--hub-card-border)";
               }}
             />
           </div>

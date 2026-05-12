@@ -45,7 +45,7 @@ export default function Timeline() {
     <section
       id="timeline"
       ref={sectionRef}
-      style={{ background: "#FAFAF7", padding: "80px 0" }}
+      style={{ background: "var(--hub-bg)", padding: "80px 0" }}
     >
       <div style={{ maxWidth: 900, margin: "0 auto", padding: "0 20px" }}>
         {/* Header */}
@@ -55,7 +55,7 @@ export default function Timeline() {
               fontFamily: "'DM Mono', monospace",
               fontSize: "0.75rem",
               letterSpacing: "0.15em",
-              color: "#4ECDC4",
+              color: "var(--hub-teal)",
               textTransform: "uppercase",
             }}
           >
@@ -65,7 +65,7 @@ export default function Timeline() {
             style={{
               fontFamily: "'Playfair Display', serif",
               fontSize: "2.5rem",
-              color: "#1A3D2B",
+              color: "var(--hub-forest)",
               margin: "8px 0 16px",
               fontWeight: 700,
             }}
@@ -75,7 +75,7 @@ export default function Timeline() {
           <p
             style={{
               fontFamily: "'Lora', serif",
-              color: "#4A4A45",
+              color: "var(--hub-text-muted)",
               fontSize: "1.05rem",
               lineHeight: 1.7,
               maxWidth: 600,
@@ -152,6 +152,10 @@ export default function Timeline() {
                 text-align: left !important;
               }
               .tl-dot { left: 24px !important; transform: translateX(-50%) !important; }
+              .tl-card-left, .tl-card-right {
+                padding: 16px !important;
+                min-height: 44px;
+              }
             }
             .tl-reveal {
               opacity: 0;
@@ -203,7 +207,7 @@ export default function Timeline() {
                   style={{
                     width: "calc(50% - 40px)",
                     padding: "20px 24px",
-                    background: "#FFFFFF",
+                    background: "var(--hub-card-bg)",
                     borderRadius: 8,
                     border: `1px solid ${color}25`,
                     boxShadow: "0 2px 12px rgba(0,0,0,0.04)",
@@ -263,7 +267,7 @@ export default function Timeline() {
                     style={{
                       fontFamily: "'Playfair Display', serif",
                       fontSize: "1.05rem",
-                      color: "#1A3D2B",
+                      color: "var(--hub-forest)",
                       margin: "0 0 8px",
                       fontWeight: 600,
                     }}
@@ -277,7 +281,7 @@ export default function Timeline() {
                     style={{
                       fontFamily: "'Lora', serif",
                       fontSize: "0.88rem",
-                      color: "#4A4A45",
+                      color: "var(--hub-text-muted)",
                       lineHeight: 1.65,
                       margin: 0,
                     }}

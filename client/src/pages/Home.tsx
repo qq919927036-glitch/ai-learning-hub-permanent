@@ -64,7 +64,7 @@ function SectionDivider({
                 background: isTeal
                   ? "rgba(78, 205, 196, 0.15)"
                   : "rgba(212, 160, 23, 0.15)",
-                color: isTeal ? "#2A9D8F" : "#B8860B",
+                color: isTeal ? "var(--hub-teal-text)" : "var(--hub-amber-text)",
                 letterSpacing: "0.1em",
               }}
             >
@@ -74,7 +74,7 @@ function SectionDivider({
               className="text-sm"
               style={{
                 fontFamily: "'Lora', serif",
-                color: "#4A4A45",
+                color: "var(--hub-text-muted)",
                 lineHeight: 1.7,
               }}
             >
@@ -93,7 +93,7 @@ export default function Home() {
   const hasProgress = stats.basic.read + stats.advanced.read + stats.practice.read > 0;
 
   return (
-    <div className="min-h-screen" style={{ background: "#FAFAF7" }}>
+    <div className="min-h-screen" style={{ background: "var(--hub-bg)" }}>
       <Navbar />
       <HeroSection />
       <ProgressBar
@@ -134,7 +134,10 @@ export default function Home() {
         color="amber"
       />
       <Suspense fallback={<SectionLoader />}>
-        <DeepAdvancedSections />
+        <DeepAdvancedSections
+          isRead={(id) => isRead("advanced", id)}
+          onMarkRead={(id) => markAsRead("advanced", id)}
+        />
       </Suspense>
 
       {/* ===== 实践篇 ===== */}
@@ -145,7 +148,10 @@ export default function Home() {
         color="teal"
       />
       <Suspense fallback={<SectionLoader />}>
-        <PracticeSection />
+        <PracticeSection
+          isRead={(name) => isRead("practice", name)}
+          onMarkRead={(name) => markAsRead("practice", name)}
+        />
       </Suspense>
 
       {/* ===== 大佬说 ===== */}

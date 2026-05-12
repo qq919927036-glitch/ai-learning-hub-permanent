@@ -48,7 +48,12 @@ function highlightCode(code: string, language: string): string {
   return code;
 }
 
-export default function DeepAdvancedSections() {
+interface DeepAdvancedSectionsProps {
+  isRead?: (sectionId: string) => boolean;
+  onMarkRead?: (sectionId: string) => void;
+}
+
+export default function DeepAdvancedSections({ isRead, onMarkRead }: DeepAdvancedSectionsProps) {
   const [expandedCode, setExpandedCode] = useState<Record<string, boolean>>({});
   const [activeImage, setActiveImage] = useState<Record<string, number>>({});
   const [lightbox, setLightbox] = useState<{ src: string; alt: string } | null>(null);
@@ -71,7 +76,8 @@ export default function DeepAdvancedSections() {
           <section
             key={section.id}
             id={section.id}
-            className={`py-20 ${isEven ? "bg-[#faf8f4]" : "bg-white"}`}
+            className={`py-20 ${isEven ? "" : ""}`}
+            style={{ background: isEven ? "var(--hub-bg-alt)" : "var(--hub-bg)" }}
           >
             <div className="max-w-6xl mx-auto px-4 lg:px-8">
               {/* Section Header */}
@@ -85,6 +91,26 @@ export default function DeepAdvancedSections() {
                     {section.chapterNum} · {section.tag}
                   </span>
                   <span className="text-2xl">{section.emoji}</span>
+                  {isRead && isRead(section.id) && (
+                    <span
+                      style={{
+                        display: "inline-flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "22px",
+                        height: "22px",
+                        borderRadius: "50%",
+                        background: "#2A9D8F",
+                        color: "#FAFAF7",
+                        fontSize: "0.7rem",
+                        fontWeight: 700,
+                        flexShrink: 0,
+                      }}
+                      title="已读"
+                    >
+                      ✓
+                    </span>
+                  )}
                 </div>
                 <h2 className="text-3xl lg:text-4xl font-bold text-stone-800 mb-3" style={{ fontFamily: "'Playfair Display', serif" }}>
                   {section.title}
@@ -301,6 +327,37 @@ export default function DeepAdvancedSections() {
               {/* Quiz */}
               {section.quiz && section.quiz.length > 0 && (
                 <QuizBlock questions={section.quiz} sectionTitle={section.title} />
+              )}
+
+              {/* Mark as read button */}
+              {onMarkRead && (
+                <div style={{ marginTop: "24px", display: "flex", justifyContent: "flex-end" }}>
+                  <button
+                    onClick={() => onMarkRead(section.id)}
+                    disabled={isRead ? isRead(section.id) : false}
+                    style={{
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: "6px",
+                      fontFamily: "'DM Mono', monospace",
+                      fontSize: "0.75rem",
+                      padding: "8px 14px",
+                      borderRadius: "4px",
+                      border: isRead && isRead(section.id)
+                        ? "1px solid rgba(42, 157, 143, 0.3)"
+                        : "1px solid rgba(26, 61, 43, 0.15)",
+                      background: isRead && isRead(section.id)
+                        ? "rgba(42, 157, 143, 0.08)"
+                        : "rgba(26, 61, 43, 0.03)",
+                      color: isRead && isRead(section.id) ? "#2A9D8F" : "#4A4A45",
+                      cursor: isRead && isRead(section.id) ? "default" : "pointer",
+                      transition: "all 0.2s",
+                    }}
+                  >
+                    <span style={{ fontSize: "0.85rem" }}>{isRead && isRead(section.id) ? "✓" : "○"}</span>
+                    {isRead && isRead(section.id) ? "已读" : "标记已读"}
+                  </button>
+                </div>
               )}
             </div>
           </section>

@@ -193,7 +193,7 @@ export default function DeepBasicSection({ data, isAlt, isRead, onMarkRead }: Pr
       id={data.id}
       ref={sectionRef}
       className="py-24 lg:py-32"
-      style={{ background: isAlt ? "#F2F0EB" : "#FAFAF7" }}
+      style={{ background: isAlt ? "var(--hub-bg-alt)" : "var(--hub-bg)" }}
     >
       <div className="container">
         {/* Chapter header */}
@@ -251,7 +251,7 @@ export default function DeepBasicSection({ data, isAlt, isRead, onMarkRead }: Pr
             className="text-4xl lg:text-5xl font-bold mb-3 leading-tight"
             style={{
               fontFamily: "'Playfair Display', serif",
-              color: "#1A3D2B",
+              color: "var(--hub-forest)",
             }}
           >
             {data.title}
@@ -260,7 +260,7 @@ export default function DeepBasicSection({ data, isAlt, isRead, onMarkRead }: Pr
             className="text-sm mb-6"
             style={{
               fontFamily: "'DM Mono', monospace",
-              color: "#2A9D8F",
+              color: "var(--hub-teal-text)",
               letterSpacing: "0.03em",
               fontSize: "0.8rem",
             }}
@@ -271,7 +271,7 @@ export default function DeepBasicSection({ data, isAlt, isRead, onMarkRead }: Pr
             className="text-lg leading-relaxed"
             style={{
               fontFamily: "'Lora', serif",
-              color: "#2A2A28",
+              color: "var(--hub-text)",
               lineHeight: 1.9,
               maxWidth: "780px",
             }}

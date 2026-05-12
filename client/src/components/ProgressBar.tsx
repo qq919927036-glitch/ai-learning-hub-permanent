@@ -24,7 +24,7 @@ function MiniBar({
 }) {
   const pct = total > 0 ? Math.round((read / total) * 100) : 0;
   return (
-    <div style={{ flex: 1, minWidth: "120px" }}>
+    <div style={{ flex: 1, minWidth: "80px" }}>
       <div
         style={{
           display: "flex",
@@ -37,7 +37,7 @@ function MiniBar({
           style={{
             fontFamily: "'Lora', serif",
             fontSize: "0.8rem",
-            color: "#4A4A45",
+            color: "var(--hub-text-muted)",
           }}
         >
           {label}
@@ -57,7 +57,7 @@ function MiniBar({
         style={{
           height: "6px",
           borderRadius: "3px",
-          background: "rgba(26, 61, 43, 0.08)",
+          background: "var(--hub-card-border)",
           overflow: "hidden",
         }}
       >
@@ -81,8 +81,8 @@ export default function ProgressBar({ stats, lastRead, onContinueReading, visibl
   return (
     <div
       style={{
-        background: "#FAFAF7",
-        borderBottom: "1px solid rgba(26, 61, 43, 0.08)",
+        background: "var(--hub-bg)",
+        borderBottom: "1px solid var(--hub-card-border)",
       }}
     >
       <div className="container">
@@ -101,7 +101,7 @@ export default function ProgressBar({ stats, lastRead, onContinueReading, visibl
               fontFamily: "'DM Mono', monospace",
               fontSize: "0.7rem",
               letterSpacing: "0.1em",
-              color: "#1A3D2B",
+              color: "var(--hub-forest)",
               textTransform: "uppercase",
               whiteSpace: "nowrap",
             }}
@@ -115,7 +115,8 @@ export default function ProgressBar({ stats, lastRead, onContinueReading, visibl
               display: "flex",
               gap: "20px",
               flex: 1,
-              minWidth: "300px",
+              minWidth: "0",
+              flexWrap: "wrap",
             }}
           >
             <MiniBar label="基础篇" read={stats.basic.read} total={stats.basic.total} color="#4ECDC4" />
