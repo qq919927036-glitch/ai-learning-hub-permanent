@@ -98,3 +98,10 @@
 - [x] 任务六：常见误区 Myths vs Facts 新板块
 - [x] 任务七：AI 工具对比器新板块
 - [x] 任务八：章节间知识依赖图新板块
+
+## 部署配置（GitHub Pages）
+- [x] vite.config.ts 添加 base: '/ai-learning-hub-permanent/'
+- [x] 创建 .github/workflows/deploy.yml（GitHub Actions 自动部署）
+- [x] 创建 client/public/404.html（SPA 路由回退）
+- [x] index.html 添加 sessionStorage 重定向恢复脚本
+- [x] package.json 添加 build:static 脚本（仅 vite 构建）
