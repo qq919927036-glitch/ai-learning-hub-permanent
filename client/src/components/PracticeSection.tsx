@@ -139,8 +139,8 @@ function ToolDetailCard({ tool, isActive, onClick, isToolRead, onMarkToolRead }:
                       width: "22px",
                       height: "22px",
                       borderRadius: "50%",
-                      background: "#2A9D8F",
-                      color: "#FAFAF7",
+                      background: "var(--hub-teal-text)",
+                      color: "var(--hub-bg)",
                       fontSize: "0.7rem",
                       fontWeight: 700,
                       flexShrink: 0,
@@ -269,12 +269,12 @@ function ToolDetailCard({ tool, isActive, onClick, isToolRead, onMarkToolRead }:
                         padding: "8px 14px",
                         borderRadius: "4px",
                         border: isToolRead
-                          ? "1px solid rgba(42, 157, 143, 0.3)"
+                          ? "1px solid var(--hub-teal-text)"
                           : "1px solid rgba(26, 61, 43, 0.15)",
                         background: isToolRead
                           ? "rgba(42, 157, 143, 0.08)"
                           : "rgba(26, 61, 43, 0.03)",
-                        color: isToolRead ? "#2A9D8F" : "#4A4A45",
+                        color: isToolRead ? "var(--hub-teal-text)" : "var(--hub-text-muted)",
                         cursor: isToolRead ? "default" : "pointer",
                         transition: "all 0.2s",
                       }}

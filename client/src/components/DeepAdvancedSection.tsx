@@ -76,7 +76,7 @@ export default function DeepAdvancedSections({ isRead, onMarkRead }: DeepAdvance
           <section
             key={section.id}
             id={section.id}
-            className={`py-20 ${isEven ? "" : ""}`}
+            className={`py-20`}
             style={{ background: isEven ? "var(--hub-bg-alt)" : "var(--hub-bg)" }}
           >
             <div className="max-w-6xl mx-auto px-4 lg:px-8">
@@ -100,8 +100,8 @@ export default function DeepAdvancedSections({ isRead, onMarkRead }: DeepAdvance
                         width: "22px",
                         height: "22px",
                         borderRadius: "50%",
-                        background: "#2A9D8F",
-                        color: "#FAFAF7",
+                        background: "var(--hub-teal-text)",
+                        color: "var(--hub-bg)",
                         fontSize: "0.7rem",
                         fontWeight: 700,
                         flexShrink: 0,
@@ -344,12 +344,12 @@ export default function DeepAdvancedSections({ isRead, onMarkRead }: DeepAdvance
                       padding: "8px 14px",
                       borderRadius: "4px",
                       border: isRead && isRead(section.id)
-                        ? "1px solid rgba(42, 157, 143, 0.3)"
+                        ? "1px solid var(--hub-teal-text)"
                         : "1px solid rgba(26, 61, 43, 0.15)",
                       background: isRead && isRead(section.id)
                         ? "rgba(42, 157, 143, 0.08)"
                         : "rgba(26, 61, 43, 0.03)",
-                      color: isRead && isRead(section.id) ? "#2A9D8F" : "#4A4A45",
+                      color: isRead && isRead(section.id) ? "var(--hub-teal-text)" : "var(--hub-text-muted)",
                       cursor: isRead && isRead(section.id) ? "default" : "pointer",
                       transition: "all 0.2s",
                     }}

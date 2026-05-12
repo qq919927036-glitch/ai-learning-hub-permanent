@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { dependencyGraph, type DependencyNode } from "@/lib/dependencyContent";
 
 const COLUMN_X: Record<string, number> = {
@@ -42,6 +42,20 @@ function getNodePositions(nodes: DependencyNode[]) {
 
 export default function KnowledgeDependency() {
   const [selectedNode, setSelectedNode] = useState<string | null>(null);
+  const [isDark, setIsDark] = useState(
+    () => document.documentElement.classList.contains("dark")
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setIsDark(document.documentElement.classList.contains("dark"));
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    return () => observer.disconnect();
+  }, []);
 
   const positions = useMemo(
     () => getNodePositions(dependencyGraph.nodes),
@@ -120,9 +134,9 @@ export default function KnowledgeDependency() {
         {/* Legend */}
         <div className="flex flex-wrap justify-center gap-4 mb-6">
           {[
-            { label: "基础篇", color: "#4ECDC4" },
-            { label: "进阶篇", color: "#D4A017" },
-            { label: "实践篇", color: "#1A3D2B" },
+            { label: "基础篇", color: "var(--hub-teal)" },
+            { label: "进阶篇", color: "var(--hub-amber)" },
+            { label: "实践篇", color: "var(--hub-forest)" },
           ].map((item) => (
             <div key={item.label} className="flex items-center gap-1.5">
               <span
@@ -153,7 +167,7 @@ export default function KnowledgeDependency() {
           <svg
             viewBox={`0 0 760 ${svgHeight}`}
             className="w-full"
-            style={{ minWidth: "600px", maxHeight: "560px" }}
+            style={{ maxHeight: "560px" }}
           >
             <defs>
               <marker
@@ -242,7 +256,7 @@ export default function KnowledgeDependency() {
             {dependencyGraph.nodes.map((node) => {
               const pos = positions[node.id];
               if (!pos) return null;
-              const colors = CATEGORY_COLORS[node.category];
+              const colors = isDark ? CATEGORY_COLORS_DARK[node.category] : CATEGORY_COLORS[node.category];
               const isSelected = selectedNode === node.id;
               const isPrereq = prerequisites.has(node.id);
               const isDependent = dependents.has(node.id);

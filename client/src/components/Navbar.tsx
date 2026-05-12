@@ -11,9 +11,12 @@ export default function Navbar() {
   const [isDark, setIsDark] = useState(false);
 
   useEffect(() => {
-    // Read theme from localStorage on mount
+    // Read theme from localStorage on mount, fallback to system preference
     const saved = localStorage.getItem("ai-hub-theme");
     if (saved === "dark") {
+      document.documentElement.classList.add("dark");
+      setIsDark(true);
+    } else if (!saved && window.matchMedia("(prefers-color-scheme: dark)").matches) {
       document.documentElement.classList.add("dark");
       setIsDark(true);
     }
