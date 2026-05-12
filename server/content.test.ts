@@ -68,7 +68,7 @@ describe("Content Data Integrity", () => {
 
     expect(mod.navItems).toBeDefined();
     expect(Array.isArray(mod.navItems)).toBe(true);
-    expect(mod.navItems.length).toBe(6);
+    expect(mod.navItems.length).toBe(8);
 
     // Verify nav items have correct structure
     mod.navItems.forEach((item: any) => {

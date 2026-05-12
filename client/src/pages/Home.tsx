@@ -14,6 +14,8 @@ import { deepBasicSections } from "@/lib/deepBasicContent";
 const DeepAdvancedSections = lazy(() => import("@/components/DeepAdvancedSection"));
 const PracticeSection = lazy(() => import("@/components/PracticeSection"));
 const TweetWall = lazy(() => import("@/components/TweetWall"));
+const Timeline = lazy(() => import("@/components/Timeline"));
+const LearningPath = lazy(() => import("@/components/LearningPath"));
 
 function SectionLoader() {
   return (
@@ -129,6 +131,28 @@ export default function Home() {
       {/* ===== 大佬说 ===== */}
       <Suspense fallback={<SectionLoader />}>
         <TweetWall />
+      </Suspense>
+
+      {/* ===== 里程碑 ===== */}
+      <SectionDivider
+        id="timeline-divider"
+        label="里程碑 · MILESTONES"
+        subtitle="从 Transformer 论文到 Agent 时代，AI 发展历程中的关键节点"
+        color="teal"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <Timeline />
+      </Suspense>
+
+      {/* ===== 学习路径 ===== */}
+      <SectionDivider
+        id="learning-path-divider"
+        label="学习路径 · LEARNING PATHS"
+        subtitle="根据你的角色和目标，选择最适合的学习路线"
+        color="amber"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <LearningPath />
       </Suspense>
 
       <Footer />

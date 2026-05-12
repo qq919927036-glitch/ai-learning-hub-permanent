@@ -319,5 +319,7 @@ export const navItems = [
   { label: "进阶篇", href: "#advanced" },
   { label: "实践篇", href: "#practice" },
   { label: "Agent 知识库", href: "#tweet-wall" },
+  { label: "里程碑", href: "#timeline" },
+  { label: "学习路径", href: "#learning-path" },
   { label: "知识地图", href: "#knowledge-map" },
 ];
