@@ -4,11 +4,11 @@ import { describe, expect, it } from "vitest";
 // These are client-side modules but we can validate their structure
 
 describe("Content Data Integrity", () => {
-  it("deepBasicContent exports 28 sections (B1-B28)", async () => {
+  it("deepBasicContent exports 33 sections (B1-B33)", async () => {
     const mod = await import("../client/src/lib/deepBasicContent");
     expect(mod.deepBasicSections).toBeDefined();
     expect(Array.isArray(mod.deepBasicSections)).toBe(true);
-    expect(mod.deepBasicSections.length).toBe(28);
+    expect(mod.deepBasicSections.length).toBe(33);
 
     // Verify chapter numbering
     mod.deepBasicSections.forEach((section: any, index: number) => {
@@ -18,20 +18,20 @@ describe("Content Data Integrity", () => {
     });
   });
 
-  it("deepAdvancedContent exports 14 sections total (A1-A10 + A11-A14 extra)", async () => {
+  it("deepAdvancedContent exports 20 sections total (A1-A10 + A11-A20 extra)", async () => {
     const mod = await import("../client/src/lib/deepAdvancedContent");
-    // A1-A10 in deepAdvancedSections, A11-A14 in deepAdvancedSectionsExtra
+    // A1-A10 in deepAdvancedSections, A11-A20 in deepAdvancedSectionsExtra
     expect(mod.deepAdvancedSections).toBeDefined();
     expect(Array.isArray(mod.deepAdvancedSections)).toBe(true);
     expect(mod.deepAdvancedSections.length).toBe(10);
 
     expect(mod.deepAdvancedSectionsExtra).toBeDefined();
     expect(Array.isArray(mod.deepAdvancedSectionsExtra)).toBe(true);
-    expect(mod.deepAdvancedSectionsExtra.length).toBe(4);
+    expect(mod.deepAdvancedSectionsExtra.length).toBe(10);
 
-    // Combined total should be 14
+    // Combined total should be 20
     const allSections = [...mod.deepAdvancedSections, ...mod.deepAdvancedSectionsExtra];
-    expect(allSections.length).toBe(14);
+    expect(allSections.length).toBe(20);
 
     // Verify A1-A10 chapter numbering
     mod.deepAdvancedSections.forEach((section: any, index: number) => {
@@ -46,7 +46,7 @@ describe("Content Data Integrity", () => {
     expect(mod.practiceSection).toBeDefined();
     expect(mod.practiceSection.tools).toBeDefined();
     expect(Array.isArray(mod.practiceSection.tools)).toBe(true);
-    expect(mod.practiceSection.tools.length).toBe(5);
+    expect(mod.practiceSection.tools.length).toBe(10);
   });
 
   it("tweetContent exports tweet cards and thinkers", async () => {
@@ -77,11 +77,11 @@ describe("Content Data Integrity", () => {
     });
   });
 
-  it("basic sections B1-B28 have quiz data", async () => {
+  it("basic sections B1-B33 have quiz data", async () => {
     const mod = await import("../client/src/lib/deepBasicContent");
-    // All sections now have quiz (B1-B4 were added, B25-B28 are new)
+    // All sections now have quiz (B1-B4 were added, B25-B33 are new)
     const sectionsWithQuiz = mod.deepBasicSections.filter((s: any) => s.quiz);
-    expect(sectionsWithQuiz.length).toBe(28); // All B1-B28
+    expect(sectionsWithQuiz.length).toBe(33); // All B1-B33
 
     sectionsWithQuiz.forEach((section: any) => {
       expect(Array.isArray(section.quiz)).toBe(true);
