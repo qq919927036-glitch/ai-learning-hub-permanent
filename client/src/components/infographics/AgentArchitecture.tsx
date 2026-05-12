@@ -1,23 +1,5 @@
-import { useState, useEffect } from 'react';
-
-function useDarkMode() {
-  const [isDark, setIsDark] = useState(() =>
-    document.documentElement.classList.contains('dark')
-  );
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-    return () => observer.disconnect();
-  }, []);
-
-  return isDark;
-}
+import { useState, useId } from 'react';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 const coreElements = [
   { id: 'perception', label: '感知', sub: 'Perception', angle: -90 },
@@ -35,6 +17,7 @@ const outerTools = [
 
 export default function AgentArchitecture() {
   const isDark = useDarkMode();
+  const uid = useId();
   const [hoveredElement, setHoveredElement] = useState<string | null>(null);
 
   const colors = isDark
@@ -89,11 +72,11 @@ export default function AgentArchitecture() {
       >
         <title>AI Agent 架构图 - AI Agent Architecture</title>
         <defs>
-          <radialGradient id="agent-center-grad">
+          <radialGradient id={`${uid}-center-grad`}>
             <stop offset="0%" stopColor={colors.centerGradStart} />
             <stop offset="100%" stopColor={colors.centerGradEnd} />
           </radialGradient>
-          <filter id="agent-shadow">
+          <filter id={`${uid}-shadow`}>
             <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.15" />
           </filter>
         </defs>
@@ -157,8 +140,8 @@ export default function AgentArchitecture() {
           cx={cx}
           cy={cy}
           r={40}
-          fill="url(#agent-center-grad)"
-          filter="url(#agent-shadow)"
+          fill={`url(#${uid}-center-grad)`}
+          filter={`url(#${uid}-shadow)`}
           stroke={hoveredElement === 'center' ? colors.accent : 'none'}
           strokeWidth="2"
           onMouseEnter={() => setHoveredElement('center')}
@@ -210,7 +193,7 @@ export default function AgentArchitecture() {
                 fill={colors.nodeBg}
                 stroke={isHovered ? colors.accent : colors.nodeStroke}
                 strokeWidth={isHovered ? 2.5 : 1.5}
-                filter="url(#agent-shadow)"
+                filter={`url(#${uid}-shadow)`}
               />
               <text
                 x={pos.x}
@@ -273,7 +256,7 @@ export default function AgentArchitecture() {
                 fill={colors.outerBg}
                 stroke={isHovered ? colors.accent : colors.outerStroke}
                 strokeWidth={isHovered ? 2 : 1}
-                filter="url(#agent-shadow)"
+                filter={`url(#${uid}-shadow)`}
               />
               <text
                 x={pos.x}

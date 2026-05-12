@@ -1,23 +1,5 @@
-import { useState, useEffect } from 'react';
-
-function useDarkMode() {
-  const [isDark, setIsDark] = useState(() =>
-    document.documentElement.classList.contains('dark')
-  );
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-    return () => observer.disconnect();
-  }, []);
-
-  return isDark;
-}
+import { useState, useId } from 'react';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 const layers = [
   { id: 'input', label: '输入', sub: 'Input' },
@@ -32,6 +14,7 @@ const layers = [
 
 export default function TransformerArchitecture() {
   const isDark = useDarkMode();
+  const uid = useId();
   const [hoveredLayer, setHoveredLayer] = useState<string | null>(null);
 
   const colors = isDark
@@ -76,15 +59,15 @@ export default function TransformerArchitecture() {
       >
         <title>Transformer 架构图 - Transformer Architecture Diagram</title>
         <defs>
-          <linearGradient id="tf-grad-light" x1="0%" y1="0%" x2="100%" y2="100%">
+          <linearGradient id={`${uid}-grad-light`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor={colors.gradStart} />
             <stop offset="100%" stopColor={colors.gradEnd} />
           </linearGradient>
-          <linearGradient id="tf-accent-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient id={`${uid}-accent-grad`} x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor={colors.accent} />
             <stop offset="100%" stopColor={isDark ? '#f59e0b' : '#b8860b'} />
           </linearGradient>
-          <filter id="tf-shadow">
+          <filter id={`${uid}-shadow`}>
             <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.15" />
           </filter>
         </defs>
@@ -131,8 +114,8 @@ export default function TransformerArchitecture() {
                 width={boxWidth}
                 height={boxHeight}
                 rx="10"
-                fill={isAttention ? 'url(#tf-accent-grad)' : `url(#tf-grad-light)`}
-                filter="url(#tf-shadow)"
+                fill={isAttention ? `url(#${uid}-accent-grad)` : `url(#${uid}-grad-light)`}
+                filter={`url(#${uid}-shadow)`}
                 stroke={isHovered ? colors.accent : 'none'}
                 strokeWidth={isHovered ? 2 : 0}
               />
@@ -167,7 +150,7 @@ export default function TransformerArchitecture() {
                   y2={y + boxHeight + gapY}
                   stroke={colors.arrow}
                   strokeWidth="2"
-                  markerEnd="url(#tf-arrowhead)"
+                  markerEnd={`url(#${uid}-arrowhead)`}
                 />
               )}
             </g>
@@ -177,7 +160,7 @@ export default function TransformerArchitecture() {
         {/* Arrow marker */}
         <defs>
           <marker
-            id="tf-arrowhead"
+            id={`${uid}-arrowhead`}
             markerWidth="8"
             markerHeight="6"
             refX="4"

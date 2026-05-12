@@ -1,23 +1,5 @@
-import { useState, useEffect } from 'react';
-
-function useDarkMode() {
-  const [isDark, setIsDark] = useState(() =>
-    document.documentElement.classList.contains('dark')
-  );
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-    return () => observer.disconnect();
-  }, []);
-
-  return isDark;
-}
+import { useState, useId } from 'react';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 const steps = [
   { id: 'ask', label: '用户提问', sub: 'User Query', color: 'green' },
@@ -30,6 +12,7 @@ const steps = [
 
 export default function RAGPipeline() {
   const isDark = useDarkMode();
+  const uid = useId();
   const [hoveredStep, setHoveredStep] = useState<string | null>(null);
 
   const palette = isDark
@@ -88,11 +71,11 @@ export default function RAGPipeline() {
       >
         <title>RAG 检索增强生成流程图 - RAG Pipeline Diagram</title>
         <defs>
-          <filter id="rag-shadow">
+          <filter id={`${uid}-shadow`}>
             <feDropShadow dx="0" dy="2" stdDeviation="2" floodOpacity="0.12" />
           </filter>
           <marker
-            id="rag-arrow"
+            id={`${uid}-arrow`}
             markerWidth="8"
             markerHeight="6"
             refX="6"
@@ -149,7 +132,7 @@ export default function RAGPipeline() {
                 fill={stepColors.fill}
                 stroke={stepColors.stroke}
                 strokeWidth={isHovered ? 2.5 : 1.5}
-                filter="url(#rag-shadow)"
+                filter={`url(#${uid}-shadow)`}
               />
               {/* Simple icon circle */}
               <circle
@@ -198,7 +181,7 @@ export default function RAGPipeline() {
               y2={y}
               stroke={palette.arrow}
               strokeWidth="2"
-              markerEnd="url(#rag-arrow)"
+              markerEnd={`url(#${uid}-arrow)`}
             />
           );
         })}
@@ -229,7 +212,7 @@ export default function RAGPipeline() {
               y2={y}
               stroke={palette.arrow}
               strokeWidth="2"
-              markerEnd="url(#rag-arrow)"
+              markerEnd={`url(#${uid}-arrow)`}
             />
           );
         })}

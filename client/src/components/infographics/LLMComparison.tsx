@@ -1,23 +1,5 @@
-import { useState, useEffect } from 'react';
-
-function useDarkMode() {
-  const [isDark, setIsDark] = useState(() =>
-    document.documentElement.classList.contains('dark')
-  );
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-    return () => observer.disconnect();
-  }, []);
-
-  return isDark;
-}
+import { useState, useId } from 'react';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 interface ModelInfo {
   id: string;
@@ -85,6 +67,7 @@ const models: ModelInfo[] = [
 
 export default function LLMComparison() {
   const isDark = useDarkMode();
+  const uid = useId();
   const [hoveredModel, setHoveredModel] = useState<string | null>(null);
 
   const colors = isDark
@@ -109,7 +92,6 @@ export default function LLMComparison() {
   const startX = 18;
   const startY = 55;
   const maxBarWidth = 50;
-  const maxContext = 200; // cap display at 200K for bar proportion
 
   return (
     <div className="infographic-llm-comparison" style={{ width: '100%' }}>
@@ -121,7 +103,7 @@ export default function LLMComparison() {
       >
         <title>主流大语言模型对比 - Major LLM Comparison</title>
         <defs>
-          <filter id="llm-shadow">
+          <filter id={`${uid}-shadow`}>
             <feDropShadow dx="0" dy="2" stdDeviation="3" floodOpacity="0.12" />
           </filter>
         </defs>
@@ -157,7 +139,7 @@ export default function LLMComparison() {
           const y = startY;
           const isHovered = hoveredModel === model.id;
           const modelColor = isDark ? model.darkColor : model.color;
-          const barWidth = Math.min(model.contextValue, maxContext) / maxContext * maxBarWidth;
+          const barWidth = Math.min(Math.log10(model.contextValue + 1) / Math.log10(2001), 1) * maxBarWidth;
 
           return (
             <g
@@ -180,7 +162,7 @@ export default function LLMComparison() {
                 fill={colors.cardBg}
                 stroke={modelColor}
                 strokeWidth={isHovered ? 2.5 : 1.5}
-                filter="url(#llm-shadow)"
+                filter={`url(#${uid}-shadow)`}
               />
 
               {/* Color badge at top */}

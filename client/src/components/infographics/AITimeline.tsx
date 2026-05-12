@@ -1,23 +1,5 @@
-import { useState, useEffect } from 'react';
-
-function useDarkMode() {
-  const [isDark, setIsDark] = useState(() =>
-    document.documentElement.classList.contains('dark')
-  );
-
-  useEffect(() => {
-    const observer = new MutationObserver(() => {
-      setIsDark(document.documentElement.classList.contains('dark'));
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class'],
-    });
-    return () => observer.disconnect();
-  }, []);
-
-  return isDark;
-}
+import { useState, useId } from 'react';
+import { useDarkMode } from '@/hooks/useDarkMode';
 
 interface TimelineEvent {
   id: string;
@@ -40,6 +22,7 @@ const events: TimelineEvent[] = [
 
 export default function AITimeline() {
   const isDark = useDarkMode();
+  const uid = useId();
   const [hoveredEvent, setHoveredEvent] = useState<string | null>(null);
 
   const colors = isDark
@@ -81,7 +64,7 @@ export default function AITimeline() {
       >
         <title>AI 发展时间线 2017-2025 - AI Development Timeline</title>
         <defs>
-          <filter id="tl-shadow">
+          <filter id={`${uid}-shadow`}>
             <feDropShadow dx="0" dy="1" stdDeviation="2" floodOpacity="0.12" />
           </filter>
         </defs>
@@ -180,7 +163,7 @@ export default function AITimeline() {
                 fill={catColor}
                 stroke={colors.bg}
                 strokeWidth="2"
-                filter="url(#tl-shadow)"
+                filter={`url(#${uid}-shadow)`}
               />
 
               {/* Year label */}
