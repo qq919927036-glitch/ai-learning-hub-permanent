@@ -196,7 +196,7 @@ export default function KnowledgeMap() {
               lineHeight: 1.8,
             }}
           >
-            从「LLM 是什么」到「上手实践」，28 个基础概念 + 14 个进阶模块 + 5 个实战工具，
+            从「LLM 是什么」到「上手实践」，33 个基础概念 + 20 个进阶模块 + 10 个实战工具，
             循序渐进地掌握 AI Agent 的完整知识体系
           </p>
         </div>
@@ -206,13 +206,13 @@ export default function KnowledgeMap() {
           <CardGroup
             items={deepBasicSections}
             color="teal"
-            label="基础篇 · 28 个概念"
+            label="基础篇 · 33 个概念"
             targetSection="basics"
           />
           <CardGroup
             items={allAdvancedSectionsForMap}
             color="amber"
-            label="进阶篇 · 14 个模块"
+            label="进阶篇 · 20 个模块"
             targetSection="advanced"
           />
           {/* Practice section card */}
@@ -227,7 +227,7 @@ export default function KnowledgeMap() {
                   letterSpacing: "0.08em",
                 }}
               >
-                实践篇 · 5 个工具
+                实践篇 · 10 个工具
               </span>
             </div>
             <button
@@ -242,7 +242,7 @@ export default function KnowledgeMap() {
                 <span className="text-2xl">🛠️</span>
                 <div>
                   <p className="font-semibold text-sm" style={{ color: "#FAFAF7" }}>
-                    Claude Code · OpenClaw · Cursor · Windsurf · Manus
+                    Claude Code · OpenClaw · Cursor · Windsurf · Manus · v0 · Bolt · Replit Agent · NotebookLM · Perplexity
                   </p>
                   <p className="text-xs mt-0.5" style={{ color: "rgba(250,250,247,0.5)" }}>
                     不只是理论！用真实工具感受 AI Agent 的力量
