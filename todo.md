@@ -112,3 +112,10 @@
 - [x] App.tsx 添加 Cmd+K / Ctrl+K 全局快捷键
 - [x] Navbar 添加搜索按钮 + 快捷键提示
 - [x] 支持中英文搜索、暗色模式、ESC 关闭、点击跳转
+
+## 综合测验模式
+- [x] 创建 useQuizStats hook（localStorage 持久化测验历史）
+- [x] 创建 QuizMode 组件（每日5题 + 完整测验 + 结果回顾）
+- [x] 集成到 Home.tsx（KnowledgeMap 后、基础篇前）
+- [x] 导航栏添加测验入口
+- [x] HeroSection 添加测验统计预览

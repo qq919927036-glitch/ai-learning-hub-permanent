@@ -5,9 +5,13 @@ import { CDN } from "@/lib/content";
 import { deepBasicSections } from "@/lib/deepBasicContent";
 import { deepAdvancedSections, deepAdvancedSectionsExtra } from "@/lib/deepAdvancedContent";
 import { practiceSection } from "@/lib/practiceContent";
+import { useQuizStats } from "@/hooks/useQuizStats";
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
+  const quizStats = useQuizStats();
+  const quizBest = quizStats.getBestScore();
+  const quizTotal = quizStats.getTotalAttempts();
 
   useEffect(() => {
     const el = heroRef.current;
@@ -143,6 +147,37 @@ export default function HeroSection() {
               ))}
             </div>
 
+            {/* CTA */}
+            <div className="flex items-center gap-4">
+              {/* Quiz teaser */}
+              {quizTotal > 0 ? (
+                <a
+                  href="#quiz-mode"
+                  className="text-xs px-3 py-1.5 rounded-full transition-all hover:opacity-80 mb-4 inline-block"
+                  style={{
+                    fontFamily: "'DM Mono', monospace",
+                    background: "rgba(212, 160, 23, 0.1)",
+                    color: "var(--hub-amber-text)",
+                    border: "1px solid rgba(212, 160, 23, 0.2)",
+                  }}
+                >
+                  测验最高分: {quizBest}%
+                </a>
+              ) : (
+                <a
+                  href="#quiz-mode"
+                  className="text-xs px-3 py-1.5 rounded-full transition-all hover:opacity-80 mb-4 inline-block"
+                  style={{
+                    fontFamily: "'DM Mono', monospace",
+                    background: "rgba(27,67,50,0.06)",
+                    color: "var(--hub-forest)",
+                    border: "1px solid rgba(27,67,50,0.15)",
+                  }}
+                >
+                  开始第一次测验 →
+                </a>
+              )}
+            </div>
             {/* CTA */}
             <div className="flex items-center gap-4">
               <button

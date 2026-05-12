@@ -22,6 +22,7 @@ const Glossary = lazy(() => import("@/components/Glossary"));
 const MythsFacts = lazy(() => import("@/components/MythsFacts"));
 const ToolComparator = lazy(() => import("@/components/ToolComparator"));
 const KnowledgeDependency = lazy(() => import("@/components/KnowledgeDependency"));
+const QuizMode = lazy(() => import("@/components/QuizMode"));
 
 function SectionLoader() {
   return (
@@ -111,6 +112,17 @@ export default function Home() {
         visible={hasProgress}
       />
       <KnowledgeMap />
+
+      {/* ===== 综合测验 ===== */}
+      <SectionDivider
+        id="quiz-mode"
+        label="综合测验 · QUIZ MODE"
+        subtitle="从所有章节中随机抽题，检验你的 AI 知识掌握程度"
+        color="amber"
+      />
+      <Suspense fallback={<SectionLoader />}>
+        <QuizMode />
+      </Suspense>
 
       {/* ===== 基础篇 ===== */}
       <SectionDivider
