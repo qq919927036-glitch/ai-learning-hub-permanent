@@ -48,19 +48,19 @@ export function useQuizStats() {
       const current = loadRecords();
       current.push({ ...record, timestamp: Date.now() });
       saveRecords(current);
-      setVersion((v) => v + 1);
+      setVersion(v => v + 1);
     },
     []
   );
 
   const getTodayAttempts = useCallback((): QuizRecord[] => {
     const today = new Date().toISOString().slice(0, 10);
-    return records.filter((r) => r.date === today);
+    return records.filter(r => r.date === today);
   }, [records]);
 
   const getBestScore = useCallback((): number => {
     if (records.length === 0) return 0;
-    return Math.max(...records.map((r) => r.percentage));
+    return Math.max(...records.map(r => r.percentage));
   }, [records]);
 
   const getTotalAttempts = useCallback((): number => {
@@ -71,12 +71,16 @@ export function useQuizStats() {
     if (records.length === 0) return 0;
 
     // Get unique dates sorted descending
-    const dates = [...new Set(records.map((r) => r.date))].sort().reverse();
+    const dates = Array.from(new Set(records.map(r => r.date)))
+      .sort()
+      .reverse();
     if (dates.length === 0) return 0;
 
     // Check if the most recent date is today or yesterday
     const today = new Date().toISOString().slice(0, 10);
-    const yesterday = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
+    const yesterday = new Date(Date.now() - 86400000)
+      .toISOString()
+      .slice(0, 10);
     if (dates[0] !== today && dates[0] !== yesterday) return 0;
 
     let streak = 1;
